@@ -1,0 +1,22 @@
+/* css for Order */
+
+.list-page {
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    overflow-x: hidden;
+}
+
+.view-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.edit-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}

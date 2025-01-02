@@ -1,0 +1,36 @@
+.user-profile-edit-page {
+    padding-bottom: 20px;
+}
+
+.user-profile-view-page {
+    padding-bottom: 40px;
+}
+
+.user-profile-connected {
+    display: block;
+}
+
+.user-profile-not-connected {
+    display: none;
+}
+
+.user-profile-connect-user {
+    position: absolute;
+    bottom: var(--footer-height);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-profile-connect-user-button {
+    width: 180px;
+    max-width: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.user-profile-connect-user-button-hidden {
+    display: none;
+}

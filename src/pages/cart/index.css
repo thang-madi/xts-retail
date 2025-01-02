@@ -1,0 +1,70 @@
+/* css for Order */
+
+.list-page {
+    width: 100%;
+    height: 100%;
+}
+
+.view-page {
+    width: 100%;
+    height: 100%;
+}
+
+.edit-page {
+    width: 100%;
+    height: 100%;
+}
+
+.item-card {
+    margin: 4px;
+    height: 100px;
+}
+
+.item-card .ant-card-body {
+    padding: 0px;
+}
+
+.item-card-body {
+    display: flex;
+    width: 100%;
+}
+
+.item-card-body-checker {
+    margin: 10px;
+}
+
+.item-card-body-image {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.item-card-boby-image-img {
+    object-fit: cover;
+}
+
+.item-card-body-content {
+    flex-grow: 10px;
+    margin: 10px;
+}
+
+.item-card-body-content-description {
+    font-weight: bold;
+}
+
+.item-card-body-content-price {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-card-body-content-quantity {
+    display: flex;
+    justify-content: 'center';
+    align-items: center;
+    gap: 10px;
+}
+
+.item-card-body-content-button-icon {
+    font-size: 10px !important;
+}

@@ -1,0 +1,373 @@
+/* css for Order */
+
+/* 
+OrderList
+OrderView
+OrderEdit
+PaymentEdit
+OrderStateTag
+OrderCard
+OrderPrint
+OrderProductRow
+ListSettings 
+*/
+
+/* OrderCard */
+/* OrderProductRow */
+
+/* OrderList */
+.list-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* OrderView */
+.view-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.view-page-divider {
+    border-color: lightgray;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.view-page-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0px;
+}
+
+.view-page-item-title {
+    min-width: 100;
+}
+
+/* OrderPrint */
+.print-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* OrderEdit */
+.edit-page {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.edit-page-item-customer {
+    width: calc(100% - 50px);
+    max-width: 700px;
+    margin-bottom: 12px;
+}
+
+.edit-page-item-visible {
+    display: block;
+}
+
+.edit-page-item-hidden {
+    display: none;
+}
+
+.edit-page-item-order-state {
+    width: 200px;
+
+}
+
+.edit-page-item-label {
+    max-width: 700px;
+    margin-bottom: 12px;
+}
+
+.edit-page-divider {
+    border-color: lightgray;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.edit-page-quantity {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+@media (max-width:575px) {
+    .edit-page-quantity-title-long {
+        display: none;
+    }
+}
+
+@media (min-width:576px) {
+    .edit-page-quantity-title-short {
+        display: none;
+        margin-left: 6px;
+    }
+}
+
+.edit-page-quantity-title-long {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.edit-page-quantity-title-short {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.edit-page-quantity-group {
+    display: flex;
+}
+
+
+/* PaymentEdit */
+.payment-page {
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+    padding: 0px;
+    margin: 0;
+}
+
+.payment-page-header {
+    font-weight: bold;
+}
+
+.payment-page-divider {
+    border-color: lightgray;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.payment-page-amount-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.payment-page-payment-block {
+    display: flex;
+    flex-direction: column;
+    /* width: 50px; */
+}
+
+.payment-page-payment-group {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    /* justify-items: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* align-content: center; */
+}
+
+.payment-page-payment-title {
+    width: 110px;
+    height: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.payment-page-payment-form-item {
+    /* height: px; */
+    margin-bottom: 10px;
+}
+
+.payment-page-buttons-group {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    /* padding: 10px; */
+}
+
+.payment-page-button-left {
+    width: 50px;
+    margin-left: 10px;
+    height: 32px;
+}
+
+.payment-page-form-button {
+    width: 50px;
+    max-width: 100px;
+    margin-left: 10px;
+    height: 32px;
+}
+
+
+/* OrderStateTag */
+.order-state-tag-editing {
+    color: dimgrey;
+    border-color: dimgrey;
+}
+
+.order-state-tag-to-prepay {
+    color: white;
+    border-color: red;
+    background-color: red;
+}
+
+.order-state-tag-preparing {
+    color: red;
+    border-color: red;
+}
+
+.order-state-tag-transporting {
+    color: blue;
+    border-color: blue;
+}
+
+.order-state-tag-delivered {
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+    font-style: italic;
+}
+
+.order-state-tag-completed {
+    color: gray;
+    border-color: gray;
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+
+/* ListSettings */
+
+/* list-settings */
+.list-settings {
+    position: absolute;
+    flex-direction: column;
+    display: inline-flex;
+    justify-content: flex-end;
+    justify-items: center;
+    top: 10px;
+    right: 10px;
+    margin-top: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 5px;
+    background-color: lightsteelblue;
+    /* transform: translateX(-50%); */
+    z-index: 990;
+    /* gap: 2px; */
+}
+
+.list-settings-fullscreen {
+    top: 60px !important;
+}
+
+/* panel */
+.list-settings-panel {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rbg(255, 0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.list-settings-panel-hidden {
+    display: none;
+}
+
+/* search-group */
+.list-settings-search-group {
+    margin-top: 0px;
+    padding-left: 8px;
+    /* row-gap: 14px; */
+    /* column-gap: 14px; */
+    z-index: 999;
+}
+
+.list-settings-button {
+    margin-right: 8px;
+    z-index: 999;
+}
+
+/* card */
+.list-settings-card {
+    margin: 8px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    z-index: 999;
+}
+
+.list-settings-card .ant-card-head {
+    margin: 0px;
+    padding-left: 10px;
+    min-height: 30px;
+    z-index: 999;
+}
+
+
+/* search */
+.list-settings-search-input {
+    font-size: 16px;
+    flex: 1;
+    width: 200px;
+    margin-right: 2px;
+    z-index: 999;
+}
+
+.list-settings-search-input-hidden {
+    display: none !important;
+}
+
+.list-settings-search-input .ant-input-affix-wrapper {
+    /* padding-left: 30px; */
+    padding-left: 10px;
+    /* border-radius: 10px; */
+    z-index: 999;
+}
+
+.list-settings-search-input .ant-input-group-addon {
+    display: none;
+}
+
+/* filter */
+.list-settings-filter-group {
+    display: inline-flex;
+    flex-direction: column;
+    justify-items: center;
+    margin-top: 0px;
+    width: 100%;
+    /* padding: 8px; */
+}
+
+.list-settings-filter-group-hidden {
+    display: none !important;
+}
+
+.list-settings-filter-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.list-settings-filter-item-label {
+    width: 100%;
+}
+
+.list-settings-filter-item-value {
+    flex: 1;
+}
+
+/* sort */
+.list-settings-sort-item-direction {
+    display: block;
+}
+
+/* .context-menu-button:active {
+    background-color: (64, 64, 64, 0.5) !important;
+} */
+
+.context-menu-buton-icon {
+    color: white;
+}
