@@ -60,6 +60,8 @@ const OrderPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
         templateName: 'ExternalPrintForm.MinSalesOrder',
     }
     const url = printFormURL(printFormParams)
+    console.log('printFormURL', url)
+
 
     // useEffect(() => {
     //     if (url && TWA.platform !== 'desktop' && TWA.platform !== 'tdesktop' && TWA.platform !== 'unknown') {

@@ -159,8 +159,21 @@ export interface XTSRecordEditProps {
 //     deleteRow: (tabName: string, _lineNumber: number) => void
 // }
 
+
 /////////////////////////////////////////////
-// 
+// Report
+
+export interface XTSReportParam {
+    name: string
+    value: any
+}
+
+export interface XTSReportProps {
+    reportId: string
+    reportParams: XTSReportParam[]
+    reportTitle: string
+}
+
 
 
 /////////////////////////////////////////////

@@ -487,7 +487,7 @@ const OrderEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Orde
                 <BottomBar
                     stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
                     refresh={{ onClick: refreshObject, }}
-                    action1={{ onClick: addProduct, title: 'Thêm hàng', icon: <AppstoreAddOutlined className='context-menu-buton-icon' /> }}
+                    action1={{ onClick: addProduct, title: 'Thêm hàng', icon: <AppstoreAddOutlined className='context-menu-buton-icon' />, visible: saveButton }}
                     saveItem={{ onClick: () => { form.submit() }, visible: saveButton }}
                     action2={{ onClick: saveAndSend, title: 'Chốt đơn', icon: <CheckOutlined className='context-menu-buton-icon' />, visible: sendButton }}
                 />

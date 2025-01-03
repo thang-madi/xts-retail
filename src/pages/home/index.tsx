@@ -134,6 +134,15 @@ const HomePage: React.FC<any> = (props) => {
         navigate('/orders')
     }
 
+    const openDailyReport = () => {
+        navigate('/daily-report')
+    }
+
+    const openSettlementWithCustomersReport = () => {
+        navigate('/settlement-with-customers-report')
+    }
+
+
     /////////////////////////////////////////////
     // 
 
@@ -156,25 +165,37 @@ const HomePage: React.FC<any> = (props) => {
                 BÁN HÀNG
             </div>
 
-            <Card className='home-page-sales-group' >
+            <Card
+                className='home-page-sales-group'
+                onClick={openDailyReport}
+            >
                 <BarChartOutlined className='home-page-sales-icon' />
                 <Statistic className='home-page-sales-value' title='Doanh số (đồng)' value={salesAmount || '-'} groupSeparator='.' prefix={''} />
                 <Statistic className='home-page-sales-value' title='Số lượng đơn' value={salesOrders || '-'} groupSeparator='.' prefix={''} />
             </Card>
 
             <div className='home-page-group'>
-                THU TIỀN KHI CHỐT ĐƠN
+                THU TIỀN
             </div>
 
             <Space className='home-page-payment-group'>
 
-                <Card className='home-page-payment-card'>
+                <Card
+                    className='home-page-payment-card'
+                    onClick={openDailyReport}
+                >
                     <Statistic className='home-page-payment-statistic' title='Tiền mặt' value={receiptCash || '-'} groupSeparator='.' precision={0} />
                 </Card>
-                <Card className='home-page-payment-card'>
+                <Card
+                    className='home-page-payment-card'
+                    onClick={openDailyReport}
+                >
                     <Statistic className='home-page-payment-statistic' title='Chuyển khoản' value={receiptBank || '-'} groupSeparator='.' precision={0} />
                 </Card>
-                <Card className='home-page-payment-card'>
+                <Card
+                    className='home-page-payment-card'
+                    onClick={openSettlementWithCustomersReport}
+                >
                     <Statistic className='home-page-payment-statistic' title='Trả sau' value={postPayment || '-'} groupSeparator='.' precision={0} />
                 </Card>
 

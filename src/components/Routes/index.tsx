@@ -47,6 +47,8 @@ import './index.css'
 import AppStatusBar from '../AppStatusBar'
 import AppNavBar from '../AppNavBar'
 import { isAndroid, isFullscreenAndroid, isFullscreenIOS, isFullscreenTDesktop, isIOS } from '../../commons/telegram'
+import DailyReport from '../../pages/pdf-reports/DailyReport'
+import SettlementWithCustomersReport from '../../pages/pdf-reports/SettlementWithCustomers'
 
 /////////////////////////////////////////////
 // Test
@@ -105,6 +107,8 @@ export const routeItems = () => {
                 { path: '/user-profile', element: < UserProfilePage /> },
                 // { path: '/individuals', element: < IndividualsPage /> },
                 { path: '/settings', element: < SettingsPage /> },
+                { path: '/daily-report', element: < DailyReport /> },
+                { path: '/settlement-with-customers-report', element: < SettlementWithCustomersReport /> },
                 // { path: '/test', element: < TestPage /> },
                 // { path: '/test-mobile', element: < MobileTestPage /> },
             ]
