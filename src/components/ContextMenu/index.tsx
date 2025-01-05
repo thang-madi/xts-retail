@@ -3,16 +3,15 @@
 // Standard's
 
 import { useSelector } from 'react-redux'
-import { FC, ReactNode, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, FloatButton } from 'antd'
-import { ArrowLeftOutlined, CarryOutOutlined, CheckOutlined, EllipsisOutlined, DeleteRowOutlined, EditOutlined, PlusOutlined, ReloadOutlined, SaveOutlined, LineOutlined, InsertRowBelowOutlined, AppstoreAddOutlined, VerticalAlignBottomOutlined, SelectOutlined, ThunderboltOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CarryOutOutlined, CheckOutlined, EllipsisOutlined, DeleteRowOutlined, EditOutlined, PlusOutlined, ReloadOutlined, SaveOutlined, LineOutlined, InsertRowBelowOutlined, AppstoreAddOutlined, VerticalAlignBottomOutlined, SelectOutlined, ThunderboltOutlined, BarsOutlined, PrinterOutlined } from '@ant-design/icons'
 
 /////////////////////////////////////////////
 // Application's
 
 import { RootState } from '../../data-storage'
-import { isFullscreenAndroid } from '../../commons/telegram'
 
 /////////////////////////////////////////////
 // Object's
@@ -25,7 +24,7 @@ import './index.css'
 export interface ContextMenuButton {
     key?: string
     visible?: boolean
-    className?: string
+    // className?: string
     title?: string
     hint?: string
     icon?: ReactNode
@@ -41,6 +40,7 @@ export interface ContextMenuProps {
     editItem?: ContextMenuButton
     saveItem?: ContextMenuButton
     choiceItem?: ContextMenuButton
+    relatedDocuments?: ContextMenuButton
     action1?: ContextMenuButton
     action2?: ContextMenuButton
     action3?: ContextMenuButton
@@ -48,11 +48,33 @@ export interface ContextMenuProps {
 
 const TopBar: React.FC<any> = (props) => {
     return (
-        <div className='top-bar'
-        // style={{ height: HEADER_HEIGHT }}
-        >
+        <div className='top-bar'>
             {props.children}
         </div>
+    )
+}
+
+function createIcon(IconComponent: any): ReactNode {
+
+    // console.log('IconComponent', IconComponent)
+    return (
+        <IconComponent className='context-menu-button-icon' />
+    )
+}
+
+function createButton(button: ContextMenuButton): ReactNode {
+
+    return (
+        <Button
+            className='context-menu-button'
+            key={button.key}
+            onClick={button.onClick}
+            icon={button.icon}
+        >
+            <div className='context-menu-button-title'>
+                {button.title}
+            </div>
+        </Button>
     )
 }
 
@@ -60,24 +82,27 @@ const BottomBar: React.FC<ContextMenuProps> = (props) => {
 
     const { telegramId } = useSelector((state: RootState) => state.session)
 
-    const buttonTemplate = (title: string = '', icon: ReactNode, className: string = 'context-menu-button') => {
-        return { title, icon, visible: true, className }
+    const buttonTemplate = (title: string = '', icon: ReactNode) => {
+        return { title, icon, visible: true }
     }
-
     const standardButtons: { [key: string]: any } = {
-        stepBack: buttonTemplate('', <ArrowLeftOutlined className='context-menu-button-icon' />),
-        refresh: buttonTemplate('', <ReloadOutlined className='context-menu-button-icon' />, 'context-menu-button-refresh'),
-        loadMore: buttonTemplate('Tải thêm', <VerticalAlignBottomOutlined className='context-menu-button-icon' />),
-        newItem: buttonTemplate('Tạo mới', <PlusOutlined className='context-menu-button-icon' />),
-        editItem: buttonTemplate('Soạn', <EditOutlined className='context-menu-button-icon' />),
-        saveItem: buttonTemplate('Lưu lại', <SaveOutlined className='context-menu-button-icon' />),
-        choiceItem: buttonTemplate('Chọn', <SelectOutlined className='context-menu-button-icon' />),
-        action1: buttonTemplate('Action 1', <ThunderboltOutlined className='context-menu-button-icon' />),
-        action2: buttonTemplate('Action 2', <ThunderboltOutlined className='context-menu-button-icon' />),
-        action3: buttonTemplate('Action 3', <ThunderboltOutlined className='context-menu-button-icon' />),
+        stepBack: buttonTemplate('', createIcon(ArrowLeftOutlined)),
+        refresh: buttonTemplate('', createIcon(ReloadOutlined)),
+        loadMore: buttonTemplate('Tải thêm', createIcon(VerticalAlignBottomOutlined)),
+        newItem: buttonTemplate('Tạo mới', createIcon(PlusOutlined)),
+        editItem: buttonTemplate('Soạn', createIcon(EditOutlined)),
+        saveItem: buttonTemplate('Lưu lại', createIcon(SaveOutlined)),
+        printItem: buttonTemplate('In...', createIcon(PrinterOutlined)),
+        choiceItem: buttonTemplate('Chọn', createIcon(SelectOutlined)),
+        relatedDocuments: buttonTemplate('', createIcon(BarsOutlined)),
+        action1: buttonTemplate('Action 1', createIcon(ThunderboltOutlined)),
+        action2: buttonTemplate('Action 2', createIcon(ThunderboltOutlined)),
+        action3: buttonTemplate('Action 3', createIcon(ThunderboltOutlined)),
     }
 
-    const buttons: ContextMenuButton[] = []
+    const leftButtons: ContextMenuButton[] = []
+    const rightButtons: ContextMenuButton[] = []
+    const rightKeys = ['refresh', 'relatedDocuments']
 
     for (let key in props) {
         if (standardButtons.hasOwnProperty(key)) {
@@ -87,32 +112,38 @@ const BottomBar: React.FC<ContextMenuProps> = (props) => {
             }
             if (button.visible) {
                 button.key = key
-                buttons.push(button)
+                if (rightKeys.includes(key)) {
+                    rightButtons.push(button)
+                } else {
+                    leftButtons.push(button)
+                }
             }
         }
-    }
-    if (Object.keys(buttons).length === 0) {
-        // buttons.push(standardButtons.stepBack)
     }
 
     /////////////////////////////////////////////
     // 
 
     return (
-        // <div className={(isFullscreenAndroid()) && 'bottom-bar-fullscreen-android' || 'bottom-bar'}>
         <div className='bottom-bar'>
-            {buttons.map(button =>
-                <Button
-                    className={button.className}
-                    key={button.key}
-                    onClick={button.onClick}
-                    icon={button.icon}
-                >
-                    <div className='context-menu-button-title'>
-                        {button.title}
-                    </div>
-                </Button>
-            )}
+            <div className='button-bar-left'>
+                {/* {leftButtons.map(button =>
+                    <Button
+                        className={button.className}
+                        key={button.key}
+                        onClick={button.onClick}
+                        icon={button.icon}
+                    >
+                        <div className='context-menu-button-title'>
+                            {button.title}
+                        </div>
+                    </Button>
+                )} */}
+                {leftButtons.map(button => createButton(button))}
+            </div>
+            <div className='button-bar-right'>
+                {rightButtons.map(button => createButton(button))}
+            </div>
         </div >
     )
 }

@@ -71,14 +71,8 @@ const AppHeader: React.FC = () => {
         telegramSettings(handleClickBackButton)
     }, [])
 
-    // const TWA = (window as any).Telegram.WebApp
-
-    // const [isFullscreen, setIsFullscreen] = useState(TWA.isFullscreen)
-    // useEffect(() => {
-    //     setIsFullscreen(TWA.isFullscreen)
-    // }, [TWA.isFullscreen])
-    console.log('navigator.platform', navigator.platform)
-    console.log('TWA.platform', TWA.platform)
+    // console.log('navigator.platform', navigator.platform)
+    // console.log('TWA.platform', TWA.platform)
 
     /////////////////////////////////////////
     // Signin

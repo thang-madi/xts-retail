@@ -10,27 +10,27 @@ import { Modal } from 'antd'
 // Application's
 
 // import { actions } from '../data-storage/slice-current'
-import { ITEM_VALUE_ACTIONS, XTSChoicePageProps, XTSSubPageProps } from '../data-objects/types-components'
-import { XTSItemValue } from '../data-objects/types-form'
-import { createXTSObject } from '../data-objects/common-use'
+import { ITEM_VALUE_ACTIONS, XTSChoicePageProps, XTSSubPageProps } from '../../data-objects/types-components'
+import { XTSItemValue } from '../../data-objects/types-form'
+import { createXTSObject } from '../../data-objects/common-use'
 
-import CustomersPage from '../pages/customer'
-import OrdersPage from '../pages/order'
-import ProductsPage from '../pages/product'
-import UOMClassifierPage from '../pages/uom-classifier'
-import EmployeesPage from '../pages/employee'
-import PaymentEditPage from '../pages/order/PaymentEdit'
-import { generateUUID } from '../commons/common-use'
+import CustomersPage from '../../pages/customer'
+import OrdersPage from '../../pages/order'
+import ProductsPage from '../../pages/product'
+import UOMClassifierPage from '../../pages/uom-classifier'
+import EmployeesPage from '../../pages/employee'
+import PaymentEditPage from '../../pages/order/PaymentEdit'
+import { generateUUID } from '../../commons/common-use'
 
 /////////////////////////////////////////////
 // Object's
 
-import './SubPage.css'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main's
 
-const getObjectPage = (pageName: string): React.FC<any> => {
+function getObjectPage(pageName: string): React.FC<any> {
 
     const mapPages: { [key: string]: React.FC<any> } = {
         Payment: PaymentEditPage,

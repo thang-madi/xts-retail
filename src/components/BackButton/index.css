@@ -100,6 +100,14 @@
     /* white-space: nowrap; */
 }
 
+.context-menu-button:hover {
+    background-color: mediumaquamarine;
+}
+
+.context-menu-button:active {
+    background-color: mediumaquamarine;
+}
+
 .context-menu-button-title {
     /* width: 80px; */
     /* align-items: center; */
@@ -109,6 +117,10 @@
     /* padding-left: 8; */
     color: maroon;
     /* border: '1px solid #888'; */
+}
+
+.context-menu-button-title:hover {
+    color: burlywood;
 }
 
 .context-menu-button-title:empty {

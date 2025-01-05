@@ -41,7 +41,7 @@ export interface UseOpenPageParams {
     pageId: string
     pageName: string
     pageTitle: string
-    renderKey?: number
+    renderKey?: number      // Dùng cho Modal hoặc Drawer, khi mở lại Page thì cần render lại các giá trị trên đó
 }
 
 // OK
@@ -759,12 +759,14 @@ export function useIndexPage(params: UseIndexPageParams) {
     // const dispatch = useDispatch()
 
     const stepBack = () => {
-        // console.log('stepBack.itemValue', itemValue)
         const newItemValue = createItemValue(itemValue)
-        if (itemValue.action === ITEM_VALUE_ACTIONS.PRINT) {
-            newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
-            setItemValue(newItemValue)
-        } else if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
+        // if (itemValue.action === ITEM_VALUE_ACTIONS.PRINT) {
+        //     newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
+        //     setItemValue(newItemValue)
+        // } else if (itemValue.action === ITEM_VALUE_ACTIONS.GET_RELATED) {
+        //     newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
+        //     setItemValue(newItemValue)
+        if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
             newItemValue.action = ITEM_VALUE_ACTIONS.LIST
             setItemValue(newItemValue)
         } else if (itemValue.action === ITEM_VALUE_ACTIONS.EDIT) {
@@ -799,10 +801,11 @@ export function useIndexPage(params: UseIndexPageParams) {
             setItemValue(value)
         } else if (value.action === ITEM_VALUE_ACTIONS.EDIT) {
             setItemValue(value)
-        } else if (value.action === ITEM_VALUE_ACTIONS.PRINT) {
-            setItemValue(value)
+            // } else if (value.action === ITEM_VALUE_ACTIONS.PRINT) {
+            //     setItemValue(value)
+            // } else if (value.action === ITEM_VALUE_ACTIONS.GET_RELATED) {
+            //     setItemValue(value)
         } else if (params.choiceItemValue) {
-            // console.log('choiceItemValue.choiceItemValue', params.choiceItemValue)
             params.choiceItemValue(value)
             itemValue.action = ITEM_VALUE_ACTIONS.LIST
         }

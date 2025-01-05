@@ -9,7 +9,6 @@ import { useNavigate, useNavigation, useSearchParams } from 'react-router-dom'
 
 // import { newItemValue } from '../../data-exchange/common-use'
 import { useIndexPage } from '../../hooks/usePage'
-import BackButton from '../../components/BackButton'
 // import { telegramBackButton } from '../../commons/telegram'
 // import { generateUUID } from '../../commons/common-use'
 

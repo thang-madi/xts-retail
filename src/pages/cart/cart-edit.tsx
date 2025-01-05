@@ -11,7 +11,6 @@ import { CheckCircleOutlined, CloseCircleOutlined, SaveOutlined } from '@ant-des
 // Application's
 
 // import ChoicePage from '../../hocs/choice-page'
-// import BackButton from '../../components/back'
 import { useCreatePage, UseCreatePageParams, useGetDataRecord, UseGetDataRecordParams, useOpenPage, UseOpenPageParams, useSaveFormData, UseSaveFormDataParams } from '../../hooks/usePage'
 // import { newItemValue, formDataToItemValue, createRequestDataToSaveFormValues, xtsObjectToFormData } from '../../data-exchange/common-use'
 // import { generateUUID } from '../../commons/common-use'
@@ -186,8 +185,6 @@ const CartEditPage: React.FC<XTSRecordEditProps> = (props) => {         // Custo
 
     return (
         <div>
-            {/* <p>{pageTitle}</p> */}
-            {/* <BackButton stepBack={setPageBackAction} /> */}
             {
                 <div>
                     <p>Sản phẩm: {dataRecord?.product.presentation}</p>

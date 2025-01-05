@@ -13,10 +13,11 @@ import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/type
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './OrderList'                         // order
-import ViewPage from './OrderView'                         // order
-import EditPage from './OrderEdit'                         // order
-import PrintPage from './OrderPrint'                       // order
+import ListPage from './OrderList'
+import ViewPage from './OrderView'
+import EditPage from './OrderEdit'
+// import PrintPage from './OrderPrint'
+// import RelatedPage from './OrderRelatedDocuments'
 
 /////////////////////////////////////////////
 // Main component
@@ -47,7 +48,7 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // Order
         afterSave,                   // Tạm thời chưa khả dụng, cần xem xét lại
         navigate,
     }
-    const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)       // pageId dùng cho ITEM_VALUE_ACTIONS.EDIT
+    const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)
 
     switch (itemValue.action) {
         case ITEM_VALUE_ACTIONS.EDIT:
@@ -61,6 +62,7 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // Order
                 />
             )
         case ITEM_VALUE_ACTIONS.VIEW:
+            // console.log('View document')
             return (
                 <ViewPage
                     pageId={pageId}
@@ -70,16 +72,27 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // Order
                     stepBack={stepBack}
                 />
             )
-        case ITEM_VALUE_ACTIONS.PRINT:
-            return (
-                <PrintPage
-                    pageId={pageId}
-                    itemValue={itemValue}
-                    itemName={props.itemName}
-                    choiceItemValue={choiceItemValue}
-                    stepBack={stepBack}
-                />
-            )
+        // case ITEM_VALUE_ACTIONS.PRINT:
+        //     return (
+        //         <PrintPage
+        //             pageId={pageId}
+        //             itemValue={itemValue}
+        //             itemName={props.itemName}
+        //             choiceItemValue={choiceItemValue}
+        //             stepBack={stepBack}
+        //         />
+        //     )
+        // case ITEM_VALUE_ACTIONS.GET_RELATED:
+        //     console.log('Related documents')
+        //     return (
+        //         <RelatedPage
+        //             pageId={pageId}
+        //             itemValue={itemValue}
+        //             itemName={props.itemName}
+        //             choiceItemValue={choiceItemValue}
+        //             stepBack={stepBack}
+        //         />
+        //     )
         default:
             return (
                 <ListPage

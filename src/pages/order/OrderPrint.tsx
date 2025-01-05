@@ -27,24 +27,20 @@ import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
-// import { FOOTER_HEIGHT } from '../../commons/constants'
 
 import './index.css'
-import { SALES_ORDER_STATES } from './enums'
 import { downloadFile } from '../../commons/common-print'
 import { PDFViewer, printFormURL } from '../../components/PDFViewer'
-import { TWA } from '../../commons/telegram'
-import { title } from 'process'
 
 /////////////////////////////////////////////
 // Main component
 
 const OrderPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
 
-    const { itemValue, pageId } = props
+    const { objectId, pageId } = props
 
     const openPageParams: UseOpenPageParams = {
-        pageId,
+        pageId: '',
         pageName: 'XTSOrder',
         pageTitle: 'In đối tượng',
         // renderKey: 0,
@@ -55,13 +51,12 @@ const OrderPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
     // Print 
 
     const printFormParams = {
-        dataType: itemValue.dataType,
-        id: itemValue.id,
+        dataType: objectId.dataType,
+        id: objectId.id,
         templateName: 'ExternalPrintForm.MinSalesOrder',
     }
     const url = printFormURL(printFormParams)
-    console.log('printFormURL', url)
-
+    // console.log('printFormURL', url)
 
     // useEffect(() => {
     //     if (url && TWA.platform !== 'desktop' && TWA.platform !== 'tdesktop' && TWA.platform !== 'unknown') {
@@ -76,9 +71,6 @@ const OrderPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
     return (
         <div className='print-page'>
             <PDFViewer fileUrl={url} />
-            <BottomBar
-                stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
-            />
         </div>
     )
 }

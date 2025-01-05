@@ -16,16 +16,27 @@
     position: absolute;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     left: 0px;
     right: 0px;
     height: var(--bottom-bar-height);
     bottom: 0px;
     background-color: var(--bootom-bar-background-color);
-    padding-left: 5px;
-    padding-right: 5px;
     gap: 3px;
     /* border-top: 1px solid #ccc; */
     /* z-index: 9999; */
+}
+
+.button-bar-left {
+    display: flex;
+    gap: 3px;
+    padding-left: 5px;
+}
+
+.button-bar-right {
+    display: flex;
+    gap: 3px;
+    padding-right: 5px;
 }
 
 .context-menu-button {
@@ -45,8 +56,14 @@
     background-color: (64, 64, 64, 0.5) !important;
 }
 
+.context-menu-button:hover {
+    color: black;
+    /* background-color: lightgray; */
+    /* border: 1px solid gray; */
+}
+
 .context-menu-button-title {
-    color: white;
+    color: whitesmoke;
 }
 
 .context-menu-button-title:empty {
@@ -63,11 +80,10 @@
     border: 0px;
 }
 
-.context-menu-button-refresh:active {
+/* .context-menu-button-refresh:active {
     background-color: (64, 64, 64, 0.5) !important;
-}
-
+} */
 
 .context-menu-button-icon {
-    color: white
+    color: whitesmoke
 }

@@ -39,6 +39,8 @@ import { requestData_ByDataItem, requestData_SaveObject, requestData_UpdateObjec
 import { getXTSSlice } from '../../data-storage/xts-mappings'
 import { VND } from '../../commons/common-use'
 import { TWA } from '../../commons/telegram'
+import PrintPage from '../../hocs/PrintPage'
+import RelatedPage from '../../hocs/RelatedPage'
 
 /////////////////////////////////////////////
 // Main component
@@ -87,8 +89,8 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 action,
             })
             props.choiceItemValue(itemValue)
-            // console.log('itemValue', itemValue)
         }
+        console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
     }
 
     const editItem = () => {
@@ -97,6 +99,11 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const choiceItem = () => {
         doItem(ITEM_VALUE_ACTIONS.CHOICE)
+    }
+
+    const viewRelatedItems = () => {
+        // doItem(ITEM_VALUE_ACTIONS.GET_RELATED)
+        setRelatedOpen(true)
     }
 
     const printItem = () => {
@@ -111,7 +118,8 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
             // console.log('TWA.platform', TWA.platform)
             TWA.openLink(url)
         } else {
-            doItem(ITEM_VALUE_ACTIONS.PRINT)
+            // doItem(ITEM_VALUE_ACTIONS.PRINT)
+            setPrintOpen(true)
         }
     }
 
@@ -204,11 +212,17 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // Hoàn tất việc thanh toán
     // Lưu ý là để chuyển giữa các Page thì đang dùng doItem bên trên
     const choiceItemValue = (itemValue: XTSItemValue) => {
-        setPaymentOpen(false)
-        if (itemValue.dataType === 'XTSOrder') {
-            // props.choiceItemValue(itemValue)
-            setPageInfo()
+        if (paymentOpen) {
+            setPaymentOpen(false)
+            if (itemValue.dataType === 'XTSOrder') {
+                // props.choiceItemValue(itemValue)
+            }
+        } else if (printOpen) {
+            setPrintOpen(false)
+        } else if (relatedOpen) {
+            setRelatedOpen(false)
         }
+        setPageInfo()
     }
 
     const modalProps = {
@@ -239,9 +253,14 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }, [status, tempData])
 
     /////////////////////////////////////////
-    // 
+    // Print page
 
+    const [printOpen, setPrintOpen] = useState(false)
 
+    /////////////////////////////////////////
+    // Related page
+
+    const [relatedOpen, setRelatedOpen] = useState(false)
 
     /////////////////////////////////////////
     // 
@@ -356,11 +375,28 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 choiceItemValue={choiceItemValue}
             />
 
+            <PrintPage
+                objectId={dataObject.objectId}
+                title='In đơn hàng'
+                open={printOpen}
+                pageName='Print order'
+                choiceItemValue={choiceItemValue}
+            />
+
+            <RelatedPage
+                objectId={dataObject.objectId}
+                title='Chứng từ liên quan'
+                open={relatedOpen}
+                pageName='Related documents'
+                choiceItemValue={choiceItemValue}
+            />
+
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
-                refresh={{ onClick: refreshObject, }}
                 editItem={{ onClick: editItem, visible: editButton }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
+                relatedDocuments={{ onClick: viewRelatedItems }}
+                refresh={{ onClick: refreshObject, }}
                 action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-buton-icon' />, visible: paymentButton }}
                 action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-buton-icon' />, visible: printButton }}
                 action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-buton-icon' />, visible: deliveredButton }}

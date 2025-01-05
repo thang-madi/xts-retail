@@ -10,7 +10,6 @@ import { CheckCircleOutlined, CloseCircleOutlined, CloudUploadOutlined, FileDone
 // Application's
 
 // import ChoicePage from '../../hocs/choice-page'
-import BackButton from '../../components/BackButton'
 import { FormInput, FormSelect } from '../../components/FormItems'
 // import { formDataToItemValue, xtsObjectToFormData } from '../../data-exchange/common-use'
 import { generateUUID } from '../../commons/common-use'
@@ -291,10 +290,6 @@ export const OrderProductRowEditPage: React.FC<any> = (props) => {
         >
             <div style={{ height: '80vh', overflowY: 'auto' }} >
                 <Card>
-                    {/* <BackButton stepBack={stepBack} /> */}
-                    {/* <OrderProductRowCard
-                        row={row}
-                    /> */}
 
                     <Form
                         onFinish={finish}

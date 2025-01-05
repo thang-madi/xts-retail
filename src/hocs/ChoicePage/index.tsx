@@ -10,27 +10,27 @@ import { Drawer, Modal } from 'antd'
 // Application's
 
 // import { actions } from '../data-storage/slice-current'
-import { ITEM_VALUE_ACTIONS, XTSChoicePageProps } from '../data-objects/types-components'
-import { XTSItemValue } from '../data-objects/types-form'
-import { createXTSObject } from '../data-objects/common-use'
+import { ITEM_VALUE_ACTIONS, XTSChoicePageProps } from '../../data-objects/types-components'
+import { XTSItemValue } from '../../data-objects/types-form'
+import { createXTSObject } from '../../data-objects/common-use'
 
-import CustomersPage from '../pages/customer'
-import OrdersPage from '../pages/order'
-import ProductsPage from '../pages/product'
-import UOMClassifierPage from '../pages/uom-classifier'
-import EmployeesPage from '../pages/employee'
+import CustomersPage from '../../pages/customer'
+import OrdersPage from '../../pages/order'
+import ProductsPage from '../../pages/product'
+import UOMClassifierPage from '../../pages/uom-classifier'
+import EmployeesPage from '../../pages/employee'
 
 /////////////////////////////////////////////
 // Object's
 
-import './ChoicePage.css'
-import { TWA } from '../commons/telegram'
+import './index.css'
+import { TWA } from '../../commons/telegram'
 
 /////////////////////////////////////////////
 // Main's
 
 // OK
-const getObjectPage = (dataType: string): React.FC<any> => {
+function getObjectPage(dataType: string): React.FC<any> {
 
     const mapPages: { [key: string]: React.FC } = {
         XTSCounterparty: CustomersPage,
