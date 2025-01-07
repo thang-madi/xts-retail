@@ -2,53 +2,98 @@
 // Standard's
 
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { Button, Card, Descriptions, Divider, Drawer, FloatButton, List, Modal, notification, Space } from 'antd'
-import { ArrowLeftOutlined, CheckCircleOutlined, CheckOutlined, ContainerOutlined, CopyOutlined, DeleteOutlined, DollarCircleOutlined, EditOutlined, FileTextOutlined, ReloadOutlined, SelectOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import dayjs from 'dayjs'
-
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Drawer } from 'antd'
 
 /////////////////////////////////////////////
 // Application's
 
-import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams, useStepBack } from '../../hooks/usePage'
-import { BottomBar, } from '../../components/ContextMenu'
+import { useIndexPage, useOpenPage, UseOpenPageParams, useStepBack } from '../../hooks/usePage'
+import { ITEM_VALUE_ACTIONS, XTSObjectRelatedProps, XTSRelatedPageProps } from '../../data-objects/types-components'
+import { XTSItemValue } from '../../data-objects/types-form'
+import { createXTSObject } from '../../data-objects/common-use'
+import { generateUUID } from '../../commons/common-use'
 
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
-import { createXTSObject } from '../../data-objects/common-use'
-import { RootState } from '../../data-storage'
-import { XTSItemValue } from '../../data-objects/types-form'
-import { REQUEST_STATUSES } from '../../commons/enums'
-import { Loader } from '../../components/Loader'
+import ListPage from './RelatedList'
+import ViewPage from './RelatedView'
 
-import './index.css'
-import { downloadFile } from '../../commons/common-print'
-import { PDFViewer, printFormURL } from '../../components/PDFViewer'
-import { ITEM_VALUE_ACTIONS, XTSObjectRelatedDocumentProps, XTSObjectRelatedDocumentsProps, XTSRelatedPageProps } from '../../data-objects/types-components'
-import { generateUUID } from '../../commons/common-use'
+// import EditPage from './RelatedEdit'                   
 
 /////////////////////////////////////////////
 // Main component
 
+function getPage(action: ITEM_VALUE_ACTIONS): any {
+
+    // switch (action) {
+    //     case ITEM_VALUE_ACTIONS.VIEW:
+    //         return (
+    //             <ViewPage
+    //                 pageId={params.pageId}
+    //                 objectId={params.objectId}
+    //                 // itemName={props.itemName}
+    //                 choiceItemValue={params.choiceItemValue}
+    //                 stepBack={params.stepBack}
+    //             />
+    //         )
+    //     default:
+    //         return (
+    //             <ListPage
+    //                 pageId={pageId}
+    //                 itemName={props.itemName}
+    //                 choiceItemValue={choiceItemValue}
+    //                 stepBack={stepBack}
+    //                 renderKey={props.renderKey}
+    //             />
+    //         )
+    // }
+    switch (action) {
+        case ITEM_VALUE_ACTIONS.VIEW:
+            return ViewPage
+        default:
+            return ListPage
+    }
+}
+
+// OK
 const RelatedPage: React.FC<XTSRelatedPageProps> = (props) => {
 
+    const navigate = useNavigate()
     const { objectId } = props
-    // const { objectId, title, open, pageName } = props
-    const { dataType } = objectId
     const [renderKey, setRenderKey] = useState(0)
+    const [itemValue, setItemValue] = useState<XTSItemValue>(createXTSObject('XTSItemValue', { action: ITEM_VALUE_ACTIONS.LIST }))
 
     const closeRelatedPage = () => {
-        // console.log('props.choiceItemValue', props.choiceItemValue)
-        const itemValue = createXTSObject('XTSItemValue', { dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
+        const itemValue = createXTSObject('XTSItemValue', { dataType: objectId.dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
         props.choiceItemValue(itemValue)
     }
 
+    const choiceItemValue = (itemValue: XTSItemValue) => {
+        if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
+            setItemValue(itemValue)
+        } else {
+            props.choiceItemValue(itemValue)
+        }
+    }
+
+    const stepBack = () => {
+        const newItemValue = createXTSObject('XTSItemValue', itemValue)
+        if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
+            newItemValue.action = ITEM_VALUE_ACTIONS.LIST
+            setItemValue(newItemValue)
+        } else {
+            // Đóng Modal
+            // newItemValue.action = ITEM_VALUE_ACTIONS.ESCAPE
+            // props.choiceItemValue(newItemValue)
+            closeRelatedPage()
+            console.log('props.choiceItemValue', props.choiceItemValue)
+        }
+    }
+
     const [pageId] = useState(generateUUID())
-    useStepBack({ pageId, stepBack: closeRelatedPage })
+    useStepBack({ pageId, stepBack })
 
     const openPageParams: UseOpenPageParams = {
         pageId,
@@ -58,32 +103,23 @@ const RelatedPage: React.FC<XTSRelatedPageProps> = (props) => {
     }
     useOpenPage(openPageParams)
 
-    /////////////////////////////////////////
-    // Get related documents 
+    /////////////////////////////////////////////
+    //
 
-    const [relatedDocumets, setRelatedDocuments] = useState([
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 111' }),
-            documentAmount: 100,
-            comment: 'comment 111',
-        },
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 222' }),
-            documentAmount: 200,
-            comment: 'comment 222',
-        },
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 333' }),
-            documentAmount: 300,
-            comment: 'comment 333',
-        },
-    ])
+    useEffect(() => {
+        if (props.open) {
+            setRenderKey(prevValue => prevValue + 1)
+            setItemValue(createXTSObject('XTSItemValue', { action: ITEM_VALUE_ACTIONS.LIST }))
+        }
+    }, [props.open])
 
-    /////////////////////////////////////////
-    // 
+    const Page = getPage(itemValue.action)
+    // console.log('Page', Page)
+
+    /////////////////////////////////////////////
+    //
 
     return (
-
         <Drawer
             className='modal-page'
             title={props.title}
@@ -91,31 +127,18 @@ const RelatedPage: React.FC<XTSRelatedPageProps> = (props) => {
             width='100%'
             onClose={closeRelatedPage}
         >
-            <List
-                className='modal-page-list'
-                dataSource={relatedDocumets}
-                renderItem={item => (
-                    <List.Item className='modal-page-list-item'>
-                        <List.Item.Meta
-                            avatar={<FileTextOutlined />}
-                            title={item.objectId.presentation}
-                        />
-                        <div>
-                            amount: {item.documentAmount}
-                        </div>
-                    </List.Item>
-                )}
+            <Page
+                pageId={pageId}
+                objectId={objectId}
+                choiceItemValue={choiceItemValue}
+                stepBack={stepBack}
+                renderKey={renderKey}
             />
-            <BottomBar
-                stepBack={{ onClick: closeRelatedPage }}
-            />
-
         </Drawer >
-
     )
 }
 
 /////////////////////////////////////////////
-// Export's
+// Export
 
 export default RelatedPage

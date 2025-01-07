@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams, useLocation, useBlocker } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Form, Input, Button, Space, FloatButton, Descriptions, Divider, InputNumber } from 'antd'
+import { Form, Input, Button, Space, FloatButton, Descriptions, Divider } from 'antd'
 import { ArrowLeftOutlined, CheckCircleOutlined, CloseCircleOutlined, SaveOutlined } from '@ant-design/icons'
 
 /////////////////////////////////////////////
@@ -26,7 +26,6 @@ import { createXTSObject, getXTSEnum, getXTSEnumItem } from '../../data-objects/
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { generateUUID } from '../../commons/common-use'
-import AmountInput from '../../components/AmountInput'
 
 /////////////////////////////////////////////
 // Main component
@@ -35,21 +34,26 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
     /////////////////////////////////////////////
     // Các useHook chuẩn
-
     // const navigate = useNavigate()
     const dispatch = useDispatch()
 
     /////////////////////////////////////////////
     // Giải cấu trúc props    
+    // const { order } = props
     const { itemValue, pageId } = props
 
     // Biến dùng để quản lý Form
+    // const [form] = Form.useForm()
     const createPageParams: UseCreatePageParams = {
     }
     const { form } = useCreatePage(createPageParams)
 
     /////////////////////////////////////////////
     // Bắt đầu mở Page
+
+    // const itemId = order?.objectId.id
+    // const { dataItem, refreshItem } = useGetDataItem({ dataType, itemId })
+    // const formData = xtsObjectToFormData(dataItem)
 
     const object_id = itemValue?.id
     const dataType = 'XTSOrder'
@@ -74,6 +78,9 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
         pageTitle,
     }
     useOpenPage(openPageParams)
+
+    /////////////////////////////////////////////
+    // Làm việc với ChoicePage   
 
 
     /////////////////////////////////////////////
@@ -117,24 +124,27 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Hàm sự kiện khi bấm nút Cancel trên Form    
     // Quay lại trang trước, hoặc chuyển sang trang View
     const cancel = () => {
+        // if (props.setItemValue) {
+        //     props.setItemValue(newItemValue({ id: itemValue?.id, edit: false }))
+        // } else {
+        //     navigate(-1)
+        // }
+
         // Đóng Modal
         if (props.choiceItemValue) {
             // const itemValue = createXTSObject('XTSItemValue')
-            props.choiceItemValue(itemValue)
+            props.choiceItemValue(itemValue)        // Đóng Modal
         }
     }
 
     const updatePostPayment = () => {
-        // const formValues = form.getFieldsValue()
-        dataObject.postPayment = dataObject.documentAmount - dataObject.cash - dataObject.bankTransfer
-        setRenderKey(prevKey => prevKey + 1)
-        // const newValues = {
-        //     postPayment: dataObject.postPayment
-        // }
-        // form.setFieldsValue(newValues)
+        const formValues = form.getFieldsValue()
+        dataObject.postPayment = dataObject.documentAmount - formValues.cash - formValues.bankTransfer
+        const newValues = {
+            postPayment: dataObject.postPayment
+        }
+        form.setFieldsValue(newValues)
     }
-
-    const [renderKey, setRenderKey] = useState(0)
 
     const fillPayment = (type: string) => {
         if (type === 'cash') {
@@ -155,15 +165,8 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
             bankTransfer: dataObject.bankTransfer,
             postPayment: dataObject.postPayment,
         }
-        setRenderKey(prevKey => prevKey + 1)
-        // console.log('renderKey', renderKey)
-        // form.setFieldsValue(newValues)
+        form.setFieldsValue(newValues)
     }
-
-    /////////////////////////////////////////
-    // 
-
-
 
     /////////////////////////////////////////
     // Blocker
@@ -249,16 +252,23 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         <div className='payment-page-payment-title'>
                             Tiền mặt:
                         </div>
-
-                        <AmountInput
-                            dataObject={dataObject}
+                        <FormInput
                             itemName='cash'
-                            min={0}
-                            max={dataObject.documentAmount}
-                            title='Nhập số tiền'
-                            description='Tiền mặt'
-                            renderKey={renderKey}
-                            onChange={updatePostPayment}
+                            dataType='Number'
+                            itemProps={{
+                                className: 'payment-page-payment-form-item',
+                                label: '',
+                            }}
+                            inputNumberProps={{
+                                placeholder: 'Nhập số tiền',
+                                // allowClear: true,
+                                required: false,
+                                min: 0,
+                                max: dataObject.documentAmount,
+                                onChange: updatePostPayment,
+                                // onfocus: 
+                            }}
+                            {...commonItemProps}
                         />
 
                         <Button
@@ -274,15 +284,22 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             Chuyển khoản:
                         </div>
 
-                        <AmountInput
-                            dataObject={dataObject}
+                        <FormInput
                             itemName='bankTransfer'
-                            min={0}
-                            max={dataObject.documentAmount}
-                            title='Nhập số tiền'
-                            description='Chuyển khoản'
-                            renderKey={renderKey}
-                            onChange={updatePostPayment}
+                            dataType='Number'
+                            itemProps={{
+                                className: 'payment-page-payment-form-item',
+                                label: '',
+                            }}
+                            inputNumberProps={{
+                                placeholder: 'Nhập số tiền',
+                                // allowClear: true,
+                                required: false,
+                                min: 0,
+                                max: dataObject.documentAmount,
+                                onChange: updatePostPayment,
+                            }}
+                            {...commonItemProps}
                         />
 
                         <Button
@@ -297,16 +314,21 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         <div className='payment-page-payment-title'>
                             Trả sau:
                         </div>
-
-                        <AmountInput
-                            dataObject={dataObject}
+                        <FormInput
                             itemName='postPayment'
-                            min={0}
-                            max={dataObject.documentAmount}
-                            title='Nhập số tiền'
-                            description='Trả sau'
-                            renderKey={renderKey}
-                            onChange={updatePostPayment}
+                            dataType='Number'
+                            itemProps={{
+                                className: 'payment-page-payment-form-item',
+                                label: '',
+                            }}
+                            inputNumberProps={{
+                                placeholder: 'Nhập số tiền',
+                                // allowClear: true,
+                                required: false,
+                                min: 0,
+                                max: dataObject.documentAmount,
+                            }}
+                            {...commonItemProps}
                         />
 
                         <Button

@@ -105,22 +105,19 @@ export interface XTSObjectPrintProps {
     stepBack?: () => void
 }
 
-export interface XTSObjectRelatedDocumentsProps {
-    // pageId?: string
-    objectId: XTSObjectId
-    // itemName?: string
-    // additionals?: any
-    choiceItemValue: (itemValue: XTSItemValue) => void
-    stepBack?: () => void
-}
+// export interface XTSObjectRelatedDocumentsProps {
+//     // pageId?: string
+//     objectId: XTSObjectId
+//     // itemName?: string
+//     // additionals?: any
+//     choiceItemValue: (itemValue: XTSItemValue) => void
+//     stepBack?: () => void
+// }
 
-export interface XTSObjectRelatedDocumentProps {
-    // pageId?: string
+export interface XTSObjectRelatedProps {
     objectId: XTSObjectId
-    // itemName?: string
-    // additionals?: any
-    // choiceItemValue?: (itemValue: XTSItemValue) => void
-    stepBack?: () => void
+    // renderKey?: number
+    choiceItemValue?: (itemValue: XTSItemValue | undefined) => void
 }
 
 export interface XTSObjectRowProps {

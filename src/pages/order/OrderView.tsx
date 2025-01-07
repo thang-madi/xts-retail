@@ -226,11 +226,10 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }
 
     const modalProps = {
-        title: 'Thanh toán',
+        title: 'Trả trước',
         height: '80vh',
         width: '100%',
         open: paymentOpen,
-        // onOk={handleOk}
         onCancel: handleCancel,
         footer: [],
         style: { marginTop: 0 },
@@ -245,7 +244,6 @@ const OrderViewPage: React.FC<XTSObjectViewProps> = (props) => {
     const tempData = useSelector((state: RootState) => state.orders.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
-        // if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.find(item => item === tempData['_type'])) {
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
             onChangeDataObject(tempData.objects[0])     // Xem xét lại, có thể không cần thì đã dùng useEffect sau khi thay đổi dataObject
