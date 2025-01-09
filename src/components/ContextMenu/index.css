@@ -52,18 +52,13 @@
     border: 0px;
 }
 
-.context-menu-button:active {
-    background-color: (64, 64, 64, 0.5) !important;
-}
-
+.context-menu-button:active,
 .context-menu-button:hover {
-    color: black;
-    /* background-color: lightgray; */
-    /* border: 1px solid gray; */
+    background-color: rgba(64, 64, 64, 0.5) !important;
 }
 
 .context-menu-button-title {
-    color: whitesmoke;
+    color: white;
 }
 
 .context-menu-button-title:empty {

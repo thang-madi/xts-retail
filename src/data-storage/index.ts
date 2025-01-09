@@ -20,6 +20,12 @@ import reducerIndividuals from './slice-individuals'
 import reducerEmployees from './slice-employees'
 import reducerCarts from './slice-carts'
 
+import reducerStructuralUnit from './slice-structural-unit'
+import reducerSalesInvoice from './slice-sales-invoice'
+import reducerSupplierInvoice from './slice-supplier-invoice'
+import reducerCashReceipt from './slice-cash-receipt'
+import reducerPaymentReceipt from './slice-payment-receipt'
+
 // import reducerUserProfiles from './slice-user-profiles'
 
 /////////////////////////////////////////////
@@ -41,6 +47,12 @@ const store = configureStore({
         employees: reducerEmployees,
 
         carts: reducerCarts,
+
+        structuralUnit: reducerStructuralUnit,
+        salesInvoice: reducerSalesInvoice,
+        supplierInvoice: reducerSupplierInvoice,
+        cashReceipt: reducerCashReceipt,
+        paymentReceipt: reducerPaymentReceipt,
 
         // userProfiles: reducerUserProfiles,
     }

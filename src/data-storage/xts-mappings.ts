@@ -1,4 +1,6 @@
 
+/////////////////////////////////////////////
+// Import's
 
 import {
     apiRequest as apiRequest_Session,
@@ -60,19 +62,42 @@ import {
     actions as actions_Carts,
 } from './slice-carts'
 
-// import { AsyncThunk, CaseReducerActions } from '@reduxjs/toolkit'
+import {
+    apiRequest as apiRequest_StructuralUnit,
+    actions as actions_StructuralUnit,
+} from './slice-structural-unit'
 
-//
-// import {
-//     apiRequest as apiRequest_UserProfiles,
-//     actions as actions_UserProfiles,
-// } from './slice-user-profiles'
+import {
+    apiRequest as apiRequest_CashReceipt,
+    actions as actions_CashReceipt,
+} from './slice-cash-receipt'
+
+import {
+    apiRequest as apiRequest_PaymentReceipt,
+    actions as actions_PaymentReceipt,
+} from './slice-payment-receipt'
+
+import {
+    apiRequest as apiRequest_SalesInvoice,
+    actions as actions_SalesInvoice,
+} from './slice-sales-invoice'
+
+import {
+    apiRequest as apiRequest_SupplierInvoice,
+    actions as actions_SupplierInvoice,
+} from './slice-supplier-invoice'
+
+/////////////////////////////////////////////
+// Export's
 
 export interface XTSSlice {
     sliceName: string,
     apiRequest: any,
     actions: any
 }
+
+/////////////////////////////////////////////
+// Main's
 
 const xtsSlicesMapping = {
 
@@ -147,6 +172,37 @@ const xtsSlicesMapping = {
         apiRequest: apiRequest_Carts,
         actions: actions_Carts
     },
+
+    XTSStructuralUnit: {
+        sliceName: 'structuralUnit',
+        apiRequest: apiRequest_StructuralUnit,
+        actions: actions_StructuralUnit
+    },
+
+    XTSCashReceipt: {
+        sliceName: 'cashReceipt',
+        apiRequest: apiRequest_CashReceipt,
+        actions: actions_CashReceipt
+    },
+
+    XTSPaymentReceipt: {
+        sliceName: 'paymentReceipt',
+        apiRequest: apiRequest_PaymentReceipt,
+        actions: actions_PaymentReceipt
+    },
+
+    XTSSalesInvoice: {
+        sliceName: 'salesInvoice',
+        apiRequest: apiRequest_SalesInvoice,
+        actions: actions_SalesInvoice
+    },
+
+    XTSSupplierInvoice: {
+        sliceName: 'supplierInvoice',
+        apiRequest: apiRequest_SupplierInvoice,
+        actions: actions_SupplierInvoice
+    },
+
 }
 
 export function getXTSSlice(dataType: string): XTSSlice {

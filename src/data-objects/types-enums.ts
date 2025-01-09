@@ -100,6 +100,37 @@ export const XTSSalesOrderState = {
         id: "Cancelled",
         presentation: "Đã hủy",
     },
+}
 
-
+export const XTSStructuralUnitType = {
+    Warehouse: {
+        _type: "XTSObjectId",
+        dataType: "XTSStructuralUnitType",
+        id: "Warehouse",
+        presentation: "Kho hàng",
+    },
+    Retail: {
+        _type: "XTSObjectId",
+        dataType: "XTSStructuralUnitType",
+        id: "Retail",
+        presentation: "Quầy bán lẻ",
+    },
+    RetailAccrualAccounting: {
+        _type: "XTSObjectId",
+        dataType: "XTSStructuralUnitType",
+        id: "RetailAccrualAccounting",
+        presentation: "Bán lẻ (cơ sở dồn tích)",
+    },
+    ShopWarehousesGroup: {
+        _type: "XTSObjectId",
+        dataType: "XTSStructuralUnitType",
+        id: "ShopWarehousesGroup",
+        presentation: "Nhóm kho cửa hàng",
+    },
+    Department: {
+        _type: "XTSObjectId",
+        dataType: "XTSStructuralUnitType",
+        id: "Department",
+        presentation: "Bộ phận",
+    },
 }

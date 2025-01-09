@@ -6,10 +6,10 @@ import { StringStepperProps } from "antd-mobile/es/components/stepper/stepper"
 /////////////////////////////////////////////
 // State
 
-// 
+// OK
 export type XTSState = XTSObjectState | XTSRecordState | XTSSessionState
 
-//
+// OK
 export interface XTSBaseState {
     status: string
     error: string
@@ -22,13 +22,13 @@ export interface XTSBaseState {
 //     searchFields: string[]
 // }
 
-// 
+// OK
 export interface XTSListFilterItem {
     key: string
     value: any
 }
 
-// 
+// OK
 export interface XTSListSortItem {
     key: string
     descending: boolean
@@ -101,10 +101,12 @@ export interface XTSCurrentState extends XTSBaseState {
     // dashboard: XTSDashboard
 }
 
+// OK
 export interface XTSReportState extends XTSBaseState {
     dashboard: XTSDashboard
 }
 
+// OK
 export interface XTSDashboard {
     salesAmount: number,
     salesOrders: number,
@@ -119,6 +121,7 @@ export interface XTSDashboard {
 /////////////////////////////////////////////
 // Action
 
+// OK
 export interface XTSSliceAction {
     type: string
     payload: any
@@ -127,7 +130,7 @@ export interface XTSSliceAction {
 /////////////////////////////////////////////
 // Additional's
 
-//
+// Xem lại
 export interface XTSSettings {
     customer?: XTSObjectId
     company?: XTSObjectId

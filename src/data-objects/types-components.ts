@@ -122,6 +122,7 @@ export interface XTSObjectRelatedProps {
 
 export interface XTSObjectRowProps {
     dataRow: XTSObjectRow
+    dataObject?: XTSObject
     // pageId: string
     // itemName?: string
     additionals?: any

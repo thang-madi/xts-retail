@@ -145,36 +145,36 @@ const CartCard: React.FC<XTSRecordCardProps> = (props) => {
     return (
         <Card
             onClick={clickItem}
-            className='item-card'
+            className='cart-item-card'
         >
-            <div className='item-card-body' style={{ display: 'flex', width: '100%', }}>
+            <div className='cart-item-card-body' >
 
                 <Checkbox
-                    className='item-card-body-checker'
+                    className='cart-item-card-body-checker'
                     name='selected'
                     onClick={(e: any) => handleChangeData(e, { checked: e.target.checked })}
                     checked={selected}
                 />
-                <div className='item-card-body-image'>
+                <div className='cart-item-card-body-image'>
                     <Image
-                        className='item-card-body-image-img'
+                        className='cart-item-card-body-image-img'
                         width='100%'
                         height='auto'
                         src={imageSrc}
                         fallback=''
                     />
                 </div>
-                <div className='item-card-body-content'>
-                    <div className='item-card-body-content-description'>
+                <div className='cart-item-card-body-content'>
+                    <div className='cart-item-card-body-content-description'>
                         {formData.product?.presentation}
                     </div>
-                    <div className='item-card-body-content-price'>
+                    <div className='cart-item-card-body-content-price'>
                         <div>Đơn giá: {formData.price} đồng / {formData.uom?.presentation}</div>
                     </div>
-                    <div className='item-card-body-content-quantity' >
+                    <div className='cart-item-card-body-content-quantity' >
                         <span>Số lượng:</span>
                         <Button
-                            icon={<MinusOutlined className='item-card-body-content-button-icon' />}
+                            icon={<MinusOutlined className='cart-item-card-body-content-button-icon' />}
                             onClick={(e: any) => handleChangeData(e, { delta: -1, checked: true })}
                         >
                         </Button>
@@ -192,7 +192,7 @@ const CartCard: React.FC<XTSRecordCardProps> = (props) => {
                         </Popconfirm>
 
                         <Button
-                            icon={<PlusOutlined className='item-card-body-content-button-icon' />}
+                            icon={<PlusOutlined className='cart-item-card-body-content-button-icon' />}
                             onClick={(e: any) => handleChangeData(e, { delta: 1, checked: true })}
                         >
                         </Button>

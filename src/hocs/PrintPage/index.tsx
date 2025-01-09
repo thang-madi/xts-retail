@@ -14,7 +14,7 @@ import { ITEM_VALUE_ACTIONS, XTSChoicePageProps, XTSObjectPrintProps, XTSPrintPa
 import { XTSItemValue } from '../../data-objects/types-form'
 import { createXTSObject } from '../../data-objects/common-use'
 
-import OrderPrintPage from '../../pages/order/OrderPrint'
+import OrderPrintPage from '../../pages/order/ObjectPrint'
 
 /////////////////////////////////////////////
 // Object's

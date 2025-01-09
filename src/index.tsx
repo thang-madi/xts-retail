@@ -12,6 +12,7 @@ import reportWebVitals from './reportWebVitals'
 
 import './assets/variables.css'
 import './index.css'
+
 import App from './App'
 
 import dataStorage from './data-storage'

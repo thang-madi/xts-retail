@@ -1,19 +1,28 @@
 /* css for Order */
 
-.list-page {
+.product-list {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.view-page {
+.product-view {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.edit-page {
+.product-edit {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
+}
+
+.product-card {
+    margin: 2px;
+    height: 325px;
+}
+
+.product-card .ant-card-body {
+    padding: 0px;
 }

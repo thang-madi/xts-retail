@@ -35,3 +35,21 @@
 .card-button:empty {
     display: none;
 }
+
+/* ItemCard */
+.item-card {
+    /* padding: 10px; */
+    margin: 2px;
+    height: 200px;
+    width: 100%;
+    padding: 0px;
+}
+
+.item-card .ant-card-body {
+    padding: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 8px);
+    align-items: center;
+    margin: 0px;
+}

@@ -32,6 +32,13 @@ import UserProfilePage from '../../pages/user/UserProfile'
 import EmployeesPage from '../../pages/employee'
 import SettingsPage from '../../pages/user/Settings'
 
+import StructuralUnitPage from '../../pages/structural-unit'
+import SalesInvoicePage from '../../pages/sales-invoice'
+import SupplierInvoicePage from '../../pages/supplier-invoice'
+import CashReceiptPage from '../../pages/sales-invoice'
+import PaymentReceiptPage from '../../pages/sales-invoice'
+
+
 import AppHeader from '../AppHeader'
 import AppFooter from '../AppFooter'
 // import AppSider from './sider';
@@ -109,6 +116,13 @@ export const routeItems = () => {
                 { path: '/settings', element: < SettingsPage /> },
                 { path: '/daily-report', element: < DailyReport /> },
                 { path: '/settlement-with-customers-report', element: < SettlementWithCustomersReport /> },
+
+                { path: '/structural-unit', element: < StructuralUnitPage /> },
+                { path: '/sales-invoice', element: < SalesInvoicePage /> },
+                { path: '/supplier-invoice', element: < SupplierInvoicePage /> },
+                { path: '/cash-receipt', element: < CashReceiptPage /> },
+                { path: '/payment-receipt', element: < PaymentReceiptPage /> },
+
                 // { path: '/test', element: < TestPage /> },
                 // { path: '/test-mobile', element: < MobileTestPage /> },
             ]

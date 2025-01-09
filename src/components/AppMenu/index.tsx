@@ -23,6 +23,11 @@ import {
     ApiOutlined,
     VerticalAlignBottomOutlined,
     IdcardOutlined,
+    ApartmentOutlined,
+    TruckOutlined,
+    TransactionOutlined,
+    DollarOutlined,
+    DockerOutlined,
 } from '@ant-design/icons'
 
 /////////////////////////////////////////////
@@ -46,6 +51,12 @@ const userProfileItem = { label: "Hồ sơ người dùng", key: "/user-profile"
 const loginItem = { label: "Đăng nhập", key: "/login", icon: <LoginOutlined />, style: { fontWeight: 'bold', color: 'blue' } }
 const logoutItem = { label: "Đăng xuất", key: "/logout", icon: <LogoutOutlined />, danger: true }
 const aboutItem = { label: "Về cửa hàng", key: "/about", icon: <InfoCircleOutlined /> }
+
+const structuralUnitItem = { label: "Đơn vị", key: "/structural-unit", icon: <ApartmentOutlined /> }
+const salesInvoiceItem = { label: "Giao hàng", key: "/sales-invoice", icon: <TruckOutlined /> }
+const supplierInvoiceItem = { label: "Nhận hàng", key: "/supplier-invoice", icon: <DockerOutlined /> }
+const cashReceiptItem = { label: "Thu tiền mặt", key: "/cash-receipt", icon: <DollarOutlined /> }
+const paymentReceiptItem = { label: "Thu chuyển khoản", key: "/payment-receipt", icon: <TransactionOutlined /> }
 
 // const connectItem = { label: "Connect user", key: "/connect-user", icon: <ApiOutlined />, style: { color: 'blue' } }
 
@@ -105,6 +116,11 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
             productItem,
             ordersItem,
             customersItem,
+            structuralUnitItem,
+            salesInvoiceItem,
+            supplierInvoiceItem,
+            // cashReceiptItem,
+            // paymentReceiptItem,
             // employeeItem,
             userProfileItem,
             aboutItem,
@@ -120,6 +136,11 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
             ordersItem,
             customersItem,
             employeeItem,
+            structuralUnitItem,
+            salesInvoiceItem,
+            supplierInvoiceItem,
+            // cashReceiptItem,
+            // paymentReceiptItem,
             userProfileItem,
             aboutItem,
             // settingsItem,

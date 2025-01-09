@@ -1,9 +1,23 @@
 
+/////////////////////////////////////////////
+// 
+
 import { useEffect, useState } from 'react'
 import { Button, Card, InputNumber, Modal } from 'antd'
 import { ArrowLeftOutlined, CheckOutlined, ClearOutlined, PicCenterOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons'
-import './index.css'
+
+/////////////////////////////////////////////
+// 
+
 import { XTSObject } from '../../data-objects/types-common'
+
+/////////////////////////////////////////////
+// 
+
+import './index.css'
+
+/////////////////////////////////////////////
+// 
 
 interface NumpadProps {
     open: boolean
@@ -21,13 +35,16 @@ interface AmountInputProps {
     min?: number
     max?: number
     // amount: number
-    dataObject: XTSObject
+    dataObject: any
     itemName: string
     title: string
     description: string
-    renderKey: number
-    onChange: any
+    renderKey?: number
+    onChange: (amount: number) => void
 }
+
+/////////////////////////////////////////////
+// 
 
 const AmountInput: React.FC<AmountInputProps> = (props) => {
 
@@ -35,14 +52,12 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
     const [amount, setAmount] = useState(0)
     const [numpadOpen, setNumpadOpen] = useState(false)
 
-    // console.log('renderKey', props.renderKey, dataObject)
-
     const onChange = (amount: number | undefined) => {
         setNumpadOpen(false)
         if (amount !== undefined) {
             (dataObject as any)[props.itemName] = amount
             setAmount(amount)
-            props.onChange()
+            props.onChange(amount)
         }
     }
 
@@ -54,6 +69,9 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
     useEffect(() => {
         setAmount(objectAmount)
     }, [objectAmount])
+
+    /////////////////////////////////////////////
+    // 
 
     return (
         <div className=''>
@@ -80,9 +98,8 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
 
 const Numpad: React.FC<NumpadProps> = (props) => {
 
-    const [amount, setAmount] = useState((props.dataObject as any)[props.itemName])
-
-    // console.log('min, max', props.min, props.max)
+    // const [amount, setAmount] = useState((props.dataObject as any)[props.itemName])
+    const [amount, setAmount] = useState(0)
 
     const clearAmount = () => {
         setAmount(0)
@@ -129,6 +146,12 @@ const Numpad: React.FC<NumpadProps> = (props) => {
     //
 
     const formater = new Intl.NumberFormat('vi-VN')
+
+    useEffect(() => {
+        if (props.open) {
+            setAmount(0)
+        }
+    }, [props.open])
 
     /////////////////////////////////////////////
     //

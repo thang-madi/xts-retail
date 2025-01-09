@@ -21,9 +21,10 @@ import { TWA } from '../../commons/telegram'
 
 import banner from '../../assets/dungbaby-banner.jpg'
 
-import './index.css'
 import { useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
 import { generateUUID } from '../../commons/common-use'
+
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component

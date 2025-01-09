@@ -25,8 +25,8 @@ import { generateUUID } from '../../commons/common-use'
 
 // import IndividualViewPage from '../individual/individual-view'                  // individual
 // import IndividualEditPage from '../individual/individual-edit'                  // individual
-import CustomerViewPage from '../customer/CustomerView'                        // customer
-import CustomerEditPage from '../customer/CustomerEdit'                        // customer
+import CustomerViewPage from '../customer/ObjectView'                        // customer
+import CustomerEditPage from '../customer/ObjectEdit'                        // customer
 import { createXTSObject } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { requestData_ByDataItem } from '../../data-objects/request-data'

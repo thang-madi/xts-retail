@@ -42,7 +42,6 @@ export const ProductUOMCard: React.FC<any> = (props) => {           // ProductUO
     )
 }
 
-// function ProductUOMRowEditPage(props) {
 export const ProductUOMRowEditPage: React.FC<any> = (props) => {
 
     const { dataRow } = props

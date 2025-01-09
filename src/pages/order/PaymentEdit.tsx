@@ -28,6 +28,8 @@ import { Loader } from '../../components/Loader'
 import { generateUUID } from '../../commons/common-use'
 import AmountInput from '../../components/AmountInput'
 
+import './index.css'
+
 /////////////////////////////////////////////
 // Main component
 

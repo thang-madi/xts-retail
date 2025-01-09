@@ -19,12 +19,17 @@ import OrdersPage from '../../pages/order'
 import ProductsPage from '../../pages/product'
 import UOMClassifierPage from '../../pages/uom-classifier'
 import EmployeesPage from '../../pages/employee'
+import StructuralUnitPage from '../../pages/structural-unit'
+
+// import CashReceiptPage from '../../pages/cash-receipt'
+// import PaymentReceiptPage from '../../pages/payment-receipt'
+// import SalesInvoicePage from '../../pages/sales-invoice'
+// import SupplierInvoicePage from '../../pages/supplier-invoice'
 
 /////////////////////////////////////////////
 // Object's
 
 import './index.css'
-import { TWA } from '../../commons/telegram'
 
 /////////////////////////////////////////////
 // Main's
@@ -38,6 +43,12 @@ function getObjectPage(dataType: string): React.FC<any> {
         XTSProduct: ProductsPage,
         XTSUOMClassifier: UOMClassifierPage,
         XTSEmployee: EmployeesPage,
+        XTSStructuralUnit: StructuralUnitPage,
+
+        // XTSCashReceipt: CashReceiptPage,
+        // XTSPaymentReceipt: PaymentReceiptPage,
+        // XTSSalesInvoice: SalesInvoicePage,
+        // XTSSupplierInvoice: SupplierInvoicePage,
 
         // Thêm các trang nữa
         // ...
@@ -60,10 +71,6 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
     // choiceItemValue
     // Hàm sự kiện để xử lý kết quả chọn giá trị ChoicePage vào Attribute của Form
     const choiceItemValue = (itemValue: XTSItemValue) => {
-        // const { itemName } = itemValue
-        // console.log('pageOwnerId', props)
-        // dispatch(actions.setParams({ pageId: pageOwnerId }))
-        // props.setPageInfo()
         props.choiceItemValue(itemValue)
     }
 
@@ -84,23 +91,6 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
     // 
 
     return (
-        // <Modal
-        //     // className={(TWA.platform === 'iOS') && 'modal-page' || 'modal-page-ios'}
-        //     className='modal-page'
-        //     {...modalProps}
-        //     width='100%'
-        //     // height='30vh'
-        //     centered
-        //     onCancel={closeChoicePage}
-        // >
-        //     <div className={(TWA.platform !== 'ios') && 'modal-page-index-page' || 'modal-page-index-page-ios'} >
-        //         <ObjectIndexPage
-        //             itemName={itemName}
-        //             choiceItemValue={choiceItemValue}
-        //             renderKey={renderKey}
-        //         />
-        //     </div>
-        // </Modal >
 
         <Drawer
             className='modal-page'
@@ -108,7 +98,6 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
             width='100%'
             onClose={closeChoicePage}
         >
-            {/* <div className={(TWA.platform !== 'ios') && 'modal-page-index-page' || 'modal-page-index-page-ios'} > */}
             <div className='modal-page-index-page' >
                 <ObjectIndexPage
                     itemName={itemName}

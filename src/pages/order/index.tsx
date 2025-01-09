@@ -13,9 +13,9 @@ import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/type
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './OrderList'
-import ViewPage from './OrderView'
-import EditPage from './OrderEdit'
+import ListPage from './ObjectList'
+import ViewPage from './ObjectView'
+import EditPage from './ObjectEdit'
 // import PrintPage from './OrderPrint'
 // import RelatedPage from './OrderRelatedDocuments'
 

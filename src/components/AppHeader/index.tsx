@@ -130,29 +130,30 @@ const AppHeader: React.FC = () => {
 
     useEffect(() => {
 
-        // Tải về products
-        const params = {
-            dataType: 'XTSProduct',
-            requestParams: {},
-            length: 0,
-            count: 100,
+        if (TWA.platform !== 'unknown') {
+
+            // Tải về products
+            const params = {
+                dataType: 'XTSProduct',
+                requestParams: {},
+                length: 0,
+                count: 100,
+            }
+            const requestProducts = requestData_DownloadObjectList(params.dataType, params.requestParams)
+            const { actions, apiRequest } = getXTSSlice('XTSProduct')
+            // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setTemp(null))
+            dispatch(apiRequest(requestProducts))
+
+            // Tải về orders
+            params.dataType = 'XTSOrder'
+            const requestOrders = requestData_GetObjectList(params.dataType, params.length, params.count, params.requestParams)
+            // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setTemp(null))
+            dispatch(apiRequest(requestOrders))
         }
-        const requestProducts = requestData_DownloadObjectList(params.dataType, params.requestParams)
-        const { actions, apiRequest } = getXTSSlice('XTSProduct')
-        // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-        dispatch(actions.setTemp(null))
-        dispatch(apiRequest(requestProducts))
-
-        // Tải về orders
-        params.dataType = 'XTSOrder'
-        const requestOrders = requestData_GetObjectList(params.dataType, params.length, params.count, params.requestParams)
-        // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-        dispatch(actions.setTemp(null))
-        dispatch(apiRequest(requestOrders))
-        // 
-
     }, [])
 
     /////////////////////////////////////////

@@ -32,12 +32,13 @@ import { REQUEST_STATUSES } from '../../commons/enums';
 /////////////////////////////////////////////
 // Object's
 
-import './index.css'
 import { XTSCondition } from '../../data-objects/types-common';
 import { createXTSObject, getXTSEnum, getXTSEnumItem } from '../../data-objects/common-use';
 import { TWA } from '../../commons/telegram';
 import { useOpenPage, UseOpenPageParams } from '../../hooks/usePage';
 import { useNavigate } from 'react-router-dom';
+
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component
@@ -233,7 +234,7 @@ const HomePage: React.FC<any> = (props) => {
             </Card >
 
             <div className='home-page-bottom'>
-                * {(company?.presentation) || employee?.presentation}
+                {(company?.presentation) || employee?.presentation}
             </div>
 
             <FloatButton

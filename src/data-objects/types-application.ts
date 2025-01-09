@@ -209,7 +209,7 @@ export class XTSMeasurementUnit extends XTSObject {
     }
 }
 
-// 
+// OK
 export class XTSCompany extends XTSObject {
 
     description: string = ''
@@ -222,7 +222,7 @@ export class XTSCompany extends XTSObject {
     }
 }
 
-// 
+// OK
 export class XTSIndividual extends XTSObject {
 
     description: string = ''
@@ -313,5 +313,248 @@ export class XTSEmployee extends XTSObject {
 
     constructor() {
         super('XTSEmployee')
+    }
+}
+
+// 
+export class XTSSalesInvoice extends XTSObject {
+
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+
+    operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsSalesInvoice')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
+    priceKind: XTSObjectId = new XTSObjectId('XTSPriceKind')
+    // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
+
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    documentAmount: number = 0
+    vatTaxation: XTSObjectId = new XTSObjectId('XTSVATTaxation')
+    rate: number = 1
+    multiplicity: number = 1
+    comment: string = ''
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    deliveryAddress: string = ''
+    deliveryAddressValue: string = ''
+    structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
+    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
+    docOrder: XTSObjectId = new XTSObjectId('XTSOrder')
+    inventory: XTSSalesInvoiceInventory[] = []
+
+    constructor() {
+        super('XTSSalesInvoice')
+    }
+}
+
+// OK
+export class XTSSalesInvoiceInventory extends XTSObjectRow {
+
+    _lineNumber: number = 0
+    product: XTSObjectId = new XTSObjectId('XTSProduct')
+    characteristic: XTSObjectId = new XTSObjectId('XTSProductCharacteristic')
+    vatRate: XTSObjectId = new XTSObjectId('XTSVATRate')
+    uom: XTSObjectId = new XTSObjectId('XTSMeasurementUnit')
+    quantity: number = 1
+    comment: string = ''
+    price: number = 0
+    amount: number = 0
+    automaticDiscountAmount: number = 0
+    discountsMarkupsAmount: number = 0
+    vatAmount: number = 0
+    total: number = 0
+
+    _coefficient: number = 0
+    _price: number = 0
+    _vatRateRate: number = 0
+    _picture: XTSObjectId = new XTSObjectId('XTSFile')
+
+    constructor() {
+        super('XTSSalesInvoiceInventory')
+    }
+}
+
+// 
+export class XTSSupplierInvoice extends XTSObject {
+
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+
+    operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsSupplierInvoice')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
+    counterpartyPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
+
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    documentAmount: number = 0
+    vatTaxation: XTSObjectId = new XTSObjectId('XTSVATTaxation')
+    rate: number = 1
+    multiplicity: number = 1
+    comment: string = ''
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    deliveryAddress: string = ''
+    deliveryAddressValue: string = ''
+    structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
+    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
+    // docOrder: XTSObjectId = new XTSObjectId('XTSPurchaseOrder')
+    inventory: XTSSalesInvoiceInventory[] = []
+
+    constructor() {
+        super('XTSSupplierInvoice')
+    }
+}
+
+// 
+export class XTSSupplierInvoiceInventory extends XTSObjectRow {
+
+    _lineNumber: number = 0
+    product: XTSObjectId = new XTSObjectId('XTSProduct')
+    characteristic: XTSObjectId = new XTSObjectId('XTSProductCharacteristic')
+    vatRate: XTSObjectId = new XTSObjectId('XTSVATRate')
+    uom: XTSObjectId = new XTSObjectId('XTSMeasurementUnit')
+    quantity: number = 1
+    comment: string = ''
+    price: number = 0
+    amount: number = 0
+    discountsMarkupsAmount: number = 0
+    vatAmount: number = 0
+    total: number = 0
+
+    _coefficient: number = 0
+    _price: number = 0
+    _vatRateRate: number = 0
+    _picture: XTSObjectId = new XTSObjectId('XTSFile')
+
+    constructor() {
+        super('XTSSupplierInvoiceInventory')
+    }
+}
+
+// 
+export class XTSStructuralUnit extends XTSObject {
+
+    description: string = ''
+    structuralUnitType: XTSObjectId = new XTSObjectId('XTSStructuralUnitType')
+    orderWarehouse: boolean = false
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    financiallyLiablePerson: XTSObjectId = new XTSObjectId('XTSIndividual')
+    invalid: boolean = false
+
+    constructor() {
+        super('XTSStructuralUnit')
+    }
+}
+
+// 
+export class XTSCashReceipt extends XTSObject {
+
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+
+    operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsCashReceipt')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
+    // counterpartyPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
+
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    cashCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    documentAmount: number = 0
+    accountingAmount: number = 0
+    rate: number = 1
+    multiplicity: number = 1
+    comment: string = ''
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
+    cashAccount: XTSObjectId = new XTSObjectId('XTSPettyCash')
+    cashFlowItem: XTSObjectId = new XTSObjectId('XTSCashFlowItem')
+    documentBasis: XTSObjectId = new XTSObjectId('')
+
+    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
+    // docOrder: XTSObjectId = new XTSObjectId('XTSPurchaseOrder')
+    paymentDetails: XTSCashReceiptPaymentDetails[] = []
+
+    constructor() {
+        super('XTSCashReceipt')
+    }
+}
+
+// OK
+export class XTSCashReceiptPaymentDetails extends XTSObjectRow {
+
+    _lineNumber: number = 0
+    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    document: XTSObjectId = new XTSObjectId('')
+    paymentAmount: number = 0
+    settlementAmount: number = 0
+    rate: number = 0
+    multiplicity: number = 0
+    advanceFlag: boolean = false
+    docOrder: XTSObjectId = new XTSObjectId('XTSOrder')
+
+    constructor() {
+        super('XTSCashReceiptPaymentDetails')
+    }
+}
+
+// 
+export class XTSPaymentReceipt extends XTSObject {
+
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+
+    operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsPaymentReceipt')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
+    // counterpartyPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
+
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    cashCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    documentAmount: number = 0
+    accountingAmount: number = 0
+    rate: number = 1
+    multiplicity: number = 1
+    comment: string = ''
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    bankAccount: XTSObjectId = new XTSObjectId('XTSPettyCash')
+    cashFlowItem: XTSObjectId = new XTSObjectId('XTSCashFlowItem')
+    documentBasis: XTSObjectId = new XTSObjectId('')
+
+    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
+    // docOrder: XTSObjectId = new XTSObjectId('XTSPurchaseOrder')
+    paymentDetails: XTSPaymentReceiptPaymentDetails[] = []
+
+    constructor() {
+        super('XTSPaymentReceipt')
+    }
+}
+
+// OK
+export class XTSPaymentReceiptPaymentDetails extends XTSObjectRow {
+
+    _lineNumber: number = 0
+    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    document: XTSObjectId = new XTSObjectId('')
+    paymentAmount: number = 0
+    settlementAmount: number = 0
+    rate: number = 0
+    multiplicity: number = 0
+    advanceFlag: boolean = false
+    docOrder: XTSObjectId = new XTSObjectId('XTSOrder')
+
+    constructor() {
+        super('XTSPaymentReceiptPaymentDetails')
     }
 }

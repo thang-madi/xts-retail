@@ -36,6 +36,8 @@ import { Loader } from '../../components/Loader'
 import { generateUUID } from '../../commons/common-use'
 // import { setPageInfo } from '../../data-storage/slice-current'
 
+import './index.css'
+
 /////////////////////////////////////////////
 // Main component
 
@@ -183,7 +185,7 @@ const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // C
     // 
 
     return (
-        <div className='list-page'>
+        <div className='cart-list-page'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 

@@ -4,8 +4,12 @@
     align-items: center;
 }
 
-.amount-input-field {
-    display: flex;
+/* .amount-input-field {
+    text-align: right !important;
+} */
+
+.amount-input-field .ant-input-number-input {
+    text-align: right;
 }
 
 .amount-input-result {

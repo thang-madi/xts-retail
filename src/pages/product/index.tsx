@@ -13,9 +13,10 @@ import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/type
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './ProductList'                      // product
-import ViewPage from './ProductView'                      // product
-import EditPage from './ProductEdit'                      // product
+import ListPage from './ObjectList'
+import ViewPage from './ObjectView'
+import EditPage from './ObjectEdit'
+
 
 /////////////////////////////////////////////
 // Main component
