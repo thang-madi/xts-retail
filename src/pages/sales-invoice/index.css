@@ -72,6 +72,12 @@ ObjectListSettings
     font-weight: bold;
 }
 
+.sales-invoice-edit-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .sales-invoice-edit-item-customer {
     width: calc(100% - 50px);
     max-width: 700px;

@@ -1,5 +1,5 @@
 .App {
-    text-align: center;
+	text-align: center;
 }
 
 /* .App-logo {
@@ -50,36 +50,42 @@
 } */
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 .lazyload {
-    opacity: 0;
-    transition: opacity 0.5s;
+	opacity: 0;
+	transition: opacity 0.5s;
 }
 
 .lazyloaded {
-    opacity: 1;
+	opacity: 1;
 }
 
 .custom-spin-wrapper {
-    /* Màu nền mờ */
-    background-color: rgba(0, 0, 0, 0.1);
-    /* Khoảng cách bên trong */
-    padding: 20px;
-    /* Bo góc */
-    border-radius: 10px;
-    /* Sử dụng flexbox */
-    display: flex;
-    /* Căn giữa theo chiều ngang */
-    justify-content: center;
-    /* Căn giữa theo chiều dọc */
-    align-items: center;
-    /* Chiều cao toàn màn hình */
-    height: 100vh;
-    width: 100vw;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+	/* Màu nền mờ */
+	background-color: rgba(0, 0, 0, 0.1);
+	/* Khoảng cách bên trong */
+	padding: 20px;
+	/* Bo góc */
+	border-radius: 10px;
+	/* Sử dụng flexbox */
+	display: flex;
+	/* Căn giữa theo chiều ngang */
+	justify-content: center;
+	/* Căn giữa theo chiều dọc */
+	align-items: center;
+	/* Chiều cao toàn màn hình */
+	height: 100vh;
+	width: 100vw;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.ant-drawer-content-wrapper {
+	/* height: calc(100%-74px) !important; */
+	top: var(--status-bar-height) !important;
+	bottom: var(--nav-bar-height) !important;
 }

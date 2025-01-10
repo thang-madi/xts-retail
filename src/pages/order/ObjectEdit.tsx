@@ -25,7 +25,7 @@ import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
 import { XTSItemValue } from '../../data-objects/types-form'
-import { createXTSObject, getXTSEnum, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnum, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
@@ -269,7 +269,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     //     
 
     return (
-        <div className='order-edit'>
+        <div className='sales-order-edit'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
@@ -295,23 +295,20 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     {...commonItemProps}
                 />
 
-                <Card className='order-edit-header' >
+                <Card className='sales-order-edit-header' >
 
-                    <div className='order-edit-title' >
-                        {dataObject.objectId.presentation
-                            .replace('của khách', '')
-                            .replace('(chưa kết chuyển)', '(nháp)')
-                            .replace('Đơn hàng', 'Đơn hàng số')}
+                    <div className='sales-order-edit-title' >
+                        {objectPresentation(dataObject.objectId)}
                     </div>
 
-                    <Divider className='order-edit-divider' orientation='center' />
+                    <Divider className='sales-order-edit-divider' orientation='center' />
 
                     <FormInput
                         itemName='customer'
                         dataType='XTSCounterparty'
                         itemProps={{
                             // className: 'edit-item-customer',
-                            className: 'order-edit-item-label',
+                            className: 'sales-order-edit-item-label',
                             label: 'Khách hàng',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -325,34 +322,34 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         {...commonItemProps}
                     />
 
-                    <div className={(company) && 'order-edit-item-visible' || 'order-edit-item-hidden'}>
+                    <div className={(company) && 'sales-order-edit-item-visible' || 'sales-order-edit-item-hidden'}>
                         <FormSelect
                             itemName='orderState'
                             dataType='XTSSalesOrderState'
                             itemProps={{
-                                className: 'order-edit-item-label',
+                                className: 'sales-order-edit-item-label',
                                 label: 'Trạng thái đơn hàng',
                                 required: false,
                                 labelCol: { span: 4 },
                             }}
                             selectProps={{
-                                className: 'order-edit-item-order-state-value',
+                                className: 'sales-order-edit-item-order-state-value',
                                 required: false,
                                 disabled: (!company) && true || false,
                             }}
                             {...commonItemProps}
                         />
                     </div>
-                    <div className={(company) && 'order-edit-item-hidden' || 'order-edit-item-visible'}>
+                    <div className={(company) && 'sales-order-edit-item-hidden' || 'sales-order-edit-item-visible'}>
                         Trạng thái đơn hàng: <OrderStateTag value={dataObject.orderState?.presentation} />
                     </div>
 
-                    <div className={(user) && 'order-edit-item-visible' || 'order-edit-item-hidden'}>
+                    <div className={(user) && 'sales-order-edit-item-visible' || 'sales-order-edit-item-hidden'}>
                         <FormInput
                             itemName='employeeResponsible'
                             dataType='XTSEmployee'
                             itemProps={{
-                                className: 'order-edit-item-label',
+                                className: 'sales-order-edit-item-label',
                                 label: 'Nhân viên',
                                 labelCol: { span: 4 },
                                 wrapperCol: { span: 20 },
@@ -372,7 +369,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         dataType='String'
                         // multiline={true}
                         itemProps={{
-                            className: 'order-edit-item-label',
+                            className: 'sales-order-edit-item-label',
                             label: 'Địa chỉ giao hàng',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -391,7 +388,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         dataType='String'
                         multiline={true}
                         itemProps={{
-                            className: 'order-edit-item-label',
+                            className: 'sales-order-edit-item-label',
                             label: 'Ghi chú',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -405,9 +402,9 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         {...commonItemProps}
                     />
 
-                    <Divider className='order-edit-divider' orientation='center' />
+                    <Divider className='sales-order-edit-divider' orientation='center' />
 
-                    <div className='order-edit-item' >
+                    <div className='sales-order-edit-item' >
                         <div>Số tiền đơn hàng: </div>
                         <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
                     </div>

@@ -40,7 +40,7 @@
 .home-page-sales-group {
     margin: 10px;
     margin-top: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .home-page-sales-group .ant-card-body {
@@ -70,7 +70,7 @@
 .home-page-payment-group {
     margin: 10px;
     margin-top: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
@@ -97,8 +97,8 @@
     /* height: 100px; */
     margin: 10px;
     margin-top: 0px;
-    margin-bottom: 0px;
-    padding-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 15px;
     /* display: grid; */
     /* grid-template-columns: repeat(3, 1fr); */
     display: flex;
@@ -132,4 +132,34 @@
 
 .float-button-icon {
     color: white;
+}
+
+/* Create */
+.home-page-create-group {
+    margin: 10px;
+    margin-bottom: 0px;
+    padding: 10px;
+    /* display: grid; */
+    /* grid-template-columns: repeat(3, 1fr); */
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    background-color: lightblue;
+}
+
+.home-page-create-group .ant-card-body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+
+.home-page-button {
+    margin: 0px;
+    width: 90px;
+    min-height: 40px;
+    color: cadetblue;
+    border-radius: 20px;
+    /* font-weight: bold; */
 }

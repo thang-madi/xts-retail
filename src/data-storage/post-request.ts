@@ -220,6 +220,13 @@ export async function postRequestWithThunk(requestData: XTSRequestData, thunkAPI
                 dispatch(sliceActions.updateReportData(responseData))
                 break
 
+            // Related documents
+            case 'XTSGetRelatedDocumentsResponse':
+                const documents = responseData.documents
+                dispatch(sliceActions.setTemp(responseData))
+                dispatch(sliceActions.setRelatedDocuments(documents))
+                break
+
             default:
                 throw new Error('Error: incorrect ResponseObject!')
         }

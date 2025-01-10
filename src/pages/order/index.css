@@ -15,90 +15,90 @@ ListSettings
 /* OrderProductRow */
 
 /* OrderList */
-.order-list {
+.sales-order-list {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
 /* OrderView */
-.order-view {
+.sales-order-view {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.order-view-divider {
+.sales-order-view-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.order-view-item {
+.sales-order-view-item {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin: 0px;
 }
 
-.order-view-item-title {
+.sales-order-view-item-title {
     min-width: 100;
 }
 
 /* OrderPrint */
-.order-print {
+.sales-order-print {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
 /* OrderEdit */
-.order-edit {
+.sales-order-edit {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.order-edit-header {
+.sales-order-edit-header {
     margin: 5px;
 }
 
-.order-edit-title {
+.sales-order-edit-title {
     font-weight: bold;
 }
 
-.order-edit-item-customer {
+.sales-order-edit-item-customer {
     width: calc(100% - 50px);
     max-width: 700px;
     margin-bottom: 12px;
 }
 
-.order-edit-item-visible {
+.sales-order-edit-item-visible {
     display: block;
 }
 
-.order-edit-item-hidden {
+.sales-order-edit-item-hidden {
     display: none;
 }
 
-.order-edit-item-order-state {
+.sales-order-edit-item-order-state {
     width: 200px;
 
 }
 
-.order-edit-item-label {
+.sales-order-edit-item-label {
     max-width: 700px;
     margin-bottom: 12px;
 }
 
-.order-edit-divider {
+.sales-order-edit-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 15px;
 }
 
 /* PaymentEdit */
-.order-payment {
+.sales-order-payment {
     width: 100%;
     height: 400px;
     overflow-y: auto;
@@ -106,29 +106,29 @@ ListSettings
     margin: 0;
 }
 
-.order-payment-header {
+.sales-order-payment-header {
     font-weight: bold;
 }
 
-.order-payment-divider {
+.sales-order-payment-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.order-payment-amount-group {
+.sales-order-payment-amount-group {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
-.order-payment-payment-block {
+.sales-order-payment-payment-block {
     display: flex;
     flex-direction: column;
     /* width: 50px; */
 }
 
-.order-payment-payment-group {
+.sales-order-payment-payment-group {
     display: flex;
     flex-direction: row;
     padding-top: 10px;
@@ -138,32 +138,32 @@ ListSettings
     /* align-content: center; */
 }
 
-.order-payment-payment-title {
+.sales-order-payment-payment-title {
     width: 110px;
     height: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.order-payment-payment-form-item {
+.sales-order-payment-payment-form-item {
     /* height: px; */
     margin-bottom: 10px;
 }
 
-.order-payment-buttons-group {
+.sales-order-payment-buttons-group {
     display: flex;
     margin-top: 20px;
     margin-bottom: 0px;
     /* padding: 10px; */
 }
 
-.order-payment-button-left {
+.sales-order-payment-button-left {
     width: 50px;
     margin-left: 10px;
     height: 32px;
 }
 
-.order-payment-form-button {
+.sales-order-payment-form-button {
     width: 50px;
     max-width: 100px;
     margin-left: 10px;
@@ -172,84 +172,90 @@ ListSettings
 
 
 /* OrderStateTag */
-.order-order-state-tag-editing {
+.sales-order-order-state-tag-editing {
     color: dimgrey;
     border-color: dimgrey;
+    margin-right: 0px;
 }
 
-.order-order-state-tag-to-prepay {
+.sales-order-order-state-tag-to-prepay {
     color: white;
     border-color: red;
     background-color: red;
+    margin-right: 0px;
 }
 
-.order-order-state-tag-preparing {
+.sales-order-order-state-tag-preparing {
     color: red;
     border-color: red;
+    margin-right: 0px;
 }
 
-.order-order-state-tag-transporting {
+.sales-order-order-state-tag-transporting {
     color: blue;
     border-color: blue;
+    margin-right: 0px;
 }
 
-.order-order-state-tag-delivered {
+.sales-order-order-state-tag-delivered {
     color: cornflowerblue;
     border-color: cornflowerblue;
     font-style: italic;
+    margin-right: 0px;
 }
 
-.order-order-state-tag-completed {
+.sales-order-order-state-tag-completed {
     color: gray;
     border-color: gray;
     text-decoration: line-through;
     font-style: italic;
+    margin-right: 0px;
 }
 
 /* OrderInventory */
-.order-inventory-edit {
+.sales-order-inventory-edit {
     overflow-y: auto;
     margin: 0px;
 }
 
-.order-inventory-edit-card {
+.sales-order-inventory-edit-card {
     margin: 0px;
     height: 122px;
 }
 
-.order-inventory-edit-card .ant-card-body {
+.sales-order-inventory-edit-card .ant-card-body {
     display: flex;
     width: 100%;
     align-items: center;
     padding: 0px !important;
 }
 
-.order-inventory-edit-card-picture {
+.sales-order-inventory-edit-card-picture {
     width: 120px;
     height: 120px;
     overflow: hidden;
 }
 
-.order-inventory-edit-card-picture-image {
+.sales-order-inventory-edit-card-picture-image {
     object-fit: cover,
 }
 
-.order-inventory-edit-card-info {
+.sales-order-inventory-edit-card-info {
     padding-left: 15px;
     padding-right: 20px;
     flex-grow: 1;
 }
 
-.order-inventory-edit-card-info-description {
+.sales-order-inventory-edit-card-info-description {
     font-weight: bold;
 }
 
-.order-inventory-edit-amount {
+.sales-order-inventory-edit-amount {
     display: flex;
     justify-content: space-between;
 }
 
-.order-inventory-edit-quantity {
+.sales-order-inventory-edit-quantity {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -258,38 +264,38 @@ ListSettings
 }
 
 @media (max-width:575px) {
-    .order-inventory-edit-quantity-title-long {
+    .sales-order-inventory-edit-quantity-title-long {
         display: none;
     }
 }
 
 @media (min-width:576px) {
-    .order-inventory-edit-quantity-title-short {
+    .sales-order-inventory-edit-quantity-title-short {
         display: none;
         margin-left: 6px;
     }
 }
 
-.order-inventory-edit-quantity-title-long {
+.sales-order-inventory-edit-quantity-title-long {
     min-width: 1px;
     margin-right: 5px;
 }
 
-.order-inventory-edit-quantity-title-short {
+.sales-order-inventory-edit-quantity-title-short {
     min-width: 1px;
     margin-right: 5px;
 }
 
-.order-inventory-edit-quantity-group {
+.sales-order-inventory-edit-quantity-group {
     display: flex;
 }
 
-.order-inventory-edit-uom {
+.sales-order-inventory-edit-uom {
     width: 100px;
     margin-bottom: 0px;
 }
 
-.order-inventory-edit-price {
+.sales-order-inventory-edit-price {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -298,7 +304,7 @@ ListSettings
 }
 
 /* OrderCard */
-.order-card {
+.sales-order-card {
     display: flex;
     margin: 5px;
     padding: 20px;
@@ -306,7 +312,7 @@ ListSettings
     /* flex-direction: column; */
 }
 
-.order-card .ant-card-body {
+.sales-order-card .ant-card-body {
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -315,17 +321,17 @@ ListSettings
     margin: 0px;
 }
 
-.order-card-divider {
+.sales-order-card-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.order-card-title {
+.sales-order-card-title {
     font-weight: bold;
 }
 
-.order-card-row {
+.sales-order-card-row {
     display: flex;
     width: 100%;
     justify-content: space-between;

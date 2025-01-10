@@ -43,14 +43,15 @@ export interface XTSPrintPageProps {
     choiceItemValue: (itemValue: XTSItemValue) => void
 }
 
-export interface XTSRelatedPageProps {
-    objectId: XTSObjectId
-    title: string
-    open: boolean
-    pageName: string
-    // itemValue: XTSItemValue
-    choiceItemValue: (itemValue: XTSItemValue) => void
-}
+// Đã được khai báo trong component RelatedPage
+// export interface XTSRelatedPageProps {
+//     objectId: XTSObjectId
+//     title: string
+//     open: boolean
+//     pageName: string
+//     // itemValue: XTSItemValue
+//     choiceItemValue: (itemValue: XTSItemValue) => void
+// }
 
 /////////////////////////////////////////////
 // Object's

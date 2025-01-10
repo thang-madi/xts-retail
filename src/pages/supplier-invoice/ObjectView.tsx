@@ -21,7 +21,7 @@ import { BottomBar } from '../../components/ContextMenu'
 import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
 import { ObjectInventoryView } from './ObjectInventory'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
-import { createXTSObject, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { REQUEST_STATUSES } from '../../commons/enums'
@@ -41,6 +41,7 @@ import PrintPage from '../../hocs/PrintPage'
 import RelatedPage from '../../hocs/RelatedPage'
 
 import './index.css'
+import { getLabels } from './common'
 
 /////////////////////////////////////////////
 // Main component
@@ -66,6 +67,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         status
     } = useGetDataObject(getDataObjectParams)
 
+    const labels = getLabels(dataObject)
     // console.log('dataObject', dataObject)
 
     const openPageParams: UseOpenPageParams = {
@@ -103,7 +105,6 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }
 
     const viewRelatedItems = () => {
-        // doItem(ITEM_VALUE_ACTIONS.GET_RELATED)
         setRelatedOpen(true)
     }
 
@@ -117,7 +118,6 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             const url = printFormURL(printFormParams)
             TWA.openLink(url)
         } else {
-            // doItem(ITEM_VALUE_ACTIONS.PRINT)
             setPrintOpen(true)
         }
     }
@@ -265,38 +265,42 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     return (
 
-        <div className='sales-invoice-view'>
+        <div className='supplier-invoice-view'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
-            <Card className='sales-invoice-view-header'>
+            <Card className='supplier-invoice-view-header'>
 
-                <div className='sales-invoice-view-title'>
-                    {dataObject.objectId.presentation
-                        .replace('Hóa đơn nhận hàng', 'Nhận hàng')
-                        .replace('(chưa kết chuyển)', '(nháp)')}
+                <div className='supplier-invoice-view-title'>
+                    {objectPresentation(dataObject.objectId, dataObject.operationKind)}
                 </div>
 
-                <Divider className='sales-invoice-view-divider' orientation='center' />
+                <Divider className='supplier-invoice-view-divider' orientation='center' />
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'
-                    >Khách hàng: </div>
+                <div className='supplier-invoice-view-item'>
+                    <div className='supplier-invoice-view-item-title'
+                    >Cơ sở: </div>
+                    <div>{objectPresentation(dataObject.docOrder)}</div>
+                </div>
+
+                <div className='supplier-invoice-view-item'>
+                    <div className='supplier-invoice-view-item-title'
+                    >{labels.counterpartyLabel}: </div>
                     <div>{dataObject.counterparty.presentation}</div>
                 </div>
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'
+                <div className='supplier-invoice-view-item'>
+                    <div className='supplier-invoice-view-item-title'
                     >Địa chỉ giao hàng: </div>
                     <div>{dataObject.deliveryAddress}</div>
                 </div>
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'>Ghi chú: </div>
+                <div className='supplier-invoice-view-item'>
+                    <div className='supplier-invoice-view-item-title'>Ghi chú: </div>
                     <div>{dataObject.comment}</div>
                 </div>
 
-                <Divider className='sales-invoice-view-divider' orientation='center' />
+                <Divider className='supplier-invoice-view-divider' orientation='center' />
 
                 {/* <div className='view-page-item'>
                     <div>Giá trị giao hàng: </div>
@@ -322,9 +326,9 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     <div>{'__ %'}</div>
                 </div> */}
 
-                {/* <Divider className='sales-invoice-view-divider' orientation='center' /> */}
+                {/* <Divider className='supplier-invoice-view-divider' orientation='center' /> */}
 
-                <div className='sales-invoice-view-item'>
+                <div className='supplier-invoice-view-item'>
                     <div>Số tiền giao hàng: </div>
                     {/* <b>{VND(dataObject.documentAmount)}</b> */}
                     <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} {dataObject.documentCurrency?.presentation}</b>
@@ -389,10 +393,10 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
                 editItem={{ onClick: editItem, visible: editButton }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
-                // relatedDocuments={{ onClick: viewRelatedItems }}
+                relatedDocuments={{ onClick: viewRelatedItems }}
                 refresh={{ onClick: refreshObject, }}
-            // action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: paymentButton }}
-            // action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
+                // action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: paymentButton }}
+                action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
             // action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-button-icon' />, visible: deliveredButton }}
             />
 

@@ -39,13 +39,21 @@ export const reducers = {
         }
     },
 
-    // setTemp(state: XTSCurrentState, action: XTSSliceAction) {
-    //     state.tempData = action.payload
-    // },
+    setTemp(state: XTSCurrentState, action: XTSSliceAction) {
+        state.tempData = action.payload
+    },
 
-    // setStatus(state: XTSCurrentState, action: XTSSliceAction) {
-    //     state.status = action.payload
-    // },
+    setStatus(state: XTSCurrentState, action: XTSSliceAction) {
+        state.status = action.payload
+    },
+
+    setRelatedDocuments(state: XTSCurrentState, action: XTSSliceAction) {
+        state.relatedDocuments = action.payload
+    },
+
+    clearRelatedDocuments(state: XTSCurrentState) {
+        state.relatedDocuments = []
+    },
 
 }
 

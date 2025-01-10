@@ -24,7 +24,6 @@ import './index.css'
 export interface ContextMenuButton {
     key?: string
     visible?: boolean
-    // className?: string
     title?: string
     hint?: string
     icon?: ReactNode
@@ -32,7 +31,6 @@ export interface ContextMenuButton {
 }
 
 export interface ContextMenuProps {
-    // open?: boolean
     stepBack?: ContextMenuButton
     refresh?: ContextMenuButton
     loadMore?: ContextMenuButton

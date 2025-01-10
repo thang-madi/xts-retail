@@ -28,7 +28,7 @@ import { Loader } from '../../components/Loader'
 // Main component
 
 // OK
-const CustomerViewPage: React.FC<XTSObjectViewProps> = (props) => {
+const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const { itemValue, pageId } = props
 
@@ -173,4 +173,4 @@ const CustomerViewPage: React.FC<XTSObjectViewProps> = (props) => {
 /////////////////////////////////////////////
 // Export's
 
-export default CustomerViewPage
+export default ObjectViewPage

@@ -104,6 +104,8 @@ export function initialState_Current() {
         pageId: '',
         pageAction: PAGE_ACTIONS.NONE,
 
+        relatedDocuments: [],
+
         // dashboard: {
         //     sales: 0,
         //     receiptCash: 0,

@@ -26,7 +26,7 @@ import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
 import { XTSItemValue } from '../../data-objects/types-form'
-import { createXTSObject, getXTSEnum, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnum, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
@@ -77,8 +77,9 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         setDataObject,
     } = useGetDataObject(getDataObjectParams)
 
-    // console.log('OrderEdit.object_id', object_id)
-    // console.log('OrderEdit.formData', formData)
+    Object.assign(dataObject, itemValue.dataItem)
+    // console.log('OrderEdit.itemValue.dataItem', itemValue.dataItem)
+    // console.log('OrderEdit.dataObject', dataObject)
 
     const pageName = dataType
     const pos = dataObject?.objectId.presentation.indexOf('ngày')
@@ -323,13 +324,15 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 <Card className='sales-invoice-edit-header'>
 
                     <div className='sales-invoice-edit-title'>
-                        {dataObject.objectId.presentation
-                            .replace('của khách', '')
-                            .replace('(chưa kết chuyển)', '(nháp)')
-                            .replace('Đơn hàng', 'Đơn hàng số')}
+                        {objectPresentation(dataObject.objectId)}
                     </div>
 
                     <Divider className='sales-invoice-edit-divider' orientation='center' />
+
+                    <div className='sales-invoice-edit-item'>
+                        <div className='sales-invoice-edit-item-label'>Cơ sở: </div>
+                        <div>{objectPresentation(dataObject.docOrder)}</div>
+                    </div>
 
                     <FormInput
                         itemName='counterparty'
@@ -431,7 +434,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <Divider className='sales-invoice-edit-divider' orientation='center' />
 
-                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                    <div className='sales-invoice-edit-item' >
                         <div>Số tiền giao hàng: </div>
                         <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
                     </div>

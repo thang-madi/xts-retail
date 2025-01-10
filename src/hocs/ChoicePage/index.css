@@ -3,6 +3,8 @@
 .modal-page {
     /* width: 100%; */
     /* height: 50vh; */
+    /* top: 30px !important;
+    bottom: 44px !important; */
     margin: 0px;
     padding: 0px;
 }
@@ -10,6 +12,12 @@
 .modal-page .ant-modal-close {
     left: 16px;
     right: auto;
+}
+
+.modal-page .ant-drawer-content-wrapper {
+    height: calc(100%-74px) !important;
+    top: 30px !important;
+    bottom: 44px !important;
 }
 
 .modal-page-index-page {

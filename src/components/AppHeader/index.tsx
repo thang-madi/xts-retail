@@ -128,45 +128,15 @@ const AppHeader: React.FC = () => {
         }
     }, [status, tempData])
 
-    useEffect(() => {
-
-        if (TWA.platform !== 'unknown') {
-
-            // Tải về products
-            const params = {
-                dataType: 'XTSProduct',
-                requestParams: {},
-                length: 0,
-                count: 100,
-            }
-            const requestProducts = requestData_DownloadObjectList(params.dataType, params.requestParams)
-            const { actions, apiRequest } = getXTSSlice('XTSProduct')
-            // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-            dispatch(actions.setTemp(null))
-            dispatch(apiRequest(requestProducts))
-
-            // Tải về orders
-            params.dataType = 'XTSOrder'
-            const requestOrders = requestData_GetObjectList(params.dataType, params.length, params.count, params.requestParams)
-            // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-            dispatch(actions.setTemp(null))
-            dispatch(apiRequest(requestOrders))
-        }
-    }, [])
-
     /////////////////////////////////////////
     // 
 
     return (
         <div className={`app-header${(isFullscreenTDesktop()) && ' app-header-desktop' || ''}${(isFullscreenAndroid() || isFullscreenIOS()) && ' app-header-mobile' || ''}`}>
-            {/* <div className={`app-header${(isFullscreenAndroid() || isFullscreenIOS()) && ' app-header-mobile' || ''}`}> */}
 
             <Loader isLoading={loading} spinProps={{ fullscreen: false }} />
 
             <Button
-                // className={(TWA.isFullscreen) && 'app-header-menu-icon-fullscreen' || 'app-header-menu-icon'}
                 className={'app-header-menu-icon' + (menuVisible && ' ' || ' app-header-menu-icon-hidden') + (TWA.isFullscreen && ' app-header-menu-icon-fullscreen' || '')}
                 onClick={openMenu}
                 icon={<MenuOutlined className='app-header-menu-icon-image' />}

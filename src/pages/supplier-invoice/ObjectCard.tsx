@@ -10,7 +10,7 @@ import { Form, Button, Space, Card, List, Descriptions, Divider, Tag } from 'ant
 // import { setValue } from '../../data-storage/slice-current'
 import { CheckOutlined, SelectOutlined } from '@ant-design/icons'
 import { ITEM_VALUE_ACTIONS, XTSObjectCardProps } from '../../data-objects/types-components'
-import { createXTSObject } from '../../data-objects/common-use'
+import { createXTSObject, objectPresentation } from '../../data-objects/common-use'
 
 /////////////////////////////////////////////
 // Object's
@@ -58,12 +58,15 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
             onClick={clickItem}
         >
             <div className='supplier-invoice-card-title' >
-                {formData.objectId.presentation
-                    .replace('Hóa đơn nhận hàng', 'Nhận hàng số ')
-                    .replace('(chưa kết chuyển)', '(nháp)')}
+                {objectPresentation(formData.objectId, formData.operationKind)}
             </div>
 
             <Divider className='supplier-invoice-card-divider' orientation='center' />
+
+            <div className='supplier-invoice-view-item'>
+                <div className='supplier-invoice-view-item-title'>Cơ sở: </div>
+                <div>{objectPresentation(formData.docOrder)}</div>
+            </div>
 
             <div className='supplier-invoice-card-row' >
                 <div>Nhà cung cấp: </div>

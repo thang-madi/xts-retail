@@ -52,41 +52,41 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     return (
         <Card
-            className='order-card'
+            className='sales-order-card'
             onClick={clickItem}
         >
-            <div className='order-card-title' >
+            <div className='sales-order-card-title' >
                 {formData.objectId.presentation
                     .replace('của khách', '')
                     .replace('(chưa kết chuyển)', '(nháp)')
                     .replace('Đơn hàng', 'Đơn hàng số')}
             </div>
 
-            <Divider className='order-card-divider' orientation='center' />
+            <Divider className='sales-order-card-divider' orientation='center' />
 
-            <div className='order-card-row' >
+            <div className='sales-order-card-row' >
                 <div>Khách hàng: </div>
                 <div>{formData.customer?.presentation}</div>
             </div>
 
-            <div className='order-card-row' >
+            <div className='sales-order-card-row' >
                 <div>Trạng thái đơn hàng: </div>
                 <OrderStateTag value={formData.orderState?.presentation} />
             </div>
 
-            <div className='order-card-row'>
+            <div className='sales-order-card-row'>
                 <div>Tỷ lệ thanh toán: </div>
                 <div>{'__ %'}</div>
             </div>
 
-            <div className='order-card-row'>
+            <div className='sales-order-card-row'>
                 <div>Tỷ lệ giao hàng: </div>
                 <div>{'__ %'}</div>
             </div>
 
-            <Divider className='order-card-divider' orientation='center' />
+            <Divider className='sales-order-card-divider' orientation='center' />
 
-            <div className='order-card-row'>
+            <div className='sales-order-card-row'>
                 <div>Số tiền đơn hàng: </div>
                 <b>{formData.documentAmount?.toLocaleString('vi-VN')} đồng</b>
             </div>

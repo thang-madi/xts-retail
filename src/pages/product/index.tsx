@@ -29,9 +29,16 @@ const ProductsPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const id = searchParams.get('id')
-    let action = (id) && ITEM_VALUE_ACTIONS.VIEW || undefined
-    if (searchParams.get('edit') === 'true') {
+    // let action = (id) && ITEM_VALUE_ACTIONS.VIEW || undefined
+    // if (searchParams.get('edit') === 'true') {
+    //     action = ITEM_VALUE_ACTIONS.EDIT
+    // }
+
+    let action = ITEM_VALUE_ACTIONS.LIST
+    if (!props.itemName && searchParams.get('edit')) {
         action = ITEM_VALUE_ACTIONS.EDIT
+    } else if (!props.itemName && id) {
+        action = ITEM_VALUE_ACTIONS.VIEW
     }
 
     const afterSave = (tempData: any): void => {

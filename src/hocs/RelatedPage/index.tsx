@@ -1,69 +1,88 @@
 /////////////////////////////////////////////
 // Standard's
 
-import { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Drawer } from 'antd'
+import { ReactNode, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Drawer, Modal } from 'antd'
 
 /////////////////////////////////////////////
 // Application's
 
-import { useIndexPage, useOpenPage, UseOpenPageParams, useStepBack } from '../../hooks/usePage'
-import { ITEM_VALUE_ACTIONS, XTSObjectRelatedProps, XTSRelatedPageProps } from '../../data-objects/types-components'
+// import { actions } from '../data-storage/slice-current'
+import { ITEM_VALUE_ACTIONS, XTSChoicePageProps, XTSObjectEditProps, XTSObjectViewProps } from '../../data-objects/types-components'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { createXTSObject } from '../../data-objects/common-use'
-import { generateUUID } from '../../commons/common-use'
+
+import CustomersPage from '../../pages/customer'
+import OrdersPage from '../../pages/order'
+import ProductsPage from '../../pages/product'
+import UOMClassifierPage from '../../pages/uom-classifier'
+import EmployeesPage from '../../pages/employee'
+import StructuralUnitsPage from '../../pages/structural-unit'
+
+// import CashReceiptPage from '../../pages/cash-receipt'
+// import PaymentReceiptPage from '../../pages/payment-receipt'
+// import SalesInvoicePage from '../../pages/sales-invoice'
+// import SupplierInvoicePage from '../../pages/supplier-invoice'
 
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './RelatedList'
-import ViewPage from './RelatedView'
+import './index.css'
+import { XTSObject, XTSObjectId } from '../../data-objects/types-common'
+import RelatedIndexPage from './RelatedIndex'
+// import { XTSCashReceipt } from '../../data-objects/types-application'
 
-// import EditPage from './RelatedEdit'                   
+import OrderViewPage from '../../pages/order/ObjectView'
+import OrderEditPage from '../../pages/order/ObjectEdit'
+import OrderListPage from '../../pages/order/ObjectList'
+
+import SalesInvoiceViewPage from '../../pages/sales-invoice/ObjectView'
+import SalesInvoiceEditPage from '../../pages/sales-invoice/ObjectEdit'
+import SalesInvoiceListPage from '../../pages/sales-invoice/ObjectList'
+
+import SupplierInvoiceViewPage from '../../pages/supplier-invoice/ObjectView'
+import SupplierInvoiceEditPage from '../../pages/supplier-invoice/ObjectEdit'
+import SupplierInvoiceListPage from '../../pages/supplier-invoice/ObjectList'
+
+// import CashReceiptViewPage from '../../pages/cash-receipt/ObjectView'
+// import CashReceiptEditPage from '../../pages/cash-receipt/ObjectEdit'
+// import CashReceiptListPage from '../../pages/cash-receipt/ObjectList'
+
+// import CashPaymentViewPage from '../../pages/cash-payment/ObjectView'
+// import CashPaymentEditPage from '../../pages/cash-payment/ObjectEdit'
+// import CashPaymentListPage from '../../pages/cash-payment/ObjectList'
+
+// import PaymentReceiptViewPage from '../../pages/payment-receipt/ObjectView'
+// import PaymentReceiptEditPage from '../../pages/payment-receipt/ObjectEdit'
+// import PaymentReceiptListPage from '../../pages/payment-receipt/ObjectList'
+
+// import PaymentExpenseViewPage from '../../pages/payment-expense/ObjectView'
+// import PaymentExpenseEditPage from '../../pages/payment-expense/ObjectEdit'
+// import PaymentExpenseListPage from '../../pages/payment-expense/ObjectList'
 
 /////////////////////////////////////////////
-// Main component
+// Main's
 
-function getPage(action: ITEM_VALUE_ACTIONS): any {
-
-    // switch (action) {
-    //     case ITEM_VALUE_ACTIONS.VIEW:
-    //         return (
-    //             <ViewPage
-    //                 pageId={params.pageId}
-    //                 objectId={params.objectId}
-    //                 // itemName={props.itemName}
-    //                 choiceItemValue={params.choiceItemValue}
-    //                 stepBack={params.stepBack}
-    //             />
-    //         )
-    //     default:
-    //         return (
-    //             <ListPage
-    //                 pageId={pageId}
-    //                 itemName={props.itemName}
-    //                 choiceItemValue={choiceItemValue}
-    //                 stepBack={stepBack}
-    //                 renderKey={props.renderKey}
-    //             />
-    //         )
-    // }
-    switch (action) {
-        case ITEM_VALUE_ACTIONS.VIEW:
-            return ViewPage
-        default:
-            return ListPage
-    }
+export interface XTSRelatedPageProps {
+    objectId: XTSObjectId
+    dataObject?: XTSObject
+    title: string
+    open: boolean
+    pageName: string
+    choiceItemValue: (itemValue: XTSItemValue) => void
 }
+
+
 
 // OK
 const RelatedPage: React.FC<XTSRelatedPageProps> = (props) => {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const { objectId } = props
     const [renderKey, setRenderKey] = useState(0)
-    const [itemValue, setItemValue] = useState<XTSItemValue>(createXTSObject('XTSItemValue', { action: ITEM_VALUE_ACTIONS.LIST }))
+    // const [itemValue, setItemValue] = useState<XTSItemValue>(createXTSObject('XTSItemValue', { action: ITEM_VALUE_ACTIONS.LIST }))
 
     const closeRelatedPage = () => {
         const itemValue = createXTSObject('XTSItemValue', { dataType: objectId.dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
@@ -71,74 +90,38 @@ const RelatedPage: React.FC<XTSRelatedPageProps> = (props) => {
     }
 
     const choiceItemValue = (itemValue: XTSItemValue) => {
-        if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
-            setItemValue(itemValue)
-        } else {
-            props.choiceItemValue(itemValue)
-        }
+        props.choiceItemValue(itemValue)
     }
-
-    const stepBack = () => {
-        const newItemValue = createXTSObject('XTSItemValue', itemValue)
-        if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
-            newItemValue.action = ITEM_VALUE_ACTIONS.LIST
-            setItemValue(newItemValue)
-        } else {
-            // Đóng Modal
-            // newItemValue.action = ITEM_VALUE_ACTIONS.ESCAPE
-            // props.choiceItemValue(newItemValue)
-            closeRelatedPage()
-            console.log('props.choiceItemValue', props.choiceItemValue)
-        }
-    }
-
-    const [pageId] = useState(generateUUID())
-    useStepBack({ pageId, stepBack })
-
-    const openPageParams: UseOpenPageParams = {
-        pageId,
-        pageName: props.pageName,
-        pageTitle: props.title,
-        renderKey: renderKey
-    }
-    useOpenPage(openPageParams)
-
-    /////////////////////////////////////////////
-    //
 
     useEffect(() => {
         if (props.open) {
             setRenderKey(prevValue => prevValue + 1)
-            setItemValue(createXTSObject('XTSItemValue', { action: ITEM_VALUE_ACTIONS.LIST }))
         }
     }, [props.open])
 
-    const Page = getPage(itemValue.action)
-    // console.log('Page', Page)
+    // console.log('props.dataObject', props.dataObject)
 
     /////////////////////////////////////////////
-    //
+    // 
 
     return (
         <Drawer
-            className='modal-page'
+            className='related-modal-page'
             title={props.title}
             open={props.open}
             width='100%'
             onClose={closeRelatedPage}
         >
-            <Page
-                pageId={pageId}
+            <RelatedIndexPage
+                // pageId={pageId}
                 objectId={objectId}
+                dataObject={props.dataObject}
                 choiceItemValue={choiceItemValue}
-                stepBack={stepBack}
+                // stepBack={stepBack}
                 renderKey={renderKey}
             />
         </Drawer >
     )
 }
-
-/////////////////////////////////////////////
-// Export
 
 export default RelatedPage

@@ -26,7 +26,7 @@ import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
 import { XTSItemValue } from '../../data-objects/types-form'
-import { createXTSObject, getXTSEnum, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnum, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
@@ -37,6 +37,7 @@ import { RootState } from '../../data-storage'
 import { ObjectInventoryEdit } from './ObjectInventory'                 // 
 
 import './index.css'
+import { getLabels } from './common'
 
 /////////////////////////////////////////////
 // Main component
@@ -77,12 +78,15 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         setDataObject,
     } = useGetDataObject(getDataObjectParams)
 
-    // console.log('OrderEdit.object_id', object_id)
+    Object.assign(dataObject, itemValue.dataItem)
+    const labels = getLabels(dataObject)
+
+    // console.log('OrderEdit.dataObject', dataObject)
     // console.log('OrderEdit.formData', formData)
 
     const pageName = dataType
     const pos = dataObject?.objectId.presentation.indexOf('ngày')
-    const pageTitle = (!itemValue?.id) && 'Đơn hàng mới' || dataObject.objectId.presentation.substring(0, pos) + ' (soạn)'
+    const pageTitle = (!itemValue?.id) && 'Nhận hàng *' || dataObject.objectId.presentation.substring(0, pos) + ' (soạn)'
     const openPageParams: UseOpenPageParams = {
         pageId,
         pageName,
@@ -252,7 +256,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Buttons status
 
     const [saveButton, setSaveButton] = useState<boolean>(false)
-    const [sendButton, setSendButton] = useState<boolean>(false)
+    // const [sendButton, setSendButton] = useState<boolean>(false)
 
     useEffect(() => {
         if (status !== REQUEST_STATUSES.IDLE) {
@@ -265,15 +269,15 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             setSaveButton(true)
         }
 
-        if (status !== REQUEST_STATUSES.IDLE) {
-            setSendButton(false)
-            // } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
-            //     setSendButton(false)
-        } else if (company) {
-            setSendButton(false)
-        } else {
-            setSendButton(true)
-        }
+        // if (status !== REQUEST_STATUSES.IDLE) {
+        //     setSendButton(false)
+        //     // } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
+        //     //     setSendButton(false)
+        // } else if (company) {
+        //     setSendButton(false)
+        // } else {
+        //     setSendButton(true)
+        // }
     }, [dataObject])
 
     /////////////////////////////////////////
@@ -323,24 +327,27 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 <Card className='supplier-invoice-edit-header'>
 
                     <div className='supplier-invoice-edit-title'>
-                        {dataObject.objectId.presentation
-                            .replace('Hóa đơn nhận hàng', 'Nhận hàng')
-                            .replace('(chưa kết chuyển)', '(nháp)')}
+                        {objectPresentation(dataObject.objectId, dataObject.operationKind)}
                     </div>
 
                     <Divider className='supplier-invoice-edit-divider' orientation='center' />
+
+                    <div className='supplier-invoice-edit-item'>
+                        <div className='supplier-invoice-edit-item-label'>Cơ sở: </div>
+                        <div>{objectPresentation(dataObject.docOrder)}</div>
+                    </div>
 
                     <FormInput
                         itemName='counterparty'
                         dataType='XTSCounterparty'
                         itemProps={{
                             className: 'supplier-invoice-edit-item-label',
-                            label: 'Nhà cung cấp',
+                            label: labels.counterpartyLabel,
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
                         }}
                         inputProps={{
-                            placeholder: 'Chọn nhà cung cấp',
+                            placeholder: labels.counterpartyPlaceHolder,
                             allowClear: true,
                             required: true,
                             readOnly: (!user) && true || false,

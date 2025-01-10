@@ -721,7 +721,6 @@ export function useStepBack(params: UseStepBackParams): any {
     const dispatch = useDispatch()
     const { pageAction, pageId, pageName, pageTitle } = useSelector((state: RootState) => state.currentData)
 
-    // const [indexPageId] = useState(generateUUID())
     const setPageBackAction = () => {
         dispatch(actions_Current.setParams({ pageAction: PAGE_ACTIONS.BACK }))
     }       // Xem xét lại, có thể không cần dùng

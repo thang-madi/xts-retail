@@ -2,6 +2,7 @@ import { timeStamp } from "console"
 import { XTSObject, XTSObjectId, XTSRecord, XTSResponse } from "../data-objects/types-common"
 import { PAGE_ACTIONS } from "../commons/enums"
 import { StringStepperProps } from "antd-mobile/es/components/stepper/stepper"
+import { XTSRelatedDocument } from "../data-objects/types-application"
 
 /////////////////////////////////////////////
 // State
@@ -98,6 +99,9 @@ export interface XTSCurrentState extends XTSBaseState {
     pageName: string
     pageId: string
     pageAction: PAGE_ACTIONS
+
+    relatedDocuments: XTSRelatedDocument[]
+
     // dashboard: XTSDashboard
 }
 

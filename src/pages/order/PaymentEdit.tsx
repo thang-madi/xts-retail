@@ -185,7 +185,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // props
 
     return (
-        <div className='payment-page'>
+        <div className='sales-order-payment'>
 
             {/* <Loader isLoading={status === REQUEST_STATUSES.LOADING} /> */}
 
@@ -195,14 +195,14 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 form={form}
             >
 
-                <div className='payment-page-header'>
+                <div className='sales-order-payment-header'>
                     {dataObject.objectId.presentation
                         .replace('của khách', '')
                         .replace('(chưa kết chuyển)', '(nháp)')
                         .replace('Đơn hàng', 'Đơn hàng số')}
                 </div>
 
-                <Divider className='payment-page-divider' orientation='center' />
+                <Divider className='sales-order-payment-divider' orientation='center' />
 
                 <FormInput
                     itemName='objectId'
@@ -238,17 +238,17 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     {...commonItemProps}
                 />
 
-                <div className='payment-page-amount-group'>
+                <div className='sales-order-payment-amount-group'>
                     <div>Số tiền đơn hàng: </div>
                     <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
                 </div>
 
-                <Divider className='payment-page-divider' orientation='center' />
+                <Divider className='sales-order-payment-divider' orientation='center' />
 
-                <div className='payment-page-payment-block'>
+                <div className='sales-order-payment-payment-block'>
 
-                    <div className='payment-page-payment-group'>
-                        <div className='payment-page-payment-title'>
+                    <div className='sales-order-payment-payment-group'>
+                        <div className='sales-order-payment-payment-title'>
                             Tiền mặt:
                         </div>
 
@@ -264,15 +264,15 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         />
 
                         <Button
-                            className='payment-page-button-left'
+                            className='sales-order-payment-button-left'
                             onClick={() => fillPayment('cash')}
                             icon={<ArrowLeftOutlined />}
                         />
 
                     </div>
 
-                    <div className='payment-page-payment-group'>
-                        <div className='payment-page-payment-title'>
+                    <div className='sales-order-payment-payment-group'>
+                        <div className='sales-order-payment-payment-title'>
                             Chuyển khoản:
                         </div>
 
@@ -288,15 +288,15 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         />
 
                         <Button
-                            className='payment-page-button-left'
+                            className='sales-order-payment-button-left'
                             onClick={() => fillPayment('bankTransfer')}
                             icon={<ArrowLeftOutlined />}
                         />
 
                     </div>
 
-                    <div className='payment-page-payment-group'>
-                        <div className='payment-page-payment-title'>
+                    <div className='sales-order-payment-payment-group'>
+                        <div className='sales-order-payment-payment-title'>
                             Trả sau:
                         </div>
 
@@ -312,7 +312,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         />
 
                         <Button
-                            className='payment-page-button-left'
+                            className='sales-order-payment-button-left'
                             onClick={() => fillPayment('postPayment')}
                             icon={<ArrowLeftOutlined />}
                         />
@@ -320,9 +320,9 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     </div>
                 </div>
 
-                <div className='payment-page-buttons-group'>
+                <div className='sales-order-payment-buttons-group'>
                     <Button
-                        className='payment-page-form-button'
+                        className='sales-order-payment-form-button'
                         block type='primary'
                         htmlType='submit'
                         icon={<CheckCircleOutlined />}
@@ -330,7 +330,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         Ghi lại
                     </Button>
                     <Button
-                        className='payment-page-form-button'
+                        className='sales-order-payment-form-button'
                         block htmlType='button'
                         onClick={cancel}
                         icon={<CloseCircleOutlined />}
@@ -348,4 +348,4 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
 /////////////////////////////////////////////
 // Export's
 
-export default PaymentEditPage                                     // Payment
+export default PaymentEditPage                       

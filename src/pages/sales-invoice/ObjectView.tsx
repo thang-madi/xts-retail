@@ -21,7 +21,7 @@ import { BottomBar } from '../../components/ContextMenu'
 import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
 import { ObjectInventoryView } from './ObjectInventory'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
-import { createXTSObject, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { REQUEST_STATUSES } from '../../commons/enums'
@@ -272,12 +272,15 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             <Card className='sales-invoice-view-header'>
 
                 <div className='sales-invoice-view-title'>
-                    {dataObject.objectId.presentation
-                        .replace('Hóa đơn giao hàng', 'Giao hàng')
-                        .replace('(chưa kết chuyển)', '(nháp)')}
+                    {objectPresentation(dataObject.objectId)}
                 </div>
 
                 <Divider className='sales-invoice-view-divider' orientation='center' />
+
+                <div className='sales-invoice-view-item'>
+                    <div className='sales-invoice-view-item-title'>Cơ sở: </div>
+                    <div>{objectPresentation(dataObject.docOrder)}</div>
+                </div>
 
                 <div className='sales-invoice-view-item'>
                     <div className='sales-invoice-view-item-title'

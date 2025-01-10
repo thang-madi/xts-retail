@@ -135,7 +135,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
     // 
 
     return (
-        <div className='order-list'>
+        <div className='sales-order-list'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 

@@ -10,7 +10,7 @@ import { Form, Button, Space, Card, List, Descriptions, Divider, Tag } from 'ant
 // import { setValue } from '../../data-storage/slice-current'
 import { CheckOutlined, SelectOutlined } from '@ant-design/icons'
 import { ITEM_VALUE_ACTIONS, XTSObjectCardProps } from '../../data-objects/types-components'
-import { createXTSObject } from '../../data-objects/common-use'
+import { createXTSObject, objectPresentation } from '../../data-objects/common-use'
 
 /////////////////////////////////////////////
 // Object's
@@ -64,6 +64,11 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
             </div>
 
             <Divider className='sales-invoice-card-divider' orientation='center' />
+
+            <div className='sales-invoice-card-row'>
+                <div>Cơ sở: </div>
+                <div>{objectPresentation(formData.docOrder)}</div>
+            </div>
 
             <div className='sales-invoice-card-row' >
                 <div>Khách hàng: </div>

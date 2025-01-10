@@ -32,7 +32,7 @@ import { Loader } from '../../components/Loader'
 // Main component
 
 // OK                                             
-const CustomerEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Customer
+const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Customer
 
     /////////////////////////////////////////////
     // Các useHook chuẩn
@@ -508,4 +508,4 @@ const CustomerEditPage: React.FC<XTSObjectEditProps> = (props) => {         // C
 /////////////////////////////////////////////
 // Export's
 
-export default CustomerEditPage                                     // Customer
+export default ObjectEditPage                                     

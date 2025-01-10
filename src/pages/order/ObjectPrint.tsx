@@ -66,7 +66,7 @@ const ObjectPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
     // 
 
     return (
-        <div className='order-print'>
+        <div className='sales-order-print'>
             <PDFViewer fileUrl={url} />
         </div>
     )

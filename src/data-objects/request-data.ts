@@ -8,7 +8,7 @@
 // import { connectParams } from "../commons/connect-params"
 // import { addDefaultValues } from "./add-default-values"
 import { createXTSObject, isEmptyObjectId } from "./common-use"
-import { XTSObject, XTSRecord, XTSRecordFilter, XTSRecordKey, XTSRecordSet } from "./types-common"
+import { XTSObject, XTSObjectId, XTSRecord, XTSRecordFilter, XTSRecordKey, XTSRecordSet } from "./types-common"
 import { formDataToXTSValues } from "./form-data"
 import { XTSRequestData } from "./types-request"
 import { XTSFile } from "./types-library"
@@ -250,6 +250,22 @@ export function requestData_SaveRecordSet(dataType: string, dataRecords: XTSReco
     const headers = {}
     const body = requestObject
     const requestData = createXTSObject('XTSRequestData', { headers, body })
+
+    return requestData
+}
+
+
+// OK
+export function requestData_GetRelatedDocument(objectId: XTSObjectId): XTSRequestData {
+
+    const requestObject = createXTSObject('XTSGetRelatedDocumentsRequest')
+    requestObject.objectId = objectId
+
+    const headers = {}
+    const body = requestObject
+    const requestData = createXTSObject('XTSRequestData', { headers, body })
+
+    // console.log('requestData_GetObject.requestData', requestData)
 
     return requestData
 }

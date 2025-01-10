@@ -332,3 +332,67 @@ export function compareFunction(value1: any, value2: any) {
         }
     }
 }
+
+export function objectPresentation(objectId: XTSObjectId, additionalInfo: any = undefined) {
+
+    switch (objectId?.dataType) {
+        case 'XTSOrder':
+            return objectId.presentation
+                .replace('Đơn hàng của khách', 'Đơn hàng số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Đơn hàng *'
+
+        case 'XTSPurchaseOrder':
+            return objectId.presentation
+                .replace('Đơn hàng đặt nhà cung cấp', 'Đơn hàng mua số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Đơn hàng mua *'
+
+        case 'XTSSalesInvoice':
+            return objectId.presentation
+                .replace('Hóa đơn giao hàng', 'Giao hàng số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Giao hàng *'
+
+        case 'XTSSupplierInvoice':
+            if (additionalInfo?.presentation === 'Nhận hàng bán bị trả lại') {
+                return objectId.presentation
+                    .replace('Hóa đơn nhận hàng', 'Nhận hàng trả lại số')
+                    .replace('(chưa kết chuyển)', '(nháp)') ||
+                    'Nhận hàng trả lại *'
+            } else {
+                return objectId.presentation
+                    .replace('Hóa đơn nhận hàng', 'Nhận hàng số')
+                    .replace('(chưa kết chuyển)', '(nháp)') ||
+                    'Nhận hàng *'
+            }
+
+        case 'XTSCashReceipt':
+            return objectId.presentation
+                .replace('Phiếu thu', 'Thu tiền mặt số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Thu tiền mặt *'
+
+        case 'XTSCashPayment':
+            return objectId.presentation
+                .replace('Phiếu chi', 'Chi tiền mặt số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Chi tiền mặt *'
+
+        case 'XTSPaymentReceipt':
+            return objectId.presentation
+                .replace('Thu tiền vào tài khoản', 'Thu chuyển khoản số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Thu chuyển khoản *'
+
+        case 'XTSPaymentExpense':
+            return objectId.presentation
+                .replace('Chi tiền từ tài khoản', 'Chi chuyển khoản số')
+                .replace('(chưa kết chuyển)', '(nháp)') ||
+                'Chi chuyển khoản *'
+
+        default:
+            return objectId?.presentation
+    }
+
+}

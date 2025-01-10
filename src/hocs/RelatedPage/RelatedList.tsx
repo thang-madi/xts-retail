@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Card, Descriptions, Divider, Drawer, FloatButton, List, Modal, notification, Space } from 'antd'
-import { ArrowLeftOutlined, CheckCircleOutlined, CheckOutlined, ContainerOutlined, CopyOutlined, DeleteOutlined, DollarCircleOutlined, EditOutlined, FileTextOutlined, ReloadOutlined, SelectOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CheckCircleOutlined, CheckOutlined, ContainerOutlined, CopyOutlined, DeleteOutlined, DollarCircleOutlined, EditOutlined, FileTextOutlined, ReloadOutlined, RotateLeftOutlined, SelectOutlined, ShoppingCartOutlined, TruckOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 
 
@@ -13,13 +13,13 @@ import dayjs from 'dayjs'
 // Application's
 
 import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams, useStepBack } from '../../hooks/usePage'
-import { BottomBar, } from '../../components/ContextMenu'
+import { BottomBar, ContextMenuButton, } from '../../components/ContextMenu'
 
 /////////////////////////////////////////////
 // Object's
 
 import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
-import { createXTSObject } from '../../data-objects/common-use'
+import { createXTSObject, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { REQUEST_STATUSES } from '../../commons/enums'
@@ -28,36 +28,39 @@ import { Loader } from '../../components/Loader'
 import './index.css'
 import { downloadFile } from '../../commons/common-print'
 import { PDFViewer, printFormURL } from '../../components/PDFViewer'
-import { ITEM_VALUE_ACTIONS, XTSRelatedPageProps } from '../../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS } from '../../data-objects/types-components'
 import { generateUUID } from '../../commons/common-use'
+import { XTSObject, XTSObjectId } from '../../data-objects/types-common'
+import { useGetRelatedDocuments, UseGetRelatedDocumentsParams } from '../../hooks/useRelatedDocuments'
+import { XTSOrder, XTSRelatedDocument, XTSSupplierInvoice } from '../../data-objects/types-application'
 
 /////////////////////////////////////////////
 // Main component
 
-const RelatedListPage: React.FC<XTSRelatedPageProps> = (props) => {
+interface XTSRelatedListPageProps {
+    pageId: string
+    objectId: XTSObjectId
+    dataObject?: XTSObject
+    title: string
+    pageName: string
+    renderKey: number
+    // commands: ContextMenuButton[]
+    choiceItemValue: (itemValue: XTSItemValue) => void
+    stepBack: () => void
+}
 
-    const { objectId } = props
-    // const { objectId, title, open, pageName } = props
-    const { dataType } = objectId
-    const [renderKey, setRenderKey] = useState(0)
+const RelatedListPage: React.FC<XTSRelatedListPageProps> = (props) => {
 
-    const closeRelatedPage = () => {
-        console.log('props.choiceItemValue', props.choiceItemValue)
-        const itemValue = createXTSObject('XTSItemValue', { dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
-        props.choiceItemValue(itemValue)
-    }
+    const { renderKey } = props
 
     const choiceItemValue = (item: any) => {
-        const { objectId } = item
-        const itemValue = createXTSObject('XTSItemValue', { dataType: objectId.dataType, id: objectId.id, action: ITEM_VALUE_ACTIONS.VIEW })
+        const itemValue = createXTSObject('XTSItemValue', item.document)
+        itemValue.action = ITEM_VALUE_ACTIONS.VIEW
         props.choiceItemValue(itemValue)
     }
 
-    const [pageId] = useState(generateUUID())
-    useStepBack({ pageId, stepBack: closeRelatedPage })
-
     const openPageParams: UseOpenPageParams = {
-        pageId,
+        pageId: props.pageId,
         pageName: props.pageName,
         pageTitle: props.title,
         renderKey: renderKey
@@ -67,53 +70,94 @@ const RelatedListPage: React.FC<XTSRelatedPageProps> = (props) => {
     /////////////////////////////////////////
     // 
 
-    /////////////////////////////////////////
-    // Get related documents 
-
-    const [relatedDocumets, setRelatedDocuments] = useState([
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 111' }),
-            documentAmount: 100,
-            comment: 'comment 111',
-        },
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 222' }),
-            documentAmount: 200,
-            comment: 'comment 222',
-        },
-        {
-            objectId: createXTSObject('XTSObjectId', { presentation: 'Document 333' }),
-            documentAmount: 300,
-            comment: 'comment 333',
-        },
-    ])
+    const [isSalesOrder, setIsSalesOrder] = useState(props.objectId.dataType === 'XTSOrder')
+    const [isSupplierInvoice, setIsSupplierInvoice] = useState(props.objectId.dataType === 'XTSSupplierInvoice')
 
     /////////////////////////////////////////
     // 
 
+    const getRelatedDocumentsParams: UseGetRelatedDocumentsParams = {
+        objectId: props.objectId,
+    }
+
+    /////////////////////////////////////////
+    // 
+
+    const { salesReturnOperationKind } = useSelector((state: RootState) => state.session.defaultValues as any)
+
+    const createSalesInvoice = () => {
+        // console.log('props', props)
+        const itemValue = createXTSObject('XTSItemValue')
+        itemValue.dataType = 'XTSSalesInvoice'
+        itemValue.action = ITEM_VALUE_ACTIONS.EDIT
+
+        const dataObject = props.dataObject as XTSOrder
+        itemValue.dataItem = {
+            company: dataObject?.company,
+            counterparty: dataObject?.customer,
+            docOrder: dataObject?.objectId,
+        }
+        props.choiceItemValue(itemValue)
+    }
+
+    const createSalesReturn = () => {
+        const itemValue = createXTSObject('XTSItemValue')
+        itemValue.dataType = 'XTSSupplierInvoice'
+        itemValue.action = ITEM_VALUE_ACTIONS.EDIT
+
+        const dataObject = props.dataObject as XTSOrder
+        itemValue.dataItem = {
+            company: dataObject?.company,
+            counterparty: dataObject?.customer,
+            docOrder: dataObject?.objectId,
+            operationKind: salesReturnOperationKind,
+        }
+        props.choiceItemValue(itemValue)
+    }
+
+    const createSetPrice = () => {
+
+    }
+
+    /////////////////////////////////////////
+    // 
+
+    const { relatedDocuments, status, refreshList } = useGetRelatedDocuments(getRelatedDocumentsParams)
     return (
 
-        <div className='modal-page'>
+        <div className='related-modal-page'>
             <List
-                className='modal-page-list'
-                dataSource={relatedDocumets}
-                renderItem={item => (
+                className='related-modal-page-list'
+                dataSource={relatedDocuments}
+                renderItem={(item: XTSRelatedDocument) => (
                     <List.Item
-                        className='modal-page-list-item'
+                        className='related-modal-page-list-item'
                         onClick={() => choiceItemValue(item)}
                     >
                         <List.Item.Meta
                             avatar={<FileTextOutlined />}
-                            title={item.objectId.presentation}
+                            // title={item.document?.presentation
+                            //     .replace('Phiếu thu', 'Thu tiền mặt số')
+                            //     .replace('Phiếu chi', 'Chi tiền mặt số')
+                            //     .replace('Thu tiền vào tài khoản', 'Thu chuyển khoản số')
+                            //     .replace('Chi tiền từ tài khoản', 'Chi chuyển khoản số')
+                            //     .replace('Hóa đơn giao hàng', 'Giao hàng số')
+                            //     .replace('Hóa đơn nhận hàng', 'Nhận hàng số')
+                            // }
+                            title={objectPresentation(item.document)}
                         />
                         <div>
-                            amount: {item.documentAmount}
+                            {item.documentAmount} {item.documentCurrency?.presentation}
                         </div>
                     </List.Item>
                 )}
             />
             <BottomBar
-                stepBack={{ onClick: closeRelatedPage }}
+                stepBack={{ onClick: props.stepBack }}
+                action1={{ onClick: createSalesInvoice, title: 'Giao thêm', icon: <TruckOutlined className='context-menu-button-icon' />, visible: isSalesOrder }}
+                action2={{ onClick: createSalesReturn, title: 'Trả hàng', icon: <RotateLeftOutlined className='context-menu-button-icon' />, visible: isSalesOrder }}
+                action3={{ onClick: createSetPrice, title: 'Trả hàng', icon: <RotateLeftOutlined className='context-menu-button-icon' />, visible: isSupplierInvoice }}
+                refresh={{ onClick: refreshList }}
             />
 
         </div >

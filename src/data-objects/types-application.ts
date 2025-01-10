@@ -1,5 +1,5 @@
 
-import { XTSObject, XTSObjectId, XTSObjectRow, XTSRecord, XTSRecordKey, XTSRequest, XTSResponse } from "./types-common"
+import { XTSObject, XTSObjectId, XTSObjectRow, XTSRecord, XTSRecordKey, XTSRequest, XTSResponse, XTSType } from "./types-common"
 // import { createXTSObject } from "./common-use"
 // import { XTSFile } from "./types-library"
 
@@ -11,6 +11,47 @@ export function getXTSClass_Application(_type: string) {
         return XTSClass
     } catch (error) {
         //         
+    }
+}
+
+// OK
+export class XTSGetRelatedDocumentsRequest extends XTSRequest {
+
+    objectId: XTSObjectId = new XTSObjectId('')
+
+    constructor() {
+        super('XTSGetRelatedDocumentsRequest')
+    }
+}
+
+// OK
+export class XTSGetRelatedDocumentsResponse extends XTSResponse {
+
+    documents: XTSRelatedDocument[] = []
+
+    constructor() {
+        super('XTSGetRelatedDocumentsResponse')
+    }
+}
+
+// OK
+export class XTSRelatedDocument extends XTSType {
+
+    document: XTSObjectId = new XTSObjectId('')
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    documentAmount: number = 0
+    structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
+    comment: string = ''
+
+    constructor() {
+        super('XTSRelatedDocument')
     }
 }
 
@@ -317,6 +358,21 @@ export class XTSEmployee extends XTSObject {
 }
 
 // 
+export class XTSStructuralUnit extends XTSObject {
+
+    description: string = ''
+    structuralUnitType: XTSObjectId = new XTSObjectId('XTSStructuralUnitType')
+    orderWarehouse: boolean = false
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+    financiallyLiablePerson: XTSObjectId = new XTSObjectId('XTSIndividual')
+    invalid: boolean = false
+
+    constructor() {
+        super('XTSStructuralUnit')
+    }
+}
+
+// 
 export class XTSSalesInvoice extends XTSObject {
 
     date: string = '0001-01-01T00:00:00'
@@ -405,7 +461,7 @@ export class XTSSupplierInvoice extends XTSObject {
     department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
     employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
     // documentBasis: XTSObjectId = new XTSObjectId('XTS')
-    // docOrder: XTSObjectId = new XTSObjectId('XTSPurchaseOrder')
+    docOrder: XTSObjectId = new XTSObjectId('')
     inventory: XTSSalesInvoiceInventory[] = []
 
     constructor() {
@@ -436,21 +492,6 @@ export class XTSSupplierInvoiceInventory extends XTSObjectRow {
 
     constructor() {
         super('XTSSupplierInvoiceInventory')
-    }
-}
-
-// 
-export class XTSStructuralUnit extends XTSObject {
-
-    description: string = ''
-    structuralUnitType: XTSObjectId = new XTSObjectId('XTSStructuralUnitType')
-    orderWarehouse: boolean = false
-    company: XTSObjectId = new XTSObjectId('XTSCompany')
-    financiallyLiablePerson: XTSObjectId = new XTSObjectId('XTSIndividual')
-    invalid: boolean = false
-
-    constructor() {
-        super('XTSStructuralUnit')
     }
 }
 

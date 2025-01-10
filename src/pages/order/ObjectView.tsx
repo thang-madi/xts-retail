@@ -17,7 +17,7 @@ import { BottomBar } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
 import { SALES_ORDER_STATES } from './enums'
 import { REQUEST_STATUSES } from '../../commons/enums'
-import { createXTSObject, getXTSEnumItem } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { Loader } from '../../components/Loader'
@@ -87,7 +87,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             })
             props.choiceItemValue(itemValue)
         }
-        console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
+        // console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
     }
 
     const editItem = () => {
@@ -99,12 +99,10 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }
 
     const viewRelatedItems = () => {
-        // doItem(ITEM_VALUE_ACTIONS.GET_RELATED)
         setRelatedOpen(true)
     }
 
     const printItem = () => {
-        // if (TWA.platform !== 'desktop' && TWA.platform !== 'tdesktop' && TWA.platform !== 'unknown') {
         if (TWA.platform === 'ios') {
             const printFormParams = {
                 dataType: itemValue.dataType,
@@ -112,10 +110,8 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 templateName: 'ExternalPrintForm.MinSalesOrder',
             }
             const url = printFormURL(printFormParams)
-            // console.log('TWA.platform', TWA.platform)
             TWA.openLink(url)
         } else {
-            // doItem(ITEM_VALUE_ACTIONS.PRINT)
             setPrintOpen(true)
         }
     }
@@ -262,83 +258,80 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     return (
 
-        <div className='order-view'>
+        <div className='sales-order-view'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
             <Card style={{ margin: 5 }}>
 
                 <div style={{ fontWeight: 'bold' }}>
-                    {dataObject.objectId.presentation
-                        .replace('của khách', '')
-                        .replace('(chưa kết chuyển)', '(nháp)')
-                        .replace('Đơn hàng', 'Đơn hàng số')}
+                    {objectPresentation(dataObject.objectId)}
                 </div>
 
-                <Divider className='order-view-divider' orientation='center' />
+                <Divider className='sales-order-view-divider' orientation='center' />
 
-                <div className='order-view-item'>
-                    <div className='order-view-item-title'
+                <div className='sales-order-view-item'>
+                    <div className='sales-order-view-item-title'
                     >Khách hàng: </div>
                     <div>{dataObject.customer.presentation}</div>
                 </div>
 
-                <div className='order-view-item'>
-                    <div className='order-view-item-title'
+                <div className='sales-order-view-item'>
+                    <div className='sales-order-view-item-title'
                     >Địa chỉ giao hàng: </div>
                     <div>{dataObject.deliveryAddress}</div>
                 </div>
 
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div className='view-page-item-title'>Ghi chú: </div>
                     <div>{dataObject.comment}</div>
                 </div>
 
-                <Divider className='order-view-divider' orientation='center' />
-
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div>Trạng thái đơn hàng: </div>
                     <OrderStateTag value={dataObject.orderState?.presentation} />
                 </div>
 
-                <div className='order-view-item'>
+                <Divider className='sales-order-view-divider' orientation='center' />
+
+                <div className='sales-order-view-item'>
                     <div>Giá trị giao hàng: </div>
                     <div>{VND(dataObject._receiptableIncrease)}</div>
                 </div>
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div>Số tiền đã thu: </div>
                     <div>{VND(dataObject._receiptableDecrease)}</div>
                 </div>
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div>Số tiền phải thu: </div>
                     <div>{VND(dataObject._receiptableBalance)}</div>
                 </div>
 
 
-                {/* <div className='order-view-item'>
+                {/* <div className='sales-order-view-item'>
                     <div>Tỷ lệ thanh toán: </div>
                     <div>{'__ %'}</div>
                 </div>
 
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div>Tỷ lệ giao hàng: </div>
                     <div>{'__ %'}</div>
                 </div> */}
 
-                <Divider className='order-view-divider' orientation='center' />
+                <Divider className='sales-order-view-divider' orientation='center' />
 
-                <div className='order-view-item'>
+                <div className='sales-order-view-item'>
                     <div>Số tiền đơn hàng: </div>
                     <b>{VND(dataObject.documentAmount)}</b>
                 </div>
-                <div className='order-view-item'>
+                {/* <div className='sales-order-view-item'>
                     <div>Thu tiền khi chốt đơn:</div>
                     <div>
                         {(dataObject.cash) && `TM: ${dataObject.cash} ` || ''}
                         {(dataObject.bankTransfer) && `CK: ${dataObject.bankTransfer} ` || ''}
                         {(dataObject.postPayment) && ` Trả sau: ${dataObject.postPayment} ` || ''}
                     </div>
-                </div>
+                </div> */}
             </Card >
 
             <List
@@ -380,6 +373,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <RelatedPage
                 objectId={dataObject.objectId}
+                dataObject={dataObject}
                 title='Chứng từ liên quan'
                 open={relatedOpen}
                 pageName='Related documents'

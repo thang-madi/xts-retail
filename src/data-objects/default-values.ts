@@ -1,4 +1,5 @@
 import dayjs from "dayjs"
+import { isEmptyObjectId } from "./common-use"
 
 export function fillDefaultValues(object: any, defaultValues: any) {
 
@@ -20,6 +21,31 @@ export function fillDefaultValues(object: any, defaultValues: any) {
         asignObject(object, defaultValues, 'documentCurrency')
         asignObject(object, defaultValues, 'vatTaxation')
         asignObject(object, defaultValues, 'externalAccount')
+    } else if (_type === 'XTSSalesInvoice') {
+        asignObject(object, defaultValues, 'company')
+        asignObject(object, defaultValues, 'author')
+        // asignObject(object, defaultValues, 'orderKind', 'salesOrderOrderKind')
+        // asignObject(object, defaultValues, 'orderState', 'salesOrderOrderState')
+        asignObject(object, defaultValues, 'operationKind', 'salesInvoiceOperationKind')
+        asignObject(object, defaultValues, 'employeeResponsible')
+        asignObject(object, defaultValues, 'priceKind')
+        asignObject(object, defaultValues, 'documentCurrency')
+        asignObject(object, defaultValues, 'vatTaxation')
+        asignObject(object, defaultValues, 'externalAccount')
+    } else if (_type === 'XTSSupplierInvoice') {
+        asignObject(object, defaultValues, 'company')
+        asignObject(object, defaultValues, 'author')
+        // asignObject(object, defaultValues, 'orderKind', 'salesOrderOrderKind')
+        // asignObject(object, defaultValues, 'orderState', 'salesOrderOrderState')
+        if (isEmptyObjectId(object.operationKind)) {
+            asignObject(object, defaultValues, 'operationKind', 'supplierInvoiceOperationKind')
+        }
+        asignObject(object, defaultValues, 'employeeResponsible')
+        // asignObject(object, defaultValues, 'priceKind')
+        asignObject(object, defaultValues, 'documentCurrency')
+        asignObject(object, defaultValues, 'vatTaxation')
+        asignObject(object, defaultValues, 'externalAccount')
+
     } else if (_type === 'XTSProduct') {
         asignObject(object, defaultValues, 'productType')
         asignObject(object, defaultValues, 'productCategory')

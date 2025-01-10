@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Navigate, useLocation } from 'react-router-dom';
-import { Avatar, Badge, Card, Col, Divider, FloatButton, Image, Row, Space, Statistic } from 'antd'
+import { Avatar, Badge, Button, Card, Col, Divider, FloatButton, Image, Row, Space, Statistic } from 'antd'
 import debounce from 'lodash.debounce';
 import dayjs from 'dayjs'
 import 'dayjs/locale/vi'
@@ -147,6 +147,33 @@ const HomePage: React.FC<any> = (props) => {
     /////////////////////////////////////////////
     // 
 
+    const createDocument = (dataType: string) => {
+
+        switch (dataType) {
+            case 'XTSOrder':
+                navigate('/orders?edit=true')
+                break
+
+            case 'XTSSupplierInvoice':
+                navigate('/supplier-invoice?edit=true')
+                break
+
+            case 'MoneyReceipt':
+                // navigate('/sales-invoice?edit=true')
+                break
+
+            case 'MoneyExpense':
+                // navigate('/sales-invoice?edit=true')
+                break
+
+            default:
+
+        }
+    }
+
+    /////////////////////////////////////////////
+    // 
+
     useEffect(() => {
         getReportData()
     }, [])
@@ -231,6 +258,25 @@ const HomePage: React.FC<any> = (props) => {
                         Đã giao hàng
                     </div>
                 </div >
+            </Card >
+
+            {/* <div className='home-page-group'>
+                TẠO CHỨNG TỪ
+            </div> */}
+
+            <Card className='home-page-create-group'>
+                <Button className='home-page-button' onClick={() => createDocument('XTSOrder')}>
+                    Bán hàng
+                </Button>
+                <Button className='home-page-button' onClick={() => createDocument('XTSSupplierInvoice')}>
+                    Nhập hàng
+                </Button>
+                <Button className='home-page-button' onClick={() => createDocument('MoneyReceipt')} disabled>
+                    Thu tiền
+                </Button>
+                <Button className='home-page-button' onClick={() => createDocument('MoneyExpense')} disabled>
+                    Chi tiền
+                </Button>
             </Card >
 
             <div className='home-page-bottom'>
