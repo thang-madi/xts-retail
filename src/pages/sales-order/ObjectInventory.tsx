@@ -17,7 +17,7 @@ import { generateUUID } from '../../commons/common-use'
 // import { RowEditMenu } from '../../components/ContextMenu'
 import { XTSObject, XTSObjectId, XTSObjectRow } from '../../data-objects/types-common'
 import { XTSObjectRowProps } from '../../data-objects/types-components'
-import { XTSOrderProductRow, XTSProduct, XTSProductUOMRow, XTSSalesInvoiceInventory } from '../../data-objects/types-application'
+import { XTSOrderProductRow, XTSProduct, XTSProductUOMRow } from '../../data-objects/types-application'
 import { createXTSObject } from '../../data-objects/common-use'
 import { useCreatePage, UseCreatePageParams } from '../../hooks/usePage'
 import { RootState } from '../../data-storage'
@@ -33,7 +33,7 @@ import './index.css'
 // Main components
 
 // OK
-export const ObjectInventoryView: React.FC<any> = (props) => {
+export const OrderInventoryView: React.FC<any> = (props) => {
 
     const { dataRow } = props
     // console.log('OrderProductRowCard.dataRow', dataRow)
@@ -47,45 +47,42 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
 
     return (
-        <Card className='sales-invoice-inventory-view-card' >
-            {/* <div className='sales-invoice-inventory-view-card' > */}
+        <Card className='sales-order-inventory-view-card' >
+            <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
 
-            <div style={{ margin: 10, width: 22, }}>
-                #{dataRow._lineNumber}
-            </div>
-
-            <div className='sales-invoice-inventory-view-card-picture' >
-                <Image
-                    className='sales-invoice-inventory-view-card-picture-image'
-                    width='100%'
-                    height='auto'
-                    src={fileStorageURL + dataRow._picture?.presentation}
-                    fallback=''
-                // style={{
-                //     objectFit: 'cover',
-                // }}
-                />
-            </div>
-
-            <div className='sales-invoice-inventory-view-card-info' >
-                <div className='sales-invoice-inventory-view-card-info-description'>{dataRow.product?.presentation}</div>
-                <div>Đơn giá: {dataRow._price} đồng/chiếc</div>
-                <div>Số lượng: {dataRow.quantity} {dataRow.uom?.presentation}</div>
-                <div className='sales-invoice-inventory-view-amount' >
-                    <div>Thành tiền: </div>
-                    <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                <div style={{ margin: 10, width: 22, }}>
+                    #{dataRow._lineNumber}
                 </div>
-            </div>
 
-            {/* </div > */}
+                <div className='sales-order-inventory-view-card-picture' >
+                    <Image
+                        className='sales-order-inventory-view-card-picture-image'
+                        width='100%'
+                        height='auto'
+                        src={fileStorageURL + dataRow._picture?.presentation}
+                        fallback=''
+                    />
+                </div>
+
+                <div className='sales-order-inventory-view-card-info' >
+                    <div className='sales-order-inventory-view-card-info-description' >{dataRow.product?.presentation}</div>
+                    <div>Đơn giá: {dataRow._price} đồng/chiếc</div>
+                    <div>Số lượng: {dataRow.quantity} {dataRow.uom?.presentation}</div>
+                    <div className='sales-order-inventory-view-amount' >
+                        <div>Thành tiền: </div>
+                        <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                    </div>
+                </div>
+
+            </div >
         </Card >
     )
 }
 
 // 
-export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
+export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
-    const dataRow = props.dataRow as XTSSalesInvoiceInventory
+    const dataRow = props.dataRow as XTSOrderProductRow
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
 
@@ -135,47 +132,48 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
         uom?: XTSObjectId
     }
 
-    const handleChangeData = (e: any, newData: _ChangeData) => {
-        e.stopPropagation()
-        changeRowData(newData)
-    }
+    // const handleChangeData = (e: any, newData: _ChangeData) => {
+    //     e.stopPropagation()
+    //     changeRowData(newData)
+    // }
 
     interface NewData {
         quantity?: number
-        price?: number
+        _price?: number
         characteristic?: XTSObjectId
         uom?: XTSObjectId
     }
 
     const changeRowData = (newData: NewData): void => {
 
-        const { quantity, price, characteristic, uom } = newData
+        const { quantity = dataRow.quantity, _price = dataRow._price, characteristic = dataRow.characteristic, uom } = newData
 
-        const newQuantity = quantity || dataRow.quantity
-        if (newQuantity === 0) {
+        // const newQuantity = quantity 
+        if (newData.quantity === 0) {
             setOpenPopConfirm(true)
         } else {
 
-            const newRow = {
-                ...dataRow,
-                characteristic: characteristic || dataRow.characteristic,
-                uom: dataRow.uom,
-                quantity: newQuantity,
-                price: dataRow.price,
-                amount: newQuantity * dataRow.price,
-                total: newQuantity * dataRow.price,
-                _coefficient: dataRow._coefficient,
-            }
-
+            let _coefficient = dataRow._coefficient
             if (uom) {
                 const _uomRow = _uoms?.find((item: XTSProductUOMRow) => item.uom?.id === uom.id)
-                newRow._coefficient = _uomRow?.coefficient || 1
-                newRow.price = dataRow._price * newRow._coefficient
-                newRow.amount = dataRow.quantity * newRow.price
-                newRow.total = newRow.amount
+                _coefficient = _uomRow?.coefficient || 1
+            }
+            const price = _price * _coefficient
+
+            const newRow = {
+                ...dataRow,
+                characteristic: characteristic,
+                uom: dataRow.uom,
+                quantity: quantity,
+                price: price,
+                amount: quantity * price,
+                total: quantity * price,
+                _coefficient: _coefficient,
+                _price: _price,
             }
 
-            const newDataRow = createXTSObject('XTSSalesInvoiceInventory', newRow)
+            const newDataRow = createXTSObject('XTSOrderProductRow', newRow)
+            // console.log('newRow', newRow)
             props.updateRow(tabName, newDataRow)
         }
     }
@@ -252,15 +250,15 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
     // 
 
     return (
-        <div className='sales-invoice-inventory-edit'>
-            <Card className='sales-invoice-inventory-edit-card'>
+        <div className='sales-order-inventory-edit' >
+            <Card className='sales-order-inventory-edit-card'>
                 <div style={{ margin: 10, width: 22, }}>
                     #{dataRow._lineNumber}
                 </div>
 
-                <div className='sales-invoice-inventory-edit-card-picture'>
+                <div className='sales-order-inventory-edit-card-picture'>
                     <Image
-                        className='sales-invoice-inventory-edit-card-picture-image'
+                        className='sales-order-inventory-edit-card-picture-image'
                         width='100%'
                         height='auto'
                         src={fileStorageURL + dataRow._picture?.presentation}
@@ -268,19 +266,19 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                     />
                 </div>
 
-                <div className='sales-invoice-inventory-edit-card-info'>
-                    <div className='ales-invoice-inventory-edit-card-info-description'>
+                <div className='sales-order-inventory-edit-card-info'>
+                    <div className='sales-invoice-inventory-edit-card-info-description'>
                         {dataRow.product?.presentation}
                     </div>
 
-                    <div className='sales-invoice-inventory-edit-quantity'>
+                    <div className='sales-order-inventory-edit-quantity'>
 
                         <div>
-                            <div className='sales-invoice-inventory-edit-quantity-title-short'>SL: </div>
-                            <div className='sales-invoice-inventory-edit-quantity-title-long'>Số lượng: </div>
+                            <div className='sales-order-inventory-edit-quantity-title-short'>SL: </div>
+                            <div className='sales-order-inventory-edit-quantity-title-long'>Số lượng: </div>
                         </div>
 
-                        <div className='sales-invoice-inventory-edit-quantity-group'>
+                        <div className='sales-order-inventory-edit-quantity-group'>
 
                             <FormSelect
                                 itemName='uom'
@@ -290,7 +288,8 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                                 itemProps={{
                                     // label: 'Đơn vị tính',
                                     required: false,
-                                    className: 'sales-invoice-inventory-edit-uom'
+                                    className: 'sales-order-inventory-edit-uom'
+                                    // style: { width: '100px', marginBottom: '0px' }
                                 }}
                                 selectProps={{
                                     placeholder: 'Chọn đơn vị tính',
@@ -314,7 +313,7 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
                     </div>
 
-                    <div className='sales-invoice-inventory-edit-price'>
+                    <div className='sales-order-inventory-edit-price'>
 
                         <div>Đơn giá (đồng/c.):</div>
                         <AmountInput
@@ -325,15 +324,13 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                             title='Nhập đơn giá (chiếc)'
                             description='Đơn giá (chiếc)'
                             // renderKey={renderKey}
-                            onChange={(price) => changeRowData({ price })}
+                            onChange={(_price) => changeRowData({ _price })}
                         />
                     </div>
 
-                    <div className='sales-invoice-inventory-edit-amount'
-                        style={{ display: 'flex', justifyContent: 'space-between' }}
-                    >
+                    <div className='sales-order-inventory-edit-amount'>
                         <div>Thành tiền: </div>
-                        <b>{dataRow.amount?.toLocaleString('vi-VN')} </b>
+                        <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
                     </div>
                 </div>
 

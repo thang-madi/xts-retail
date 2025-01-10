@@ -30,10 +30,10 @@ import StructuralUnitListPage from '../pages/structural-unit/ObjectList'
 // import UOMClassifierEditPage from '../pages/uom-classifier/ObjectEdit'
 // import UOMClassifierListPage from '../pages/uom-classifier/ObjectList'
 
-import OrderIndexPage from '../pages/order'
-import OrderViewPage from '../pages/order/ObjectView'
-import OrderEditPage from '../pages/order/ObjectEdit'
-import OrderListPage from '../pages/order/ObjectList'
+import OrderIndexPage from '../pages/sales-order'
+import OrderViewPage from '../pages/sales-order/ObjectView'
+import OrderEditPage from '../pages/sales-order/ObjectEdit'
+import OrderListPage from '../pages/sales-order/ObjectList'
 
 import SalesInvoiceIndexPage from '../pages/sales-invoice'
 import SalesInvoiceViewPage from '../pages/sales-invoice/ObjectView'
@@ -46,10 +46,10 @@ import SupplierInvoiceEditPage from '../pages/supplier-invoice/ObjectEdit'
 import SupplierInvoiceListPage from '../pages/supplier-invoice/ObjectList'
 import { XTSObjectEditProps, XTSObjectViewProps } from '../data-objects/types-components'
 
-// import CashReceiptIndexPage from '../pages/cash-receipt'
-// import CashReceiptViewPage from '../pages/cash-receipt/ObjectView'
-// import CashReceiptEditPage from '../pages/cash-receipt/ObjectEdit'
-// import CashReceiptListPage from '../pages/cash-receipt/ObjectList'
+import CashReceiptIndexPage from '../pages/cash-receipt'
+import CashReceiptViewPage from '../pages/cash-receipt/ObjectView'
+import CashReceiptEditPage from '../pages/cash-receipt/ObjectEdit'
+import CashReceiptListPage from '../pages/cash-receipt/ObjectList'
 
 // import CashPaymentsPage '../pages/cash-payment'
 // import CashPaymentViewPage from '../pages/cash-payment/ObjectView'
@@ -94,12 +94,12 @@ function getPage(dataType: string, pageType: PAGE_TYPES): React.FC {
             EditPage: SupplierInvoiceEditPage,
             ListPage: SupplierInvoiceListPage,
         },
-        // XTSCashReceipt: {
-        //     IndexPage: CashReciptIndexPage,
-        //     ViewPage: CashReciptViewPage,
-        //     EditPage: CashReceiptEditPage,
-        //     ListPage: OrderListPage,
-        // },
+        XTSCashReceipt: {
+            IndexPage: CashReceiptIndexPage,
+            ViewPage: CashReceiptViewPage,
+            EditPage: CashReceiptEditPage,
+            ListPage: OrderListPage,
+        },
         // XTSPaymentReceipt: {
         //     IndexPage: PaymentReceiptIndexPage,
         //     ViewPage: PaymentReceiptViewPage,

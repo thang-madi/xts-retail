@@ -122,117 +122,31 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         }
     }
 
-    /////////////////////////////////////////////
-    // Delivered
-
-    const doDelivered = () => {
-        const orderState = dataObject['orderState']
-        // if (orderState.presentation === SALES_ORDER_STATES.PREPARING || orderState.presentation === SALES_ORDER_STATES.TRANSPORTING) {
-        //     const attributeValues = {
-        //         _type: dataType,
-        //         objectId: dataObject.objectId,
-        //         orderState: getXTSEnumItem('XTSSalesOrderState', 'Delivered')
-        //     }
-        //     const requestData = requestData_UpdateObject(attributeValues)
-
-        //     const { apiRequest, actions } = getXTSSlice(dataType)
-        //     dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-        //     dispatch(actions.setTemp(null))
-        //     dispatch(apiRequest(requestData))
-        // }
-    }
-
     /////////////////////////////////////////
     // Payment
 
-    const { user, company } = useSelector((state: RootState) => state.session)
+    // const { user, company } = useSelector((state: RootState) => state.session)
 
     const [editButton, setEditButton] = useState<boolean>(false)
-    const [paymentButton, setPaymentButton] = useState<boolean>(false)
     const [printButton, setPrintButton] = useState<boolean>(false)
-    const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
-    const [deliveredButton, setDeliveredButton] = useState<boolean>(false)
-
-    const onChangeDataObject = (object: any) => {
-        if (!object.documentAmount) {
-            setPaymentButton(false)
-        } else if (!company) {
-            setPaymentButton(false)
-            // } else if (object.cash > 0 || object.bankTransfer > 0 || object.postPayment > 0) {
-            //     setPaymentButton(false)
-            // } else if (object.orderState.presentation !== SALES_ORDER_STATES.TO_PREPAY) {
-            //     setPaymentButton(false)
-        } else {
-            setPaymentButton(true)
-        }
-
-        if ((object.cash === 0 && object.bankTransfer === 0 && object.openPayment === 0)) {
-            setPrintButton(false)
-            // } else if (object.orderState.presentation === SALES_ORDER_STATES.EDITING ||
-            //     object.orderState.presentation === SALES_ORDER_STATES.TO_PREPAY) {
-            //     setPrintButton(false)
-        } else if (!user) {
-            setPrintButton(false)
-        } else {
-            setPrintButton(true)
-        }
-
-        // if (object['orderState'].presentation === SALES_ORDER_STATES.EDITING) {
-        //     setEditButton(true)
-        // } else
-        if (company) {
-            setEditButton(true)
-        } else {
-            setEditButton(false)
-        }
-
-        if (!user) {
-            setDeliveredButton(false)
-            // } else if (dataObject['orderState'].presentation === SALES_ORDER_STATES.PREPARING) {
-            //     setDeliveredButton(true)
-            // } else if (dataObject['orderState'].presentation === SALES_ORDER_STATES.TRANSPORTING) {
-            //     setDeliveredButton(true)
-        } else {
-            setDeliveredButton(false)
-        }
-    }
-
-    useEffect(() => {
-        onChangeDataObject(dataObject)
-    }, [dataObject])
-
-    const openPayment = () => {
-        setPaymentOpen(true)
-    }
-
-    const handleCancel = () => {
-        setPaymentOpen(false)
-    }
+    // const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
+    // const [deliveredButton, setDeliveredButton] = useState<boolean>(false)
 
     // Hoàn tất việc thanh toán
     // Lưu ý là để chuyển giữa các Page thì đang dùng doItem bên trên
     const choiceItemValue = (itemValue: XTSItemValue) => {
-        if (paymentOpen) {
-            setPaymentOpen(false)
-            if (itemValue.dataType === 'XTSSalesInvoice') {
-                // props.choiceItemValue(itemValue)
-            }
-        } else if (printOpen) {
+        // if (paymentOpen) {
+        //     setPaymentOpen(false)
+        //     if (itemValue.dataType === 'XTSSalesInvoice') {
+        //         // props.choiceItemValue(itemValue)
+        //     }
+        // } else 
+        if (printOpen) {
             setPrintOpen(false)
         } else if (relatedOpen) {
             setRelatedOpen(false)
         }
         setPageInfo()
-    }
-
-    const modalProps = {
-        title: 'Trả trước',
-        height: '80vh',
-        width: '100%',
-        open: paymentOpen,
-        onCancel: handleCancel,
-        footer: [],
-        style: { marginTop: 0 },
     }
 
     /////////////////////////////////////////
@@ -241,12 +155,12 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.orders.tempData)
+    const tempData = useSelector((state: RootState) => state.supplierInvoice.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
-            onChangeDataObject(tempData.objects[0])     // Xem xét lại, có thể không cần thì đã dùng useEffect sau khi thay đổi dataObject
+            // onChangeDataObject(tempData.objects[0])     // Xem xét lại, có thể không cần thì đã dùng useEffect sau khi thay đổi dataObject
         }
     }, [status, tempData])
 

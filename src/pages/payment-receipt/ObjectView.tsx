@@ -14,30 +14,34 @@ import dayjs from 'dayjs'
 
 import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
 import { BottomBar } from '../../components/ContextMenu'
-import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
-import { SALES_ORDER_STATES } from './enums'
-import { REQUEST_STATUSES } from '../../commons/enums'
-import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
-import { RootState } from '../../data-storage'
-import { XTSItemValue } from '../../data-objects/types-form'
-import { Loader } from '../../components/Loader'
-import { PDFViewer, printFormURL } from '../../components/PDFViewer'
-import SubPage from '../../hocs/SubPage'
-import { requestData_ByDataItem, requestData_SaveObject, requestData_UpdateObject } from '../../data-objects/request-data'
-import { getXTSSlice } from '../../data-storage/xts-mappings'
-import { VND } from '../../commons/common-use'
-import { TWA } from '../../commons/telegram'
 
 /////////////////////////////////////////////
 // Object's
 
 import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
+// import { ObjectInventoryView } from './ObjectInventory'
+import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
+import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
+import { RootState } from '../../data-storage'
+import { XTSItemValue } from '../../data-objects/types-form'
+import { REQUEST_STATUSES } from '../../commons/enums'
+import { Loader } from '../../components/Loader'
+// import { FOOTER_HEIGHT } from '../../commons/constants'
+
+// import { SALES_ORDER_STATES } from './enums'
+import { downloadFile } from '../../commons/common-print'
+import { PDFViewer, printFormURL } from '../../components/PDFViewer'
+import SubPage from '../../hocs/SubPage'
+// import OrderStateTag from './OrderStateTag'
+import { requestData_ByDataItem, requestData_SaveObject, requestData_UpdateObject } from '../../data-objects/request-data'
+import { getXTSSlice } from '../../data-storage/xts-mappings'
+import { VND } from '../../commons/common-use'
+import { TWA } from '../../commons/telegram'
 import PrintPage from '../../hocs/PrintPage'
 import RelatedPage from '../../hocs/RelatedPage'
-import OrderStateTag from './OrderStateTag'
 
 import './index.css'
-import { OrderInventoryView } from './OrderInventory'
+import { getLabels } from './common'
 
 /////////////////////////////////////////////
 // Main component
@@ -49,7 +53,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     const dispatch = useDispatch()
 
     const object_id = itemValue.id
-    const dataType = 'XTSOrder'
+    const dataType = 'XTSPaymentReceipt'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -63,7 +67,9 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         status
     } = useGetDataObject(getDataObjectParams)
 
+    const labels = getLabels(dataObject)
     // console.log('dataObject', dataObject)
+
     const openPageParams: UseOpenPageParams = {
         pageId,
         pageName: dataType,
@@ -107,7 +113,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             const printFormParams = {
                 dataType: itemValue.dataType,
                 id: itemValue.id,
-                templateName: 'ExternalPrintForm.MinSalesOrder',
+                templateName: 'ExternalPrintForm.MinSupplierInvoice',
             }
             const url = printFormURL(printFormParams)
             TWA.openLink(url)
@@ -116,116 +122,32 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         }
     }
 
-    /////////////////////////////////////////////
-    // Delivered
-
-    const doDelivered = () => {
-        const orderState = dataObject['orderState']
-        if (orderState.presentation === SALES_ORDER_STATES.PREPARING || orderState.presentation === SALES_ORDER_STATES.TRANSPORTING) {
-            const attributeValues = {
-                _type: dataType,
-                objectId: dataObject.objectId,
-                orderState: getXTSEnumItem('XTSSalesOrderState', 'Delivered')
-            }
-            const requestData = requestData_UpdateObject(attributeValues)
-
-            const { apiRequest, actions } = getXTSSlice(dataType)
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-            dispatch(actions.setTemp(null))
-            dispatch(apiRequest(requestData))
-        }
-    }
-
     /////////////////////////////////////////
-    // Payment
+    // 
 
     const { user, company } = useSelector((state: RootState) => state.session)
 
-    const [editButton, setEditButton] = useState<boolean>(false)
-    const [paymentButton, setPaymentButton] = useState<boolean>(false)
+    // const [editButton, setEditButton] = useState<boolean>(false)
+    // const [paymentButton, setPaymentButton] = useState<boolean>(false)
     const [printButton, setPrintButton] = useState<boolean>(false)
     const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
-    const [deliveredButton, setDeliveredButton] = useState<boolean>(false)
-
-    const onChangeDataObject = (object: any) => {
-        if (!object.documentAmount) {
-            setPaymentButton(false)
-        } else if (!company) {
-            setPaymentButton(false)
-            // } else if (object.cash > 0 || object.bankTransfer > 0 || object.postPayment > 0) {
-            //     setPaymentButton(false)
-        } else if (object.orderState.presentation !== SALES_ORDER_STATES.TO_PREPAY) {
-            setPaymentButton(false)
-        } else {
-            setPaymentButton(true)
-        }
-
-        if ((object.cash === 0 && object.bankTransfer === 0 && object.openPayment === 0)) {
-            setPrintButton(false)
-        } else if (object.orderState.presentation === SALES_ORDER_STATES.EDITING ||
-            object.orderState.presentation === SALES_ORDER_STATES.TO_PREPAY) {
-            setPrintButton(false)
-        } else if (!user) {
-            setPrintButton(false)
-        } else {
-            setPrintButton(true)
-        }
-
-        if (object['orderState'].presentation === SALES_ORDER_STATES.EDITING) {
-            setEditButton(true)
-        } else if (company) {
-            setEditButton(true)
-        } else {
-            setEditButton(false)
-        }
-
-        if (!user) {
-            setDeliveredButton(false)
-        } else if (dataObject['orderState'].presentation === SALES_ORDER_STATES.PREPARING) {
-            setDeliveredButton(true)
-        } else if (dataObject['orderState'].presentation === SALES_ORDER_STATES.TRANSPORTING) {
-            setDeliveredButton(true)
-        } else {
-            setDeliveredButton(false)
-        }
-    }
-
-    useEffect(() => {
-        onChangeDataObject(dataObject)
-    }, [dataObject])
-
-    const openPayment = () => {
-        setPaymentOpen(true)
-    }
-
-    const handleCancel = () => {
-        setPaymentOpen(false)
-    }
+    // const [deliveredButton, setDeliveredButton] = useState<boolean>(false)
 
     // Hoàn tất việc thanh toán
     // Lưu ý là để chuyển giữa các Page thì đang dùng doItem bên trên
     const choiceItemValue = (itemValue: XTSItemValue) => {
-        if (paymentOpen) {
-            setPaymentOpen(false)
-            if (itemValue.dataType === 'XTSOrder') {
-                // props.choiceItemValue(itemValue)
-            }
-        } else if (printOpen) {
+        // if (paymentOpen) {
+        //     setPaymentOpen(false)
+        //     if (itemValue.dataType === 'XTSSalesInvoice') {
+        //         // props.choiceItemValue(itemValue)
+        //     }
+        // } else 
+        if (printOpen) {
             setPrintOpen(false)
         } else if (relatedOpen) {
             setRelatedOpen(false)
         }
         setPageInfo()
-    }
-
-    const modalProps = {
-        title: 'Trả trước',
-        height: '80vh',
-        width: '100%',
-        open: paymentOpen,
-        onCancel: handleCancel,
-        footer: [],
-        style: { marginTop: 0 },
     }
 
     /////////////////////////////////////////
@@ -234,12 +156,12 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.orders.tempData)
+    const tempData = useSelector((state: RootState) => state.cashReceipt.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
-            onChangeDataObject(tempData.objects[0])     // Xem xét lại, có thể không cần thì đã dùng useEffect sau khi thay đổi dataObject
+            // onChangeDataObject(tempData.objects[0])     // Xem xét lại, có thể không cần thì đã dùng useEffect sau khi thay đổi dataObject
         }
     }, [status, tempData])
 
@@ -258,73 +180,74 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     return (
 
-        <div className='sales-order-view'>
+        <div className='payment-receipt-view'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
-            <Card style={{ margin: 5 }}>
+            <Card className='payment-receipt-view-header'>
 
-                <div style={{ fontWeight: 'bold' }}>
-                    {objectPresentation(dataObject.objectId)}
+                <div className='payment-receipt-view-title'>
+                    {objectPresentation(dataObject.objectId, dataObject.operationKind)}
                 </div>
 
-                <Divider className='sales-order-view-divider' orientation='center' />
+                <Divider className='payment-receipt-view-divider' orientation='center' />
 
-                <div className='sales-order-view-item'>
-                    <div className='sales-order-view-item-title'
-                    >Khách hàng: </div>
-                    <div>{dataObject.customer.presentation}</div>
+                <div className='payment-receipt-view-item'>
+                    <div className='payment-receipt-view-item-title'
+                    >Cơ sở: </div>
+                    <div>{objectPresentation(dataObject.documentBasis)}</div>
                 </div>
 
-                <div className='sales-order-view-item'>
-                    <div className='sales-order-view-item-title'
+                <div className='payment-receipt-view-item'>
+                    <div className='payment-receipt-view-item-title'
+                    >{labels.counterpartyLabel}: </div>
+                    <div>{dataObject.counterparty.presentation}</div>
+                </div>
+
+                {/* <div className='payment-receipt-view-item'>
+                    <div className='payment-receipt-view-item-title'
                     >Địa chỉ giao hàng: </div>
                     <div>{dataObject.deliveryAddress}</div>
-                </div>
+                </div> */}
 
-                <div className='sales-order-view-item'>
-                    <div className='view-page-item-title'>Ghi chú: </div>
+                <div className='payment-receipt-view-item'>
+                    <div className='payment-receipt-view-item-title'>Ghi chú: </div>
                     <div>{dataObject.comment}</div>
                 </div>
 
-                <div className='sales-order-view-item'>
-                    <div>Trạng thái đơn hàng: </div>
-                    <OrderStateTag value={dataObject.orderState?.presentation} />
-                </div>
+                <Divider className='payment-receipt-view-divider' orientation='center' />
 
-                <Divider className='sales-order-view-divider' orientation='center' />
-
-                <div className='sales-order-view-item'>
+                {/* <div className='view-page-item'>
                     <div>Giá trị giao hàng: </div>
                     <div>{VND(dataObject._receiptableIncrease)}</div>
                 </div>
-                <div className='sales-order-view-item'>
+                <div className='view-page-item'>
                     <div>Số tiền đã thu: </div>
                     <div>{VND(dataObject._receiptableDecrease)}</div>
                 </div>
-                <div className='sales-order-view-item'>
+                <div className='view-page-item'>
                     <div>Số tiền phải thu: </div>
                     <div>{VND(dataObject._receiptableBalance)}</div>
-                </div>
+                </div> */}
 
 
-                {/* <div className='sales-order-view-item'>
+                {/* <div className='view-page-item'>
                     <div>Tỷ lệ thanh toán: </div>
                     <div>{'__ %'}</div>
                 </div>
 
-                <div className='sales-order-view-item'>
+                <div className='view-page-item'>
                     <div>Tỷ lệ giao hàng: </div>
                     <div>{'__ %'}</div>
                 </div> */}
 
-                <Divider className='sales-order-view-divider' orientation='center' />
+                {/* <Divider className='payment-receipt-view-divider' orientation='center' /> */}
 
-                <div className='sales-order-view-item'>
-                    <div>Số tiền đơn hàng: </div>
-                    <b>{VND(dataObject.documentAmount)}</b>
+                <div className='payment-receipt-view-item'>
+                    <div>Số tiền: </div>
+                    <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} {dataObject.cashCurrency?.presentation}</b>
                 </div>
-                {/* <div className='sales-order-view-item'>
+                {/* <div className='view-page-item'>
                     <div>Thu tiền khi chốt đơn:</div>
                     <div>
                         {(dataObject.cash) && `TM: ${dataObject.cash} ` || ''}
@@ -334,7 +257,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 </div> */}
             </Card >
 
-            <List
+            {/* <List
                 grid={{
                     gutter: 16,
                     xs: 1,
@@ -347,33 +270,33 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 dataSource={dataObject.inventory}
                 renderItem={(dataRow) => (
                     <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
-                        <OrderInventoryView
+                        <ObjectInventoryView
                             dataRow={dataRow}
+                            dataObject={dataObject}
                         />
                     </List.Item>
                 )}
                 style={{ margin: '4px' }}
                 locale={{ emptyText: 'Không có sản phẩm nào được chọn' }}
-            />
+            /> */}
 
-            <SubPage
+            {/* <SubPage
                 modalProps={modalProps}
                 pageName='Payment'
                 itemValue={itemValue}
                 choiceItemValue={choiceItemValue}
-            />
+            /> */}
 
-            <PrintPage
+            {/* <PrintPage
                 objectId={dataObject.objectId}
                 title='In đơn hàng'
                 open={printOpen}
                 pageName='Print order'
                 choiceItemValue={choiceItemValue}
-            />
+            /> */}
 
             <RelatedPage
                 objectId={dataObject.objectId}
-                dataObject={dataObject}
                 title='Chứng từ liên quan'
                 open={relatedOpen}
                 pageName='Related documents'
@@ -382,13 +305,11 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
-                editItem={{ onClick: editItem, visible: editButton }}
+                editItem={{ onClick: editItem }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
-                relatedDocuments={{ onClick: viewRelatedItems }}
+                // relatedDocuments={{ onClick: viewRelatedItems }}
                 refresh={{ onClick: refreshObject, }}
-                action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: paymentButton }}
-                action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
-                action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-button-icon' />, visible: deliveredButton }}
+            // action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
             />
 
         </div >

@@ -16,141 +16,141 @@ ObjectListSettings
 /* ObjectInventory */
 
 /* ObjectList */
-.sales-invoice-list {
+.payment-receipt-list {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
 /* ObjectView */
-.sales-invoice-view {
+.payment-receipt-view {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.sales-invoice-view-title {
+.payment-receipt-view-title {
     font-weight: bold;
 }
 
-.sales-invoice-view-divider {
+.payment-receipt-view-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.sales-invoice-view-item {
+.payment-receipt-view-item {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin: 0px;
 }
 
-.sales-invoice-view-item-title {
+.payment-receipt-view-item-title {
     min-width: 100;
 }
 
 /* ObjectPrint */
-.sales-invoice-print {
+.payment-receipt-print {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
 /* ObjectEdit */
-.sales-invoice-edit {
+.payment-receipt-edit {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
 }
 
-.sales-invoice-edit-header {
+.payment-receipt-edit-header {
     margin: 5px;
 }
 
-.sales-invoice-edit-title {
+.payment-receipt-edit-title {
     font-weight: bold;
 }
 
-.sales-invoice-edit-item {
+.payment-receipt-edit-item {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
-.sales-invoice-edit-item-customer {
+.payment-receipt-edit-item-customer {
     width: calc(100% - 50px);
     max-width: 700px;
     margin-bottom: 12px;
 }
 
-.sales-invoice-edit-item-visible {
+.payment-receipt-edit-item-visible {
     display: block;
 }
 
-.sales-invoice-edit-item-hidden {
+.payment-receipt-edit-item-hidden {
     display: none;
 }
 
-/* .sales-invoice-edit-item-order-state {
+/* .payment-receipt-edit-item-order-state {
     width: 200px;
 } */
 
-.sales-invoice-edit-item-label {
+.payment-receipt-edit-item-label {
     max-width: 700px;
     margin-bottom: 12px;
 }
 
-.sales-invoice-edit-divider {
+.payment-receipt-edit-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 15px;
 }
 
 /* ObjectInventory */
-.sales-invoice-inventory-edit {
+.payment-receipt-inventory-edit {
     overflow-y: auto;
     margin: 0px;
 }
 
-.sales-invoice-inventory-edit-card {
+.payment-receipt-inventory-edit-card {
     margin: 0px;
     height: 122px;
 }
 
-.sales-invoice-inventory-edit-card .ant-card-body {
+.payment-receipt-inventory-edit-card .ant-card-body {
     display: flex;
     width: 100%;
     align-items: center;
     padding: 0px !important;
 }
 
-.sales-invoice-inventory-edit-card-picture {
+.payment-receipt-inventory-edit-card-picture {
     width: 120px;
     height: 120px;
     overflow: hidden;
 }
 
-.sales-invoice-inventory-edit-card-picture-image {
+.payment-receipt-inventory-edit-card-picture-image {
     object-fit: cover,
 }
 
-.sales-invoice-inventory-edit-card-info {
+.payment-receipt-inventory-edit-card-info {
     padding-left: 15px;
     padding-right: 20px;
     flex-grow: 1;
 }
 
-.sales-invoice-inventory-edit-card-info-description {
+.payment-receipt-inventory-edit-card-info-description {
     font-weight: bold;
 }
 
-.sales-invoice-inventory-edit-amount {
+.payment-receipt-inventory-edit-amount {
     display: flex;
     justify-content: space-between;
 }
 
-.sales-invoice-inventory-edit-quantity {
+.payment-receipt-inventory-edit-quantity {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -159,124 +159,29 @@ ObjectListSettings
 }
 
 @media (max-width:575px) {
-    .sales-invoice-inventory-edit-quantity-title-long {
+    .payment-receipt-inventory-edit-quantity-title-long {
         display: none;
     }
 }
 
 @media (min-width:576px) {
-    .sales-invoice-inventory-edit-quantity-title-short {
+    .payment-receipt-inventory-edit-quantity-title-short {
         display: none;
         margin-left: 6px;
     }
 }
 
-.sales-invoice-inventory-edit-quantity-title-long {
+.payment-receipt-inventory-edit-quantity-title-long {
     min-width: 1px;
     margin-right: 5px;
 }
 
-.sales-invoice-inventory-edit-quantity-title-short {
+.payment-receipt-inventory-edit-quantity-title-short {
     min-width: 1px;
     margin-right: 5px;
 }
 
-.sales-invoice-inventory-edit-quantity-group {
-    display: flex;
-}
-
-.sales-invoice-inventory-edit-uom {
-    width: 100px;
-    margin-bottom: 0px;
-}
-
-.sales-invoice-inventory-edit-price {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3px;
-}
-
-
-/* SalesInvoiceInventoryView */
-.sales-invoice-inventory-view {
-    overflow-y: auto;
-    margin: 0px;
-    height: 100px;
-}
-
-.sales-invoice-inventory-view-card {
-    display: flex;
-    margin: 0px;
-    height: 122px;
-}
-
-.sales-invoice-inventory-view-card .ant-card-body {
-    padding: 0px;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 0px !important;
-}
-
-.sales-invoice-inventory-view-card-picture {
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-}
-
-.sales-invoice-inventory-view-card-picture-image {
-    object-fit: cover,
-}
-
-.sales-invoice-inventory-view-card-info {
-    padding-left: 15px;
-    padding-right: 20px;
-    flex-grow: 1;
-}
-
-.sales-invoice-inventory-view-card-info-description {
-    font-weight: bold;
-}
-
-.sales-invoice-inventory-view-amount {
-    display: flex;
-    justify-content: space-between;
-}
-
-.sales-invoice-inventory-view-quantity {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3px;
-}
-
-@media (max-width:575px) {
-    .sales-invoice-inventory-view-quantity-title-long {
-        display: none;
-    }
-}
-
-@media (min-width:576px) {
-    .sales-invoice-inventory-view-quantity-title-short {
-        display: none;
-        margin-left: 6px;
-    }
-}
-
-.sales-invoice-inventory-view-quantity-title-long {
-    min-width: 1px;
-    margin-right: 5px;
-}
-
-.sales-invoice-inventory-view-quantity-title-short {
-    min-width: 1px;
-    margin-right: 5px;
-}
-
-.sales-invoice-inventory-view-quantity-group {
+.payment-receipt-inventory-edit-quantity-group {
     display: flex;
 }
 
@@ -285,7 +190,101 @@ ObjectListSettings
     margin-bottom: 0px;
 }
 
-.sales-invoice-inventory-view-price {
+.payment-receipt-inventory-edit-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+
+/* SupplierInvoiceInventoryView */
+.payment-receipt-inventory-view {
+    overflow-y: auto;
+    margin: 0px;
+    height: 100px;
+}
+
+/* .payment-receipt-inventory-view-card {
+    margin: 0px;
+    height: 122px;
+} */
+
+.payment-receipt-inventory-view .ant-card-body {
+    padding: 0px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0px !important;
+}
+
+.payment-receipt-inventory-view-card-picture {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.payment-receipt-inventory-view-card-picture-image {
+    object-fit: cover,
+}
+
+.payment-receipt-inventory-view-card-info {
+    padding-left: 15px;
+    padding-right: 20px;
+    flex-grow: 1;
+}
+
+.payment-receipt-inventory-view-card-info-description {
+    font-weight: bold;
+}
+
+.payment-receipt-inventory-view-amount {
+    display: flex;
+    justify-content: space-between;
+}
+
+.payment-receipt-inventory-view-quantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+@media (max-width:575px) {
+    .payment-receipt-inventory-view-quantity-title-long {
+        display: none;
+    }
+}
+
+@media (min-width:576px) {
+    .payment-receipt-inventory-view-quantity-title-short {
+        display: none;
+        margin-left: 6px;
+    }
+}
+
+.payment-receipt-inventory-view-quantity-title-long {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.payment-receipt-inventory-view-quantity-title-short {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.payment-receipt-inventory-view-quantity-group {
+    display: flex;
+}
+
+.product-row-edit-uom {
+    width: 100px;
+    margin-bottom: 0px;
+}
+
+.payment-receipt-inventory-view-price {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -294,7 +293,7 @@ ObjectListSettings
 }
 
 /* Card */
-.sales-invoice-card {
+.payment-receipt-card {
     /* padding: 10px; */
     margin: 2px;
     height: 200px;
@@ -302,7 +301,7 @@ ObjectListSettings
     padding: 0px;
 }
 
-.sales-invoice-card .ant-card-body {
+.payment-receipt-card .ant-card-body {
     padding: 20px 20px 20px 20px;
     display: flex;
     flex-direction: column;
@@ -311,12 +310,12 @@ ObjectListSettings
     margin: 0px;
 }
 
-.sales-invoice-card-avatar {
+.payment-receipt-card-avatar {
     margin: 10px;
     width: 150px;
 }
 
-.sales-invoice-card-content {
+.payment-receipt-card-content {
     padding-left: 0px;
     padding-right: 10px;
     padding-top: 10px;
@@ -325,23 +324,23 @@ ObjectListSettings
     height: 100%;
 }
 
-.sales-invoice-card-title {
+.payment-receipt-card-title {
     text-align: left;
     font-weight: bold;
 }
 
-.sales-invoice-card-divider {
+.payment-receipt-card-divider {
     border-color: lightgray;
     margin-top: 5px;
     margin-bottom: 5px
 }
 
-.sales-invoice-card-row {
+.payment-receipt-card-row {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
-.sales-invoice-card-choice-button {
+.payment-receipt-card-choice-button {
     padding: 0px;
 }

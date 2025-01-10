@@ -15,11 +15,11 @@ import { XTSItemValue } from '../../data-objects/types-form'
 import { createXTSObject } from '../../data-objects/common-use'
 
 import CustomersPage from '../../pages/customer'
-import OrdersPage from '../../pages/order'
+import OrdersPage from '../../pages/sales-order'
 import ProductsPage from '../../pages/product'
 import UOMClassifierPage from '../../pages/uom-classifier'
 import EmployeesPage from '../../pages/employee'
-import PaymentEditPage from '../../pages/order/PaymentEdit'
+import PaymentEditPage from '../../pages/sales-order/PaymentEdit'
 import { generateUUID } from '../../commons/common-use'
 
 /////////////////////////////////////////////

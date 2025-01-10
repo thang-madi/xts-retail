@@ -45,6 +45,10 @@ ListSettings
     min-width: 100;
 }
 
+.sales-order-view-item-hight-light {
+    color: red;
+}
+
 /* OrderPrint */
 .sales-order-print {
     width: 100%;
@@ -65,6 +69,13 @@ ListSettings
 
 .sales-order-edit-title {
     font-weight: bold;
+}
+
+.sales-order-edit-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0px;
 }
 
 .sales-order-edit-item-customer {
@@ -296,6 +307,100 @@ ListSettings
 }
 
 .sales-order-inventory-edit-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+/* SupplierInvoiceInventoryView */
+.sales-order-inventory-view {
+    overflow-y: auto;
+    margin: 0px;
+    height: 100px;
+}
+
+.sales-order-inventory-view-card {
+    display: flex;
+    margin: 0px;
+    height: 122px;
+}
+
+.sales-order-inventory-view-card .ant-card-body {
+    padding: 0px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0px !important;
+}
+
+.sales-order-inventory-view-card-picture {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.sales-order-inventory-view-card-picture-image {
+    object-fit: cover,
+}
+
+.sales-order-inventory-view-card-info {
+    padding-left: 15px;
+    padding-right: 20px;
+    flex-grow: 1;
+}
+
+.sales-order-inventory-view-card-info-description {
+    font-weight: bold;
+}
+
+.sales-order-inventory-view-amount {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sales-order-inventory-view-quantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+@media (max-width:575px) {
+    .sales-order-inventory-view-quantity-title-long {
+        display: none;
+    }
+}
+
+@media (min-width:576px) {
+    .sales-order-inventory-view-quantity-title-short {
+        display: none;
+        margin-left: 6px;
+    }
+}
+
+.sales-order-inventory-view-quantity-title-long {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.sales-order-inventory-view-quantity-title-short {
+    min-width: 1px;
+    margin-right: 5px;
+}
+
+.sales-order-inventory-view-quantity-group {
+    display: flex;
+}
+
+.product-row-edit-uom {
+    width: 100px;
+    margin-bottom: 0px;
+}
+
+.sales-order-inventory-view-price {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

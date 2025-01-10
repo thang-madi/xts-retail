@@ -311,7 +311,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             >
                 <FormInput
                     itemName='objectId'
-                    dataType='XTSOrder'
+                    dataType='XTSSupplierInvoice'
                     itemProps={{
                         className: 'hidden',
                         label: 'ObjectId',

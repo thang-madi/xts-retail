@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 /////////////////////////////////////////////
 // Application's
 
-// import ChoicePage from '../../hocs/choice-page'
+// import ChoicePage from '../../hocs/choice'
 import { useCreatePage, UseCreatePageParams, useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams, useSaveFormData, UseSaveFormDataParams } from '../../hooks/usePage'
 // import { generateUUID } from '../../commons/common-use'
 // import { createXTSObject } from '../../data-exchange/objects'
@@ -21,7 +21,6 @@ import { BottomBar, } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSObjectEditProps } from '../../data-objects/types-components'
 import { requestData_SaveObject } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
-import { XTSOrderProductRow, XTSProduct, XTSSalesInvoiceInventory } from '../../data-objects/types-application'
 import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
@@ -34,7 +33,12 @@ import { RootState } from '../../data-storage'
 /////////////////////////////////////////////
 // Object's
 
-import { ObjectInventoryEdit } from './ObjectInventory'                 // 
+// import { apiRequest, actions } from '../../data-storage/slice-orders'
+import { XTSOrderProductRow, XTSProduct } from '../../data-objects/types-application'
+
+import { SALES_ORDER_STATES } from './enums'
+import { OrderInventoryEdit } from './ObjectInventory'                 // 
+import OrderStateTag from './OrderStateTag'
 
 import './index.css'
 
@@ -62,7 +66,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSSalesInvoice'
+    const dataType = 'XTSOrder'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -77,13 +81,12 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         setDataObject,
     } = useGetDataObject(getDataObjectParams)
 
-    Object.assign(dataObject, itemValue.dataItem)
-    // console.log('OrderEdit.itemValue.dataItem', itemValue.dataItem)
-    // console.log('OrderEdit.dataObject', dataObject)
+    // console.log('OrderEdit.object_id', object_id)
+    // console.log('OrderEdit.formData', formData)
 
     const pageName = dataType
     const pos = dataObject?.objectId.presentation.indexOf('ngày')
-    const pageTitle = (!itemValue?.id) && 'Giao hàng mới' || dataObject.objectId.presentation.substring(0, pos) + ' (soạn)'
+    const pageTitle = (!itemValue?.id) && 'Đơn hàng mới' || dataObject.objectId.presentation.substring(0, pos) + ' (soạn)'
     const openPageParams: UseOpenPageParams = {
         pageId,
         pageName,
@@ -93,41 +96,12 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     const { setPageInfo } = useOpenPage(openPageParams)
 
     /////////////////////////////////////////////
-    // Làm việc với ChoicePage   
-
-    // // Hàm sự kiện khi bấm nút OK trên biểu mẫu Modal ChoicePage
-    // const handleOk = (value: any) => {
-    //     closeChoicePage();
-    // }
-
-    // // Hàm sự kiện khi bấm nút Cancel trên biểu mẫu Modal ChoicePage
-    // const handleCancel = () => {
-    //     closeChoicePage()
-    //     // setProductRowOpen(false)
-    // }
-
-    // const { choiceOpen,
-    //     openChoicePage,
-    //     closeChoicePage,
-    //     chosenItemValues,
-    //     setChosenItemValues,
-    //     initialItemValue,               // Được gán giá trị bằng setInitialItemValue khi gọi openChoicePage, vẫn cần
-    //     setInitialItemValue,            // Không dùng, chỉ dùng trong openChoicePage
-    // } = useChoicePage()
-
-
-    /////////////////////////////////////////////
     // Xử lý các sự kiện trên Page   
 
     // Sau khi lưu dữ liệu dataObject
     const afterSave = (tempData: any) => {
 
     }
-
-    // // Khi thay đổi phần bảng Inventory
-    // const onChange = () => {
-
-    // }
 
     // Khi ghi lại dữ liệu xong trên Server thì thay đổi trạng thái status và tempData của state.orders
     // Hàm này gọi useEffect để thực hiện thay đổi trên Page.
@@ -146,9 +120,9 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
         // const requestData = createSaveObjectRequest(dataObject, values, valueTabs)
 
-        // if (dataObject['shipmentDate'].startsWith('0001-01-01')) {
-        //     dataObject['shipmentDate'] = dayjs().format('YYYY-MM-DD')
-        // }
+        if (dataObject['shipmentDate'].startsWith('0001-01-01')) {
+            dataObject['shipmentDate'] = dayjs().format('YYYY-MM-DD')
+        }
         // console.log('dataObject:', dataObject)
 
         const requestData = requestData_SaveObject(dataObject)
@@ -168,10 +142,10 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     }
 
     const saveAndSend = (): void => {
-        // if (dataObject['orderState'].presentation === SALES_ORDER_STATES.EDITING) {
-        //     dataObject['orderState'] = getXTSEnumItem('XTSSalesOrderState', 'ToPrepay')
-        // }
-        // form.submit()
+        if (dataObject['orderState'].presentation === SALES_ORDER_STATES.EDITING) {
+            dataObject['orderState'] = getXTSEnumItem('XTSSalesOrderState', 'ToPrepay')
+        }
+        form.submit()
     }
 
     /////////////////////////////////////////
@@ -217,7 +191,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 // }
 
                 const productObject = itemValue.dataItem as XTSProduct
-                const newDataRow = createXTSObject('XTSSalesInvoiceInventory', {
+                const newDataRow = createXTSObject('XTSOrderProductRow', {
                     product: productObject.objectId,
                     price: productObject._price,
                     quantity: 1,
@@ -260,16 +234,16 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             setSaveButton(false)
         } else if (company) {
             setSaveButton(true)
-            // } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
-            //     setSaveButton(false)
+        } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
+            setSaveButton(false)
         } else {
             setSaveButton(true)
         }
 
         if (status !== REQUEST_STATUSES.IDLE) {
             setSendButton(false)
-            // } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
-            //     setSendButton(false)
+        } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
+            setSendButton(false)
         } else if (company) {
             setSendButton(false)
         } else {
@@ -295,7 +269,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     //     
 
     return (
-        <div className='sales-invoice-edit'>
+        <div className='sales-order-edit'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
@@ -308,7 +282,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             >
                 <FormInput
                     itemName='objectId'
-                    dataType='XTSSalesInvoice'
+                    dataType='XTSOrder'
                     itemProps={{
                         className: 'hidden',
                         label: 'ObjectId',
@@ -321,24 +295,20 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     {...commonItemProps}
                 />
 
-                <Card className='sales-invoice-edit-header'>
+                <Card className='sales-order-edit-header' >
 
-                    <div className='sales-invoice-edit-title'>
+                    <div className='sales-order-edit-title' >
                         {objectPresentation(dataObject.objectId)}
                     </div>
 
-                    <Divider className='sales-invoice-edit-divider' orientation='center' />
-
-                    <div className='sales-invoice-edit-item'>
-                        <div className='sales-invoice-edit-item-label'>Cơ sở: </div>
-                        <div>{objectPresentation(dataObject.docOrder)}</div>
-                    </div>
+                    <Divider className='sales-order-edit-divider' orientation='center' />
 
                     <FormInput
-                        itemName='counterparty'
+                        itemName='customer'
                         dataType='XTSCounterparty'
                         itemProps={{
-                            className: 'sales-invoice-edit-item-label',
+                            // className: 'edit-item-customer',
+                            className: 'sales-order-edit-item-label',
                             label: 'Khách hàng',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -352,34 +322,34 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         {...commonItemProps}
                     />
 
-                    {/* <div className={(company) && 'sales-invoice-edit-item-visible' || 'sales-invoice-edit-item-hidden'}>
+                    <div className={(company) && 'sales-order-edit-item-visible' || 'sales-order-edit-item-hidden'}>
                         <FormSelect
                             itemName='orderState'
                             dataType='XTSSalesOrderState'
                             itemProps={{
-                                className: 'sales-invoice-edit-item-label',
+                                className: 'sales-order-edit-item-label',
                                 label: 'Trạng thái đơn hàng',
                                 required: false,
                                 labelCol: { span: 4 },
                             }}
                             selectProps={{
-                                className: 'sales-invoice-edit-item-order-state-value',
+                                className: 'sales-order-edit-item-order-state-value',
                                 required: false,
                                 disabled: (!company) && true || false,
                             }}
                             {...commonItemProps}
                         />
-                    </div> */}
-                    {/* <div className={(company) && 'edit-page-item-hidden' || 'edit-page-item-visible'}>
+                    </div>
+                    <div className={(company) && 'sales-order-edit-item-hidden' || 'sales-order-edit-item-visible'}>
                         Trạng thái đơn hàng: <OrderStateTag value={dataObject.orderState?.presentation} />
-                    </div> */}
+                    </div>
 
-                    <div className={(user) && 'sales-invoice-edit-item-visible' || 'sales-invoice-edit-item-hidden'}>
+                    <div className={(user) && 'sales-order-edit-item-visible' || 'sales-order-edit-item-hidden'}>
                         <FormInput
                             itemName='employeeResponsible'
                             dataType='XTSEmployee'
                             itemProps={{
-                                className: 'sales-invoice-edit-item-label',
+                                className: 'sales-order-edit-item-label',
                                 label: 'Nhân viên',
                                 labelCol: { span: 4 },
                                 wrapperCol: { span: 20 },
@@ -399,7 +369,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         dataType='String'
                         // multiline={true}
                         itemProps={{
-                            className: 'sales-invoice-edit-item-label',
+                            className: 'sales-order-edit-item-label',
                             label: 'Địa chỉ giao hàng',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -418,7 +388,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         dataType='String'
                         multiline={true}
                         itemProps={{
-                            className: 'sales-invoice-edit-item-label',
+                            className: 'sales-order-edit-item-label',
                             label: 'Ghi chú',
                             labelCol: { span: 4 },
                             wrapperCol: { span: 20 },
@@ -432,10 +402,10 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         {...commonItemProps}
                     />
 
-                    <Divider className='sales-invoice-edit-divider' orientation='center' />
+                    <Divider className='sales-order-edit-divider' orientation='center' />
 
-                    <div className='sales-invoice-edit-item' >
-                        <div>Số tiền giao hàng: </div>
+                    <div className='sales-order-edit-item' >
+                        <div>Số tiền đơn hàng: </div>
                         <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
                     </div>
 
@@ -452,9 +422,9 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         xxl: 5,
                     }}
                     dataSource={dataObject.inventory}
-                    renderItem={(dataRow: XTSSalesInvoiceInventory) => (
+                    renderItem={(dataRow: XTSOrderProductRow) => (
                         <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
-                            <ObjectInventoryEdit
+                            <OrderInventoryEdit
                                 dataRow={dataRow}
                                 updateRow={updateRow}
                                 deleteRow={deleteRow}
@@ -488,7 +458,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     refresh={{ onClick: refreshObject, }}
                     action1={{ onClick: addProduct, title: 'Thêm hàng', icon: <AppstoreAddOutlined className='context-menu-button-icon' />, visible: saveButton }}
                     saveItem={{ onClick: () => { form.submit() }, visible: saveButton }}
-                // action2={{ onClick: saveAndSend, title: 'Chốt đơn', icon: <CheckOutlined className='context-menu-button-icon' />, visible: sendButton }}
+                    action2={{ onClick: saveAndSend, title: 'Chốt đơn', icon: <CheckOutlined className='context-menu-button-icon' />, visible: sendButton }}
                 />
 
             </Form>
@@ -496,6 +466,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         </div >
     )
 }
+
 
 /////////////////////////////////////////////
 // Export's

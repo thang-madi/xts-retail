@@ -19,7 +19,7 @@ import { BottomBar } from '../../components/ContextMenu'
 // Object's
 
 import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
-import { ObjectInventoryView } from './ObjectInventory'
+// import { ObjectInventoryView } from './ObjectInventory'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
 import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
@@ -41,6 +41,7 @@ import PrintPage from '../../hocs/PrintPage'
 import RelatedPage from '../../hocs/RelatedPage'
 
 import './index.css'
+import { getLabels } from './common'
 
 /////////////////////////////////////////////
 // Main component
@@ -52,7 +53,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     const dispatch = useDispatch()
 
     const object_id = itemValue.id
-    const dataType = 'XTSSalesInvoice'
+    const dataType = 'XTSCashReceipt'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -66,7 +67,9 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         status
     } = useGetDataObject(getDataObjectParams)
 
-    console.log('dataObject', dataObject)
+    const labels = getLabels(dataObject)
+    // console.log('dataObject', dataObject)
+
     const openPageParams: UseOpenPageParams = {
         pageId,
         pageName: dataType,
@@ -90,7 +93,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             })
             props.choiceItemValue(itemValue)
         }
-        console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
+        // console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
     }
 
     const editItem = () => {
@@ -102,7 +105,6 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }
 
     const viewRelatedItems = () => {
-        // doItem(ITEM_VALUE_ACTIONS.GET_RELATED)
         setRelatedOpen(true)
     }
 
@@ -111,25 +113,24 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             const printFormParams = {
                 dataType: itemValue.dataType,
                 id: itemValue.id,
-                templateName: 'ExternalPrintForm.MinSalesInvoice',
+                templateName: 'ExternalPrintForm.MinSupplierInvoice',
             }
             const url = printFormURL(printFormParams)
-            // console.log('TWA.platform', TWA.platform)
             TWA.openLink(url)
         } else {
-            // doItem(ITEM_VALUE_ACTIONS.PRINT)
             setPrintOpen(true)
         }
     }
 
     /////////////////////////////////////////
-    // Payment
+    // 
 
     const { user, company } = useSelector((state: RootState) => state.session)
 
     // const [editButton, setEditButton] = useState<boolean>(false)
+    // const [paymentButton, setPaymentButton] = useState<boolean>(false)
     const [printButton, setPrintButton] = useState<boolean>(false)
-    // const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
+    const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
     // const [deliveredButton, setDeliveredButton] = useState<boolean>(false)
 
     // Hoàn tất việc thanh toán
@@ -155,7 +156,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.orders.tempData)
+    const tempData = useSelector((state: RootState) => state.cashReceipt.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
@@ -179,41 +180,42 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     return (
 
-        <div className='sales-invoice-view'>
+        <div className='cash-receipt-view'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
-            <Card className='sales-invoice-view-header'>
+            <Card className='cash-receipt-view-header'>
 
-                <div className='sales-invoice-view-title'>
-                    {objectPresentation(dataObject.objectId)}
+                <div className='cash-receipt-view-title'>
+                    {objectPresentation(dataObject.objectId, dataObject.operationKind)}
                 </div>
 
-                <Divider className='sales-invoice-view-divider' orientation='center' />
+                <Divider className='cash-receipt-view-divider' orientation='center' />
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'>Cơ sở: </div>
-                    <div>{objectPresentation(dataObject.docOrder)}</div>
+                <div className='cash-receipt-view-item'>
+                    <div className='cash-receipt-view-item-title'
+                    >Cơ sở: </div>
+                    <div>{objectPresentation(dataObject.documentBasis)}</div>
                 </div>
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'
-                    >Khách hàng: </div>
+                <div className='cash-receipt-view-item'>
+                    <div className='cash-receipt-view-item-title'
+                    >{labels.counterpartyLabel}: </div>
                     <div>{dataObject.counterparty.presentation}</div>
                 </div>
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'
+                {/* <div className='cash-receipt-view-item'>
+                    <div className='cash-receipt-view-item-title'
                     >Địa chỉ giao hàng: </div>
                     <div>{dataObject.deliveryAddress}</div>
-                </div>
+                </div> */}
 
-                <div className='sales-invoice-view-item'>
-                    <div className='sales-invoice-view-item-title'>Ghi chú: </div>
+                <div className='cash-receipt-view-item'>
+                    <div className='cash-receipt-view-item-title'>Ghi chú: </div>
                     <div>{dataObject.comment}</div>
                 </div>
 
-                <Divider className='sales-invoice-view-divider' orientation='center' />
+                <Divider className='cash-receipt-view-divider' orientation='center' />
 
                 {/* <div className='view-page-item'>
                     <div>Giá trị giao hàng: </div>
@@ -239,11 +241,11 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     <div>{'__ %'}</div>
                 </div> */}
 
-                {/* <Divider className='sales-invoice-view-divider' orientation='center' /> */}
+                {/* <Divider className='cash-receipt-view-divider' orientation='center' /> */}
 
-                <div className='sales-invoice-view-item'>
-                    <div>Số tiền giao hàng: </div>
-                    <b>{VND(dataObject.documentAmount)}</b>
+                <div className='cash-receipt-view-item'>
+                    <div>Số tiền: </div>
+                    <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} {dataObject.cashCurrency?.presentation}</b>
                 </div>
                 {/* <div className='view-page-item'>
                     <div>Thu tiền khi chốt đơn:</div>
@@ -255,7 +257,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 </div> */}
             </Card >
 
-            <List
+            {/* <List
                 grid={{
                     gutter: 16,
                     xs: 1,
@@ -270,12 +272,13 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
                         <ObjectInventoryView
                             dataRow={dataRow}
+                            dataObject={dataObject}
                         />
                     </List.Item>
                 )}
                 style={{ margin: '4px' }}
                 locale={{ emptyText: 'Không có sản phẩm nào được chọn' }}
-            />
+            /> */}
 
             {/* <SubPage
                 modalProps={modalProps}
@@ -302,13 +305,11 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
-                editItem={{ onClick: editItem, }}
+                editItem={{ onClick: editItem }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
                 // relatedDocuments={{ onClick: viewRelatedItems }}
                 refresh={{ onClick: refreshObject, }}
-            // action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-buton-icon' />, visible: paymentButton }}
-            // action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-buton-icon' />, visible: printButton }}
-            // action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-buton-icon' />, visible: deliveredButton }}
+            // action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
             />
 
         </div >

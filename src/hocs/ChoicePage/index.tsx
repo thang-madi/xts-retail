@@ -15,16 +15,16 @@ import { XTSItemValue } from '../../data-objects/types-form'
 import { createXTSObject } from '../../data-objects/common-use'
 
 import CustomersPage from '../../pages/customer'
-import OrdersPage from '../../pages/order'
+import SalesOrdersPage from '../../pages/sales-order'
 import ProductsPage from '../../pages/product'
 import UOMClassifierPage from '../../pages/uom-classifier'
 import EmployeesPage from '../../pages/employee'
 import StructuralUnitPage from '../../pages/structural-unit'
 
-// import CashReceiptPage from '../../pages/cash-receipt'
-// import PaymentReceiptPage from '../../pages/payment-receipt'
-// import SalesInvoicePage from '../../pages/sales-invoice'
-// import SupplierInvoicePage from '../../pages/supplier-invoice'
+import CashReceiptsPage from '../../pages/cash-receipt'
+import PaymentReceiptsPage from '../../pages/payment-receipt'
+import SalesInvoicesPage from '../../pages/sales-invoice'
+import SupplierInvoicesPage from '../../pages/supplier-invoice'
 
 /////////////////////////////////////////////
 // Object's
@@ -39,7 +39,11 @@ function getObjectPage(dataType: string): React.FC<any> {
 
     const mapPages: { [key: string]: React.FC } = {
         XTSCounterparty: CustomersPage,
-        XTSOrder: OrdersPage,
+        XTSOrder: SalesOrdersPage,
+        XTSSalesInvoice: SalesInvoicesPage,
+        XTSSupplierInvoice: SupplierInvoicesPage,
+        XTSCashReceipt: CashReceiptsPage,
+        XTSPaymentReceipt: PaymentReceiptsPage,
         XTSProduct: ProductsPage,
         XTSUOMClassifier: UOMClassifierPage,
         XTSEmployee: EmployeesPage,

@@ -15,9 +15,8 @@ import { createXTSObject, objectPresentation } from '../../data-objects/common-u
 /////////////////////////////////////////////
 // Object's
 
-import { XTSSupplierInvoice } from '../../data-objects/types-application'
+import { XTSCashReceipt, XTSSupplierInvoice } from '../../data-objects/types-application'
 import './index.css'
-import { getLabels } from './common'
 
 /////////////////////////////////////////////
 // Main component
@@ -25,9 +24,7 @@ import { getLabels } from './common'
 const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     const { item, itemName, additionals } = props
-    const formData = item as XTSSupplierInvoice
-
-    const labels = getLabels(formData)
+    const formData = item as XTSCashReceipt
 
     const doItem = (action: ITEM_VALUE_ACTIONS): void => {
         if (props.choiceItemValue) {
@@ -57,44 +54,44 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     return (
         <Card
-            className='supplier-invoice-card'
+            className='cash-receipt-card'
             onClick={clickItem}
         >
-            <div className='supplier-invoice-card-title' >
-                {objectPresentation(formData.objectId, { operationKind: formData.operationKind })}
+            <div className='cash-receipt-card-title' >
+                {objectPresentation(formData.objectId)}
             </div>
 
-            <Divider className='supplier-invoice-card-divider' orientation='center' />
+            <Divider className='cash-receipt-card-divider' orientation='center' />
 
-            <div className='supplier-invoice-view-item'>
-                <div className='supplier-invoice-view-item-title'>Cơ sở: </div>
-                <div>{objectPresentation(formData.docOrder)}</div>
+            <div className='cash-receipt-view-item'>
+                <div className='cash-receipt-view-item-title'>Cơ sở: </div>
+                <div>{objectPresentation(formData.documentBasis)}</div>
             </div>
 
-            <div className='supplier-invoice-card-row' >
-                <div>{labels.counterpartyLabel}: </div>
+            <div className='cash-receipt-card-row' >
+                <div>Người trả: </div>
                 <div>{formData.counterparty?.presentation}</div>
             </div>
 
-            {/* <div className='supplier-invoice-card-row'>
+            {/* <div className='cash-receipt-card-row'>
                 <div>Địa chỉ giao hàng: </div>
                 <div>{formData.deliveryAddress}</div>
             </div> */}
 
-            <div className='supplier-invoice-card-row'>
+            <div className='cash-receipt-card-row'>
                 <div>Ghi chú: </div>
                 <div>{formData.comment}</div>
             </div>
 
-            <Divider className='supplier-invoice-card-divider' orientation='center' />
+            <Divider className='cash-receipt-card-divider' orientation='center' />
 
-            <div className='supplier-invoice-card-row'>
-                <div>Số tiền nhận hàng: </div>
-                <b>{formData.documentAmount?.toLocaleString('vi-VN')} {formData.documentCurrency?.presentation}</b>
+            <div className='cash-receipt-card-row'>
+                <div>Số tiền: </div>
+                <b>{formData.documentAmount?.toLocaleString('vi-VN')} {formData.cashCurrency?.presentation}</b>
             </div>
 
             <Button
-                className='supplier-invoice-card-choice-button'
+                className='cash-receipt-card-choice-button'
                 htmlType='button'
                 onClick={choiceItem}
                 style={{ display: (props.itemName) && 'block' || 'none' }}

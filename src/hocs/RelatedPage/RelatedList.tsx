@@ -156,7 +156,7 @@ const RelatedListPage: React.FC<XTSRelatedListPageProps> = (props) => {
                 stepBack={{ onClick: props.stepBack }}
                 action1={{ onClick: createSalesInvoice, title: 'Giao thêm', icon: <TruckOutlined className='context-menu-button-icon' />, visible: isSalesOrder }}
                 action2={{ onClick: createSalesReturn, title: 'Trả hàng', icon: <RotateLeftOutlined className='context-menu-button-icon' />, visible: isSalesOrder }}
-                action3={{ onClick: createSetPrice, title: 'Trả hàng', icon: <RotateLeftOutlined className='context-menu-button-icon' />, visible: isSupplierInvoice }}
+                action3={{ onClick: createSetPrice, title: 'Đặt giá', icon: <RotateLeftOutlined className='context-menu-button-icon' />, visible: isSupplierInvoice }}
                 refresh={{ onClick: refreshList }}
             />
 

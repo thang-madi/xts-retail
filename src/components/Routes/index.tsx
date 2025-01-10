@@ -24,7 +24,7 @@ import CartsPage from '../../pages/cart'
 import CustomersPage from '../../pages/customer'
 // import IndividualsPage from '../../pages/individual'
 import ProductsPage from '../../pages/product'
-import OrdersPage from '../../pages/order'
+import OrdersPage from '../../pages/sales-order'
 // import ProductCharacteristicListPage from '../pages/product-characteristic/product-characteristic-list'
 // import ProductCharacteristicPage from '../pages/product-characteristic/product-characteristic-view'
 import UOMClassifierPage from '../../pages/uom-classifier'
@@ -32,11 +32,11 @@ import UserProfilePage from '../../pages/user/UserProfile'
 import EmployeesPage from '../../pages/employee'
 import SettingsPage from '../../pages/user/Settings'
 
-import StructuralUnitPage from '../../pages/structural-unit'
-import SalesInvoicePage from '../../pages/sales-invoice'
-import SupplierInvoicePage from '../../pages/supplier-invoice'
-import CashReceiptPage from '../../pages/sales-invoice'
-import PaymentReceiptPage from '../../pages/sales-invoice'
+import StructuralUnitsPage from '../../pages/structural-unit'
+import SalesInvoicesPage from '../../pages/sales-invoice'
+import SupplierInvoicesPage from '../../pages/supplier-invoice'
+import CashReceiptsPage from '../../pages/cash-receipt'
+import PaymentReceiptsPage from '../../pages/payment-receipt'
 
 
 import AppHeader from '../AppHeader'
@@ -117,11 +117,11 @@ export const routeItems = () => {
                 { path: '/daily-report', element: < DailyReport /> },
                 { path: '/settlement-with-customers-report', element: < SettlementWithCustomersReport /> },
 
-                { path: '/structural-unit', element: < StructuralUnitPage /> },
-                { path: '/sales-invoice', element: < SalesInvoicePage /> },
-                { path: '/supplier-invoice', element: < SupplierInvoicePage /> },
-                { path: '/cash-receipt', element: < CashReceiptPage /> },
-                { path: '/payment-receipt', element: < PaymentReceiptPage /> },
+                { path: '/structural-unit', element: < StructuralUnitsPage /> },
+                { path: '/sales-invoice', element: < SalesInvoicesPage /> },
+                { path: '/supplier-invoice', element: < SupplierInvoicesPage /> },
+                { path: '/cash-receipt', element: < CashReceiptsPage /> },
+                { path: '/payment-receipt', element: < PaymentReceiptsPage /> },
 
                 // { path: '/test', element: < TestPage /> },
                 // { path: '/test-mobile', element: < MobileTestPage /> },

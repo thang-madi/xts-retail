@@ -239,7 +239,7 @@ const HomePage: React.FC<any> = (props) => {
                         <Avatar shape='square' size='large' icon={<FileDoneOutlined />} />
                     </Badge>
                     <div className='home-page-order-badge-title'>
-                        Chờ thanh toán
+                        Chờ trả trước
                     </div>
                 </div>
                 <div className='home-page-order-badge' onClick={() => openOrders('Preparing')}>
@@ -255,7 +255,7 @@ const HomePage: React.FC<any> = (props) => {
                         <Avatar shape='square' size='large' icon={<TruckOutlined />} />
                     </Badge>
                     <div className='home-page-order-badge-title'>
-                        Đã giao hàng
+                        Đang vận chuyển
                     </div>
                 </div >
             </Card >

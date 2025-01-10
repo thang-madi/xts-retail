@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 /////////////////////////////////////////////
 // Application's
 
-import { useIndexPage } from '../../hooks/usePage'
+import { useIndexPage, UseIndexPageParams } from '../../hooks/usePage'
 import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/types-components'
 
 /////////////////////////////////////////////
@@ -17,33 +17,36 @@ import ListPage from './ObjectList'
 import ViewPage from './ObjectView'
 import EditPage from './ObjectEdit'
 
+import './index.css'
+
 /////////////////////////////////////////////
 // Main component
 
-// OK
-const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
+const PaymentReceiptsPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const navigate = useNavigate()
     const { itemName } = props
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const id = searchParams.get('id')
-    let action = (id) && ITEM_VALUE_ACTIONS.VIEW || ITEM_VALUE_ACTIONS.LIST
-    if (searchParams.get('edit')) {
+    const id = searchParams.get('id') || undefined
+    let action = ITEM_VALUE_ACTIONS.LIST
+    if (!props.itemName && searchParams.get('edit')) {
         action = ITEM_VALUE_ACTIONS.EDIT
+    } else if (!props.itemName && id) {
+        action = ITEM_VALUE_ACTIONS.VIEW
     }
-
     const afterSave = (tempData: any): void => {
 
     }
 
-    const params = {
-        dataType: 'XTSStructuralUnit',                 //
+    const params: UseIndexPageParams = {
+        dataType: 'XTSPaymentReceipt',
         id: id || undefined,
         itemName,
         action,
+        // reopen: props.reopen,
         choiceItemValue: props.choiceItemValue,
-        afterSave,                      // Tạm thời chưa khả dụng, cần xem xét lại
+        afterSave,                   // Tạm thời chưa khả dụng, cần xem xét lại
         navigate,
     }
     const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)
@@ -80,9 +83,10 @@ const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
                 />
             )
     }
+
 }
 
 /////////////////////////////////////////////
 // Export
 
-export default StructuralUnitsPage                                // 
+export default PaymentReceiptsPage

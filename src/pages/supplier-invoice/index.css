@@ -115,7 +115,7 @@ ObjectListSettings
 
 .supplier-invoice-inventory-edit-card {
     margin: 0px;
-    height: 122px;
+    height: 140px;
 }
 
 .supplier-invoice-inventory-edit-card .ant-card-body {
@@ -206,12 +206,13 @@ ObjectListSettings
     height: 100px;
 }
 
-/* .supplier-invoice-inventory-view-card {
+.supplier-invoice-inventory-view-card {
+    display: flex;
     margin: 0px;
     height: 122px;
-} */
+}
 
-.supplier-invoice-inventory-view .ant-card-body {
+.supplier-invoice-inventory-view-card .ant-card-body {
     padding: 0px;
     display: flex;
     width: 100%;
