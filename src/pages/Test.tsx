@@ -28,7 +28,7 @@ import FormItem from 'antd/es/form/FormItem'
 import { TextArea } from 'antd-mobile'
 // import { postRequest, postRequestWithThunk } from '../data-storage/post-request'
 
-import { actions, apiRequest } from '../data-storage/slice-orders'
+import { actions, apiRequest } from '../data-storage/slice-sales-order'
 import { XTSObject, XTSType } from '../data-objects/types-common'
 import { useCreatePage, UseCreatePageParams } from '../hooks/usePage'
 

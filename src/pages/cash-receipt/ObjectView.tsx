@@ -18,7 +18,7 @@ import { BottomBar } from '../../components/ContextMenu'
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
+import { apiRequest, actions } from '../../data-storage/slice-cash-receipt'                   //
 // import { ObjectInventoryView } from './ObjectInventory'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
 import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
@@ -156,7 +156,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.cashReceipt.tempData)
+    const tempData = useSelector((state: RootState) => state.cashReceipts.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {

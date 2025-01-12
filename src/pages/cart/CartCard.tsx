@@ -27,7 +27,6 @@ import './index.css'
 /////////////////////////////////////////////
 // Main component
 
-// function CartCard() {
 const CartCard: React.FC<XTSRecordCardProps> = (props) => {
 
     const { item, itemName, choiceItemValue } = props

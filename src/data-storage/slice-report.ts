@@ -22,12 +22,12 @@ import { XTSReportState } from './interfaces'
 const initialState: XTSReportState = initialState_Report()
 
 export const apiRequest = createAsyncThunk(
-    'report/apiRequest',                                                                       // 
+    'reports/apiRequest',                                                                       // 
     (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceReport.actions)         // 
 )
 
 const sliceReport = createSlice({                                                              // 
-    name: 'report',                                                                            // 
+    name: 'reports',                                                                            // 
     initialState,
     reducers,
     extraReducers(builder) {

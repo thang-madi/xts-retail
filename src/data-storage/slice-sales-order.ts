@@ -22,12 +22,12 @@ const sortBy: XTSListSortItem[] = [{ key: 'date', descending: true }]
 const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'orders/apiRequest',
-    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceOrders.actions)
+    'salesOrders/apiRequest',
+    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceSalesOrder.actions)
 )
 
-const sliceOrders = createSlice({
-    name: 'orders',
+const sliceSalesOrder = createSlice({
+    name: 'salesOrders',
     initialState,
     reducers,
     extraReducers(builder) {
@@ -43,5 +43,5 @@ const sliceOrders = createSlice({
 /////////////////////////////////////////////
 // Export's
 
-export default sliceOrders.reducer
-export const actions = sliceOrders.actions
+export default sliceSalesOrder.reducer
+export const actions = sliceSalesOrder.actions

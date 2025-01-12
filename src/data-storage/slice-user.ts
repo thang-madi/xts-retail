@@ -6,7 +6,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 /////////////////////////////////////////////
 // Application's
 
-import { XTSListSortItem, XTSObjectState } from "./interfaces"
+import { XTSListSortItem, XTSObjectState } from "./interfaces";
 import { postRequestWithThunk } from "./post-request"
 import { setError, setLoading, setSucceeded } from "./reducers-extra"
 
@@ -21,20 +21,19 @@ const sortBy: XTSListSortItem[] = [{ key: 'descriptiion', descending: false }]
 const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'individuals/apiRequest',
-    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceIndividuals.actions)
+    'users/apiRequest',
+    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceUser.actions)
 )
 
-const sliceIndividuals = createSlice({
-    name: 'individuals',
+const sliceUser = createSlice({
+    name: 'users',
     initialState,
     reducers,
     extraReducers(builder) {
         builder
             .addCase(apiRequest.pending, (state) => setLoading(state))
-            .addCase(apiRequest.fulfilled, (state, action) => setSucceeded(state))
+            .addCase(apiRequest.fulfilled, (state) => setSucceeded(state))
             .addCase(apiRequest.rejected, (state, action) => setError(state, action))
-
     },
     // extra: extraData,
 })
@@ -42,5 +41,5 @@ const sliceIndividuals = createSlice({
 /////////////////////////////////////////////
 // Export's
 
-export default sliceIndividuals.reducer
-export const actions = sliceIndividuals.actions
+export default sliceUser.reducer
+export const actions = sliceUser.actions

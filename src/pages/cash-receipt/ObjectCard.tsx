@@ -15,7 +15,7 @@ import { createXTSObject, objectPresentation } from '../../data-objects/common-u
 /////////////////////////////////////////////
 // Object's
 
-import { XTSCashReceipt, XTSSupplierInvoice } from '../../data-objects/types-application'
+import { XTSCashReceipt } from '../../data-objects/types-application'
 import './index.css'
 
 /////////////////////////////////////////////

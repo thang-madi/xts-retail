@@ -78,7 +78,7 @@ const App: React.FC = () => {
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestProducts))
 
-            // Tải về orders
+            // Tải về sales-orders
             params.dataType = 'XTSOrder'
             const requestOrders = requestData_GetObjectList(params.dataType, params.length, params.count, params.requestParams)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
@@ -86,6 +86,8 @@ const App: React.FC = () => {
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestOrders))
         }
+
+        console.log('url', window.location.href)
     }, [])
 
     /////////////////////////////////////////

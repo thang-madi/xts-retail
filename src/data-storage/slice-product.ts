@@ -6,35 +6,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 /////////////////////////////////////////////
 // Application's
 
-import { XTSRecordState } from "./interfaces"
+import { XTSListSortItem, XTSObjectState } from "./interfaces"
 import { postRequestWithThunk } from "./post-request"
 import { setError, setLoading, setSucceeded } from "./reducers-extra"
 
-import { reducers } from "./reducers-records"
-import { initialState_Records } from "./initial-states";
+import { reducers } from "./reducers-objects"
+import { initialState_Objects } from "./initial-states";
 
 /////////////////////////////////////////////
 // Begin
 
-const initialState: XTSRecordState = initialState_Records(
-    [
-        'externalAccount',
-        'company',
-        'customer',
-        'product',
-        'characteristic',
-        'uom',
-    ],
-    ['product']
-)
+const searchFields: string[] = ['description', 'sku', 'price', 'descriptionFull', 'comment']
+const sortBy: XTSListSortItem[] = [{ key: 'descriptiion', descending: false }]
+const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'carts/apiRequest',
-    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceCarts.actions)
+    'products/apiRequest',
+    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceProduct.actions)
 )
 
-const sliceCarts = createSlice({
-    name: 'carts',
+const sliceProduct = createSlice({
+    name: 'products',
     initialState,
     reducers,
     extraReducers(builder) {
@@ -49,5 +41,5 @@ const sliceCarts = createSlice({
 /////////////////////////////////////////////
 // Export's
 
-export default sliceCarts.reducer
-export const actions = sliceCarts.actions
+export default sliceProduct.reducer
+export const actions = sliceProduct.actions

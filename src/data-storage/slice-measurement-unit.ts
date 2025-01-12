@@ -23,10 +23,10 @@ const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
     'measurementUnits/apiRequest',
-    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceMeasurementUnits.actions)
+    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceMeasurementUnit.actions)
 )
 
-const sliceMeasurementUnits = createSlice({
+const sliceMeasurementUnit = createSlice({
     name: 'measurementUnits',
     initialState,
     reducers,
@@ -40,5 +40,5 @@ const sliceMeasurementUnits = createSlice({
     // extra: extraData,
 })
 
-export default sliceMeasurementUnits.reducer
-export const actions = sliceMeasurementUnits.actions
+export default sliceMeasurementUnit.reducer
+export const actions = sliceMeasurementUnit.actions

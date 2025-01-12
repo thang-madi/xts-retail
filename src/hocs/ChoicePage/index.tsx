@@ -19,12 +19,14 @@ import SalesOrdersPage from '../../pages/sales-order'
 import ProductsPage from '../../pages/product'
 import UOMClassifierPage from '../../pages/uom-classifier'
 import EmployeesPage from '../../pages/employee'
-import StructuralUnitPage from '../../pages/structural-unit'
+import StructuralUnitsPage from '../../pages/structural-unit'
 
 import CashReceiptsPage from '../../pages/cash-receipt'
 import PaymentReceiptsPage from '../../pages/payment-receipt'
 import SalesInvoicesPage from '../../pages/sales-invoice'
 import SupplierInvoicesPage from '../../pages/supplier-invoice'
+import CurrenciesPage from '../../pages/currency'
+import PriceRegistrationsPage from '../../pages/price-registration'
 
 /////////////////////////////////////////////
 // Object's
@@ -47,7 +49,9 @@ function getObjectPage(dataType: string): React.FC<any> {
         XTSProduct: ProductsPage,
         XTSUOMClassifier: UOMClassifierPage,
         XTSEmployee: EmployeesPage,
-        XTSStructuralUnit: StructuralUnitPage,
+        XTSStructuralUnit: StructuralUnitsPage,
+        XTSCurrency: CurrenciesPage,
+        XTSProductsPriceRegistration: PriceRegistrationsPage,
 
         // XTSCashReceipt: CashReceiptPage,
         // XTSPaymentReceipt: PaymentReceiptPage,

@@ -81,23 +81,23 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     //  
 
     return (
-        <div className='view-page' >
+        <div className='structural-unit-view' >
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
-            <Card className='view-page-card'>
-                <div className='view-page-description'>{dataObject.description}</div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Tên gọi: </span>
-                    <span className='view-page-item-value'>{dataObject.description}</span>
+            <Card className='structural-unit-view-card'>
+                <div className='structural-unit-view-description'>{dataObject.description}</div>
+                <div className='structural-unit-view-item'>
+                    <span className='structural-unit-view-item-title'>Tên gọi: </span>
+                    <span className='structural-unit-view-item-value'>{dataObject.description}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Dạng kho: </span>
-                    <span className='view-page-item-value'>{dataObject.structuralUnitType.presentation}</span>
+                <div className='structural-unit-view-item'>
+                    <span className='structural-unit-view-item-title'>Dạng kho: </span>
+                    <span className='structural-unit-view-item-value'>{dataObject.structuralUnitType.presentation}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Kho 2 pha: </span>
-                    <span className='view-page-item-value'>{dataObject.orderWarehouse?.toString()}</span>
+                <div className='structural-unit-view-item'>
+                    <span className='structural-unit-view-item-title'>Kho 2 pha: </span>
+                    <span className='structural-unit-view-item-value'>{dataObject.orderWarehouse?.toString()}</span>
                 </div>
 
             </Card>

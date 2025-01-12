@@ -22,10 +22,10 @@ const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
     'supplierInvoices/apiRequest',
-    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceSupplierInvoices.actions)
+    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceSupplierInvoice.actions)
 )
 
-const sliceSupplierInvoices = createSlice({
+const sliceSupplierInvoice = createSlice({
     name: 'supplierInvoices',
     initialState,
     reducers,
@@ -42,5 +42,5 @@ const sliceSupplierInvoices = createSlice({
 /////////////////////////////////////////////
 // Export's
 
-export default sliceSupplierInvoices.reducer
-export const actions = sliceSupplierInvoices.actions
+export default sliceSupplierInvoice.reducer
+export const actions = sliceSupplierInvoice.actions

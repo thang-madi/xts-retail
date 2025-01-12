@@ -61,7 +61,7 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
             onClick={clickItem}
         >
             <div className='supplier-invoice-card-title' >
-                {objectPresentation(formData.objectId, { operationKind: formData.operationKind })}
+                {objectPresentation(formData.objectId, formData.operationKind)}
             </div>
 
             <Divider className='supplier-invoice-card-divider' orientation='center' />

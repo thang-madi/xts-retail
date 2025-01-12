@@ -43,7 +43,7 @@ import { RootState } from '../../data-storage'
 const homeItem = { label: "Trang chính", key: "/home", icon: <HomeOutlined /> }
 const cartItem = { label: "Giỏ hàng", key: "/carts", icon: <ShoppingCartOutlined /> }
 const productItem = { label: "Sản phẩm", key: "/products", icon: <ProductOutlined /> }
-const ordersItem = { label: "Đơn hàng", key: "/orders", icon: <FileTextOutlined /> }
+const ordersItem = { label: "Đơn hàng", key: "/sales-orders", icon: <FileTextOutlined /> }
 const customersItem = { label: "Khách hàng", key: "/customers", icon: <TeamOutlined /> }
 const employeeItem = { label: "Nhân viên", key: "/employees", icon: <IdcardOutlined /> }
 const settingsItem = { label: "Tùy chỉnh", key: "/settings", icon: <SettingOutlined /> }
@@ -52,11 +52,14 @@ const loginItem = { label: "Đăng nhập", key: "/login", icon: <LoginOutlined 
 const logoutItem = { label: "Đăng xuất", key: "/logout", icon: <LogoutOutlined />, danger: true }
 const aboutItem = { label: "Về cửa hàng", key: "/about", icon: <InfoCircleOutlined /> }
 
-const structuralUnitItem = { label: "Đơn vị", key: "/structural-unit", icon: <ApartmentOutlined /> }
-const salesInvoiceItem = { label: "Giao hàng", key: "/sales-invoice", icon: <TruckOutlined /> }
-const supplierInvoiceItem = { label: "Nhận hàng", key: "/supplier-invoice", icon: <DockerOutlined /> }
-const cashReceiptItem = { label: "Thu tiền mặt", key: "/cash-receipt", icon: <DollarOutlined /> }
-const paymentReceiptItem = { label: "Thu chuyển khoản", key: "/payment-receipt", icon: <TransactionOutlined /> }
+const structuralUnitItem = { label: "Đơn vị", key: "/structural-units", icon: <ApartmentOutlined /> }
+const salesInvoiceItem = { label: "Giao hàng", key: "/sales-invoices", icon: <TruckOutlined /> }
+const supplierInvoiceItem = { label: "Nhận hàng", key: "/supplier-invoices", icon: <DockerOutlined /> }
+const cashReceiptItem = { label: "Thu tiền mặt", key: "/cash-receipts", icon: <DollarOutlined /> }
+const paymentReceiptItem = { label: "Thu chuyển khoản", key: "/payment-receipts", icon: <TransactionOutlined /> }
+
+const currencyItem = { label: "Tiền tệ", key: "/currencies", icon: <TransactionOutlined /> }
+const priceRegistrationItem = { label: "Đặt bảng giá", key: "/price-registrations", icon: <TransactionOutlined /> }
 
 // const connectItem = { label: "Connect user", key: "/connect-user", icon: <ApiOutlined />, style: { color: 'blue' } }
 
@@ -121,6 +124,9 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
             supplierInvoiceItem,
             cashReceiptItem,
             paymentReceiptItem,
+            currencyItem,
+            priceRegistrationItem,
+
             // employeeItem,
             userProfileItem,
             aboutItem,
@@ -141,6 +147,9 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
             supplierInvoiceItem,
             cashReceiptItem,
             paymentReceiptItem,
+            currencyItem,
+            priceRegistrationItem,
+
             userProfileItem,
             aboutItem,
             // settingsItem,

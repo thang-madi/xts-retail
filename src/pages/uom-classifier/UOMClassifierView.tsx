@@ -91,7 +91,7 @@ const UOMClassifierViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // 
 
     return (
-        <div className='view-page'>
+        <div className='uom-classifier-view'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 

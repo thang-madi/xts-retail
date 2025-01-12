@@ -22,12 +22,12 @@ const sortBy: XTSListSortItem[] = [{ key: 'descriptiion', descending: false }]
 const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'structuralUnit/apiRequest',                                                                        //
+    'structuralUnits/apiRequest',                                                                        //
     (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceStructuralUnit.actions)          //
 )
 
 const sliceStructuralUnit = createSlice({                            // 
-    name: 'structuralUnit',                                          // 
+    name: 'structuralUnits',                                          // 
     initialState,
     reducers,
     extraReducers(builder) {

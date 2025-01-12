@@ -36,8 +36,8 @@ import { RootState } from '../../data-storage'
 
 // import { ObjectInventoryEdit } from './ObjectInventory'                 // 
 
-import './index.css'
 import { getLabels } from './common'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component

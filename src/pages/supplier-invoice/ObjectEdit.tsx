@@ -222,14 +222,14 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 const productObject = itemValue.dataItem as XTSProduct
                 const newDataRow = createXTSObject('XTSOrderProductRow', {
                     product: productObject.objectId,
-                    price: productObject._price,
+                    // price: productObject._price,
                     quantity: 1,
                     vatRate: productObject._vatRate,
                     _lineNumber: 0,
                     uom: productObject.measurementUnit,
-                    amount: productObject._price,
-                    total: productObject._price,
-                    _price: productObject._price,
+                    // amount: productObject._price,
+                    // total: productObject._price,
+                    // _price: productObject._price,
                     _coefficient: 1,
                     _vatRateRate: productObject._vatRateRate,
                     _picture: productObject.picture,
@@ -332,9 +332,26 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <Divider className='supplier-invoice-edit-divider' orientation='center' />
 
+                    <div className='supplier-invoice-edit-posted'>
+                        <div>Đã nhập hàng:</div>
+                        <FormInput
+                            itemName='posted'
+                            dataType='Boolean'
+                            itemProps={{
+                                // label: 'Đã chốt',
+                                // className: 'hidden',
+                            }}
+                            inputProps={{
+                                placeholder: '',
+                                required: false
+                            }}
+                            {...commonItemProps}
+                        />
+                    </div>
+
                     <div className='supplier-invoice-edit-item'>
                         <div className='supplier-invoice-edit-item-label'>Cơ sở: </div>
-                        <div>{objectPresentation(dataObject.docOrder)}</div>
+                        <div>{objectPresentation(dataObject.docOrder).replace('Đơn hàng *', '')}</div>
                     </div>
 
                     <FormInput
@@ -354,7 +371,38 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         }}
                         {...commonItemProps}
                     />
-
+                    <div className='supplier-invoice-edit-currency'>
+                        <FormInput
+                            itemName='documentCurrency'
+                            dataType='XTSCurrency'
+                            itemProps={{
+                                label: 'Tiền tệ',
+                                labelCol: { span: 4 },
+                                style: { width: '150px' }
+                            }}
+                            inputProps={{
+                                placeholder: '',
+                                allowClear: true,
+                                required: false
+                            }}
+                            {...commonItemProps}
+                        />
+                        <FormInput
+                            itemName='rate'
+                            dataType='Number'
+                            itemProps={{
+                                label: 'Tỷ giá',
+                                labelCol: { span: 4 },
+                                style: { width: '100px' }
+                            }}
+                            inputNumberProps={{
+                                placeholder: 'Nhập tỷ giá',
+                                // allowClear: true,
+                                required: true
+                            }}
+                            {...commonItemProps}
+                        />
+                    </div>
                     {/* <div className={(company) && 'supplier-invoice-edit-item-visible' || 'supplier-invoice-edit-item-hidden'}>
                         <FormSelect
                             itemName='orderState'
@@ -460,6 +508,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
                             <ObjectInventoryEdit
                                 dataRow={dataRow}
+                                dataObject={dataObject}
                                 updateRow={updateRow}
                                 deleteRow={deleteRow}
                                 form={form}

@@ -109,7 +109,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     //  
 
     return (
-        <div className='view-page' >
+        <div className='customer-view' >
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
@@ -117,46 +117,46 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 {...avatarProps}
             />
 
-            <Card className='view-page-card'>
-                <div className='view-page-description'>{dataObject.description}</div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Tên đầy đủ: </span>
-                    <span className='view-page-item-value'>{dataObject.descriptionFull}</span>
+            <Card className='customer-view-card'>
+                <div className='customer-view-description'>{dataObject.description}</div>
+                <div className='customer-view-item'>
+                    <span className='view-item-title'>Tên đầy đủ: </span>
+                    <span className='customer-view-item-value'>{dataObject.descriptionFull}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Điện thoại: </span>
-                    <span className='view-page-item-value'>{dataObject.phone}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Điện thoại: </span>
+                    <span className='customer-view-item-value'>{dataObject.phone}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Email: </span>
-                    <span className='view-page-item-value'>{dataObject.email}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Email: </span>
+                    <span className='customer-view-item-value'>{dataObject.email}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Giới tính: </span>
-                    <span className='view-page-item-value'>{dataObject.gender.presentation}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Giới tính: </span>
+                    <span className='customer-view-item-value'>{dataObject.gender.presentation}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Ngày sinh: </span>
-                    <span className='view-page-item-value'>{(dataObject.dateOfBirth) && dayjs(dataObject.dateOfBirth).format('DD-MM-YYYY')}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Ngày sinh: </span>
+                    <span className='customer-view-item-value'>{(dataObject.dateOfBirth) && dayjs(dataObject.dateOfBirth).format('DD-MM-YYYY')}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Dạng đối tác: </span>
-                    <span className='view-page-item-value'>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Dạng đối tác: </span>
+                    <span className='customer-view-item-value'>
                         <div>{(dataObject.customer) && 'Khách hàng' || ''}</div>
                         <div>{(dataObject.vendor) && 'Nhà cung cấp' || ''}</div>
                         <div>{(dataObject.otherRelation) && 'Khacs' || ''}</div>
                     </span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Ghi chú: </span>
-                    <span className='view-page-item-value'>{dataObject.descriptionFull}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Ghi chú: </span>
+                    <span className='customer-view-item-value'>{dataObject.descriptionFull}</span>
                 </div>
-                <div className='view-page-item'>
-                    <span className='view-page-item-title'>Chăm sóc: </span>
-                    <span className='view-page-item-value'>{dataObject.employeeResponsible.presentation}</span>
+                <div className='customer-view-item'>
+                    <span className='customer-view-item-title'>Chăm sóc: </span>
+                    <span className='customer-view-item-value'>{dataObject.employeeResponsible.presentation}</span>
                 </div>
 
-                <div className='view-page-description'></div>
+                <div className='customer-view-description'></div>
             </Card>
 
             <BottomBar

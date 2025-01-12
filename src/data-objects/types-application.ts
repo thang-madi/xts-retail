@@ -1,7 +1,5 @@
 
 import { XTSObject, XTSObjectId, XTSObjectRow, XTSRecord, XTSRecordKey, XTSRequest, XTSResponse, XTSType } from "./types-common"
-// import { createXTSObject } from "./common-use"
-// import { XTSFile } from "./types-library"
 
 // Tạm thời không cần dùng ???
 export function getXTSClass_Application(_type: string) {
@@ -38,6 +36,8 @@ export class XTSGetRelatedDocumentsResponse extends XTSResponse {
 export class XTSRelatedDocument extends XTSType {
 
     document: XTSObjectId = new XTSObjectId('')
+    operationKind: XTSObjectId = new XTSObjectId('')
+
     date: string = '0001-01-01T00:00:00'
     number: string = ''
     company: XTSObjectId = new XTSObjectId('XTSCompany')
@@ -66,6 +66,7 @@ export class XTSProduct extends XTSObject {
     productCategory: XTSObjectId = new XTSObjectId('XTSProductCategory')
     measurementUnit: XTSObjectId = new XTSObjectId('XTSUOMClassifier')
     picture: XTSObjectId = new XTSObjectId('XTSProductAttachedFile')
+    _uomCoefficient: number = 0
     _price: number = 0
     _priceKind: XTSObjectId = new XTSObjectId('XTSPriceKind')
     _vatRate: XTSObjectId = new XTSObjectId('XTSVATRate')
@@ -152,6 +153,8 @@ export class XTSCounterparty extends XTSObject {
     addressValue: string = ''
     picture: XTSObjectId = new XTSObjectId('XTSCounterpartyAttachedFile')
 
+    margin: number = 0
+
     constructor() {
         super('XTSCounterparty')
     }
@@ -159,6 +162,25 @@ export class XTSCounterparty extends XTSObject {
     dateFields(): string[] {
         const result: string[] = ['dateOfBirth']
         return result
+    }
+}
+
+// OK
+export class XTSCounterpartyContract extends XTSObject {
+
+    code: string = ''
+    description: string = ''
+    priceKind: XTSObjectId = new XTSObjectId('XTSPriceKind')
+    counterpartyPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    settlementsCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    comment: string = ''
+    contractDate: string = '0001-01-01T00:00:00'
+    contractNumber: string = ''
+    contractKind: XTSObjectId = new XTSObjectId('XTSContractKind')
+    company: XTSObjectId = new XTSObjectId('XTSCompany')
+
+    constructor() {
+        super('XTSCounterpartyContract')
     }
 }
 
@@ -175,6 +197,7 @@ export class XTSOrder extends XTSObject {
 
     company: XTSObjectId = new XTSObjectId('XTSCompany')
     customer: XTSObjectId = new XTSObjectId('XTSCounterparty')
+    contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
     documentAmount: number = 0
     vatTaxation: XTSObjectId = new XTSObjectId('XTSVATTaxation')
@@ -373,19 +396,34 @@ export class XTSStructuralUnit extends XTSObject {
 }
 
 // 
+export class XTSCurrency extends XTSObject {
+
+    code: string = ''
+    description: string = ''
+    descriptionFull: string = ''
+    symbolicPresentation: string = ''
+    mainCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    markup: number = 1
+
+    constructor() {
+        super('XTSCurrency')
+    }
+}
+
+// 
 export class XTSSalesInvoice extends XTSObject {
 
     date: string = '0001-01-01T00:00:00'
     number: string = ''
 
     operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsSalesInvoice')
-    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
     priceKind: XTSObjectId = new XTSObjectId('XTSPriceKind')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
     // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
 
     company: XTSObjectId = new XTSObjectId('XTSCompany')
     counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
-    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
     documentAmount: number = 0
     vatTaxation: XTSObjectId = new XTSObjectId('XTSVATTaxation')
@@ -398,8 +436,9 @@ export class XTSSalesInvoice extends XTSObject {
     structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
     department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
     employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
-    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
+    documentBasis: XTSObjectId = new XTSObjectId('')
     docOrder: XTSObjectId = new XTSObjectId('XTSOrder')
+
     inventory: XTSSalesInvoiceInventory[] = []
 
     constructor() {
@@ -439,15 +478,17 @@ export class XTSSupplierInvoice extends XTSObject {
 
     date: string = '0001-01-01T00:00:00'
     number: string = ''
+    posted: boolean = false
 
     operationKind: XTSObjectId = new XTSObjectId('XTSOperationKindsSupplierInvoice')
-    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
     counterpartyPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    returnPriceKind: XTSObjectId = new XTSObjectId('XTSCounterpartyPriceKind')
+    // orderKind: XTSObjectId = new XTSObjectId('XTSSalesOrderKind')
     // orderState: XTSObjectId = new XTSObjectId('XTSSalesOrderState')
 
     company: XTSObjectId = new XTSObjectId('XTSCompany')
     counterparty: XTSObjectId = new XTSObjectId('XTSCounterparty')
-    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     documentCurrency: XTSObjectId = new XTSObjectId('XTSCurrency')
     documentAmount: number = 0
     vatTaxation: XTSObjectId = new XTSObjectId('XTSVATTaxation')
@@ -460,8 +501,9 @@ export class XTSSupplierInvoice extends XTSObject {
     structuralUnit: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
     department: XTSObjectId = new XTSObjectId('XTSStructuralUnit')
     employeeResponsible: XTSObjectId = new XTSObjectId('XTSEmployee')
-    // documentBasis: XTSObjectId = new XTSObjectId('XTS')
-    docOrder: XTSObjectId = new XTSObjectId('')
+    documentBasis: XTSObjectId = new XTSObjectId('')
+    docOrder: XTSObjectId = new XTSObjectId('XTSOrder')
+
     inventory: XTSSalesInvoiceInventory[] = []
 
     constructor() {
@@ -531,11 +573,11 @@ export class XTSCashReceipt extends XTSObject {
     }
 }
 
-// OK
+// 
 export class XTSCashReceiptPaymentDetails extends XTSObjectRow {
 
     _lineNumber: number = 0
-    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     document: XTSObjectId = new XTSObjectId('')
     paymentAmount: number = 0
     settlementAmount: number = 0
@@ -582,11 +624,11 @@ export class XTSPaymentReceipt extends XTSObject {
     }
 }
 
-// OK
+// 
 export class XTSPaymentReceiptPaymentDetails extends XTSObjectRow {
 
     _lineNumber: number = 0
-    contract: XTSObjectId = new XTSObjectId('XTSContract')
+    contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     document: XTSObjectId = new XTSObjectId('')
     paymentAmount: number = 0
     settlementAmount: number = 0
@@ -597,5 +639,40 @@ export class XTSPaymentReceiptPaymentDetails extends XTSObjectRow {
 
     constructor() {
         super('XTSPaymentReceiptPaymentDetails')
+    }
+}
+
+// 
+export class XTSProductsPriceRegistration extends XTSObject {
+
+    date: string = '0001-01-01T00:00:00'
+    number: string = ''
+
+    author: XTSObjectId = new XTSObjectId('XTSUser')
+    comment: string = ''
+    documentBasis: XTSObjectId = new XTSObjectId('')
+
+    inventory: XTSProductsPriceRegistrationInventory[] = []
+
+    constructor() {
+        super('XTSProductsPriceRegistration')
+    }
+}
+
+// 
+export class XTSProductsPriceRegistrationInventory extends XTSObjectRow {
+
+    _lineNumber: number = 0
+    product: XTSObjectId = new XTSObjectId('XTSProduct')
+    characteristic: XTSObjectId = new XTSObjectId('XTSProductCharacteristic')
+    uom: XTSObjectId = new XTSObjectId('XTSUOMClassifier')
+    priceKind: XTSObjectId = new XTSObjectId('XTSPriceKind')
+    price: number = 0
+    priceOld: number = 0
+    currency: XTSObjectId = new XTSObjectId('XTSCurrency')
+    currencyOld: XTSObjectId = new XTSObjectId('XTSCurrency')
+
+    constructor() {
+        super('XTSProductsPriceRegistrationInventory')
     }
 }

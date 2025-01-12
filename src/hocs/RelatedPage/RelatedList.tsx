@@ -18,7 +18,6 @@ import { BottomBar, ContextMenuButton, } from '../../components/ContextMenu'
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
 import { createXTSObject, objectPresentation } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
 import { XTSItemValue } from '../../data-objects/types-form'
@@ -144,7 +143,7 @@ const RelatedListPage: React.FC<XTSRelatedListPageProps> = (props) => {
                             //     .replace('Hóa đơn giao hàng', 'Giao hàng số')
                             //     .replace('Hóa đơn nhận hàng', 'Nhận hàng số')
                             // }
-                            title={objectPresentation(item.document)}
+                            title={objectPresentation(item.document, item.operationKind)}
                         />
                         <div>
                             {item.documentAmount} {item.documentCurrency?.presentation}

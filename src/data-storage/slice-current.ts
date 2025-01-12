@@ -19,12 +19,12 @@ import { initialState_Current } from "./initial-states"
 const initialState: XTSCurrentState = initialState_Current()
 
 export const apiRequest = createAsyncThunk(
-    'current/apiRequest',                                                                           // current         
-    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceCurrentData.actions)         // sliceCurrentData
+    'current/apiRequest',                                                                           //          
+    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceCurrentData.actions)         // 
 )
 
-const sliceCurrentData = createSlice({                                              // sliceCurrentData
-    name: 'current',                                                                // current
+const sliceCurrentData = createSlice({                                              // 
+    name: 'current',                                                                // 
     initialState,
     reducers,
     extraReducers(builder) {

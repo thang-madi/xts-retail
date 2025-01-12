@@ -42,6 +42,11 @@ export interface ContextMenuProps {
     action1?: ContextMenuButton
     action2?: ContextMenuButton
     action3?: ContextMenuButton
+    action4?: ContextMenuButton
+    action5?: ContextMenuButton
+    action6?: ContextMenuButton
+    action7?: ContextMenuButton
+    action8?: ContextMenuButton
 }
 
 const TopBar: React.FC<any> = (props) => {
@@ -96,6 +101,11 @@ const BottomBar: React.FC<ContextMenuProps> = (props) => {
         action1: buttonTemplate('Action 1', createIcon(ThunderboltOutlined)),
         action2: buttonTemplate('Action 2', createIcon(ThunderboltOutlined)),
         action3: buttonTemplate('Action 3', createIcon(ThunderboltOutlined)),
+        action4: buttonTemplate('Action 4', createIcon(ThunderboltOutlined)),
+        action5: buttonTemplate('Action 5', createIcon(ThunderboltOutlined)),
+        action6: buttonTemplate('Action 6', createIcon(ThunderboltOutlined)),
+        action7: buttonTemplate('Action 7', createIcon(ThunderboltOutlined)),
+        action8: buttonTemplate('Action 8', createIcon(ThunderboltOutlined)),
     }
 
     const leftButtons: ContextMenuButton[] = []

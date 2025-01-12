@@ -8,23 +8,25 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import reducerSession from './slice-session'
 import reducerCurrentData from './slice-current'
-import reducerReport from './slice-report'
+import reducerReports from './slice-report'
 
-import reducerProducts from './slice-products'
-import reducerOrders from './slice-orders'
-import reducerCustomers from './slice-customers'
-import reducerUsers from './slice-users'
+import reducerProducts from './slice-product'
+import reducerSalesOrders from './slice-sales-order'
+import reducerCustomers from './slice-customer'
+import reducerUsers from './slice-user'
 import reducerUOMClassifier from './slice-uom-classifier'
-import reducerMeasurementUnits from './slice-measurement-units'
-import reducerIndividuals from './slice-individuals'
-import reducerEmployees from './slice-employees'
-import reducerCarts from './slice-carts'
+import reducerMeasurementUnits from './slice-measurement-unit'
+import reducerIndividuals from './slice-individual'
+import reducerEmployees from './slice-employee'
+import reducerCarts from './slice-cart'
 
-import reducerStructuralUnit from './slice-structural-unit'
-import reducerSalesInvoice from './slice-sales-invoice'
-import reducerSupplierInvoice from './slice-supplier-invoice'
-import reducerCashReceipt from './slice-cash-receipt'
-import reducerPaymentReceipt from './slice-payment-receipt'
+import reducerStructuralUnits from './slice-structural-unit'
+import reducerSalesInvoices from './slice-sales-invoice'
+import reducerSupplierInvoices from './slice-supplier-invoice'
+import reducerCashReceipts from './slice-cash-receipt'
+import reducerPaymentReceipts from './slice-payment-receipt'
+import reducerCurrencies from './slice-currency'
+import reducerPriceRegistrations from './slice-price-registration'
 
 // import reducerUserProfiles from './slice-user-profiles'
 
@@ -35,10 +37,10 @@ const store = configureStore({
     reducer: {
         session: reducerSession,
         currentData: reducerCurrentData,
-        report: reducerReport,
+        reports: reducerReports,
 
         products: reducerProducts,
-        orders: reducerOrders,
+        salesOrders: reducerSalesOrders,
         customers: reducerCustomers,
         users: reducerUsers,
         uomClassifier: reducerUOMClassifier,
@@ -48,12 +50,14 @@ const store = configureStore({
 
         carts: reducerCarts,
 
-        structuralUnit: reducerStructuralUnit,
-        salesInvoice: reducerSalesInvoice,
-        supplierInvoice: reducerSupplierInvoice,
-        cashReceipt: reducerCashReceipt,
-        paymentReceipt: reducerPaymentReceipt,
+        structuralUnits: reducerStructuralUnits,
+        salesInvoices: reducerSalesInvoices,
+        supplierInvoices: reducerSupplierInvoices,
+        cashReceipts: reducerCashReceipts,
+        paymentReceipts: reducerPaymentReceipts,
 
+        currencies: reducerCurrencies,
+        priceRegistrations: reducerPriceRegistrations,
         // userProfiles: reducerUserProfiles,
     }
 })

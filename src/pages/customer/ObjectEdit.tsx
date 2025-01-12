@@ -97,7 +97,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
     //     openChoicePage,
     //     closeChoicePage,
     //     chosenItemValues,
-    //     setChosenItemValues,            // Không dùng, mà chỉ dùng tại choice-page
+    //     setChosenItemValues,            // Không dùng, mà chỉ dùng tại choice
     //     initialItemValue,               // Được gán giá trị bằng setInitialItemValue khi gọi openChoicePage, vẫn cần
     //     setInitialItemValue,            // Không dùng, chỉ dùng trong openChoicePage
     // } = useChoicePage({ pageOwnerId: props.pageId })
@@ -105,7 +105,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
     //     openChoicePage,
     //     closeChoicePage,
     //     chosenItemValues,
-    //     // setChosenItemValues,            // Không dùng, mà chỉ dùng tại choice-page
+    //     // setChosenItemValues,            // Không dùng, mà chỉ dùng tại choice
     //     choiceItemValue,
     //     initialItemValue,               // Được gán giá trị bằng setInitialItemValue khi gọi openChoicePage, vẫn cần
     //     // setInitialItemValue,            // Không dùng, chỉ dùng trong openChoicePage
@@ -276,7 +276,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
     //
 
     return (
-        <div className='customer-edit-page' >
+        <div className='customer-edit' >
 
             <AppAvatar
                 {...avatarProps}
@@ -360,7 +360,23 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
                                 style: { width: '120px' }
                             }}
                             inputProps={{
-                                placeholder: 'Nhập số điện thoại',
+                                placeholder: 'Nhập ngày sinh',
+                                allowClear: true,
+                                required: false,
+                                labelCol: { span: 4 },
+                            }}
+                            {...commonItemProps}
+                        />
+                        <FormInput
+                            itemName='margin'
+                            dataType='Number'
+                            itemProps={{
+                                label: 'Hệ số đặt giá (%)',
+                                labelCol: { span: 4 },
+                                style: { width: '120px' }
+                            }}
+                            inputProps={{
+                                placeholder: 'Nhập hệ số đặt giá',
                                 allowClear: true,
                                 required: false,
                                 labelCol: { span: 4 },

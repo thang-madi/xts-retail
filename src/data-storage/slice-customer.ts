@@ -17,17 +17,17 @@ import { initialState_Objects } from "./initial-states";
 /////////////////////////////////////////////
 // Begin
 
-const searchFields: string[] = ['description']
+const searchFields: string[] = ['description', 'descriptionFull', 'comment']
 const sortBy: XTSListSortItem[] = [{ key: 'descriptiion', descending: false }]
 const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'employees/apiRequest',                         // employees
-    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceEmployees.actions)           // Employees
+    'customers/apiRequest',                                     // 
+    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceCustomer.actions)           // 
 )
 
-const sliceEmployees = createSlice({                // Employees
-    name: 'employees',                              // employees
+const sliceCustomer = createSlice({                            // 
+    name: 'customers',                                          // 
     initialState,
     reducers,
     extraReducers(builder) {
@@ -43,5 +43,5 @@ const sliceEmployees = createSlice({                // Employees
 /////////////////////////////////////////////
 // Export's
 
-export default sliceEmployees.reducer                   // Employees
-export const actions = sliceEmployees.actions           // Employees
+export default sliceCustomer.reducer                           // 
+export const actions = sliceCustomer.actions                   // 

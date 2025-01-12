@@ -84,7 +84,7 @@ const UOMClassifierListPage: React.FC<XTSObjectListProps> = (props) => {
     // 
 
     return (
-        <div className='list-page'>
+        <div className='uom-classifier-list'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 

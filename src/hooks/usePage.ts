@@ -176,26 +176,20 @@ export function useGetDataObject(params: UseGetDataObjectParams): { [key: string
     // Nếu không tìm thấy thì tạo mới 1 dataObject trắng
     const { defaultValues, externalAccount } = useSelector((state: RootState) => state.session)
     const object = useSelector((state: any) => state[sliceName].objects.find((item: XTSObject) => item.objectId.id === object_id))
-    // console.log('useGetDataObject.itemObject', itemObject)
+    // console.log('useGetDataObject.itemObject', object)
 
-    const getDataObject = (dataType: string, propertyValues: { [key: string]: any } | undefined): XTSObject => {
-        const _dataObject = createXTSObject(dataType, propertyValues)
-        if (!propertyValues && defaultValues) {
-            // console.log('_dataObject 1', defaultValues)
+    const getDataObject = (dataType: string, fillingValues: { [key: string]: any } | undefined): XTSObject => {
+        const _dataObject = createXTSObject(dataType, fillingValues)
+        if (!fillingValues && defaultValues) {
             fillDefaultValues(_dataObject, { ...defaultValues })
-            // console.log('_dataObject 2', _dataObject)
         }
         return _dataObject
     }
 
-    // const [dataObject, setDataObject] = useState(getDataObject(dataType, { ...defaultValues, externalAccount }))
-    const [dataObject, setDataObject] = useState(getDataObject(dataType, {}))
-    // const [dataObject, setDataObject] = useState<XTSObject>()
-
+    const [dataObject, setDataObject] = useState(getDataObject(dataType, object))
     // console.log('dataObject 1', dataObject)
 
     useEffect(() => {
-        // console.log('useGetDataObject._dataObject', object)
         if (object) {
             setDataObject(getDataObject(dataType, object))
         } else {

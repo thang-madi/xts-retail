@@ -133,4 +133,39 @@ export const XTSStructuralUnitType = {
         id: "Department",
         presentation: "Bộ phận",
     },
+
+
+}
+
+export const XTSContractKind = {
+    Warehouse: {
+        _type: "XTSObjectId",
+        dataType: "XTSContractKind",
+        id: "WithSupplier",
+        presentation: "Với người bán",
+    },
+    Retail: {
+        _type: "XTSObjectId",
+        dataType: "XTSContractKind",
+        id: "WithCustomer",
+        presentation: "Với người mua",
+    },
+    RetailAccrualAccounting: {
+        _type: "XTSObjectId",
+        dataType: "XTSContractKind",
+        id: "FromPrincipal",
+        presentation: "Với người đặt ký gửi",
+    },
+    ShopWarehousesGroup: {
+        _type: "XTSObjectId",
+        dataType: "XTSContractKind",
+        id: "WithAgent",
+        presentation: "Với người nhận bán hộ",
+    },
+    Department: {
+        _type: "XTSObjectId",
+        dataType: "XTSContractKind",
+        id: "Other",
+        presentation: "Khác",
+    },
 }

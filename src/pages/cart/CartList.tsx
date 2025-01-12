@@ -18,7 +18,7 @@ import { useGetDataList, UseGetDataListParams, useGetRecordSet, UseGetRecordSetP
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-carts'             // carts
+import { apiRequest, actions } from '../../data-storage/slice-cart'             // carts
 import { VirtualGrid } from '../../components/Virtualized'
 import CartCard from './CartCard'                                       // cart
 import { BottomBar } from '../../components/ContextMenu'
@@ -153,7 +153,7 @@ const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // C
     /////////////////////////////////////////////
     // 
 
-    const { status, tempData } = useSelector((state: RootState) => state.orders)
+    const { status, tempData } = useSelector((state: RootState) => state['salesOrders'])
 
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse']
@@ -165,7 +165,7 @@ const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // C
                 const searchParams = new URLSearchParams({
                     id: objectId.id
                 }).toString()
-                navigate(`/orders?${searchParams}`, { replace: true })
+                navigate(`/sales-orders?${searchParams}`, { replace: true })
             }
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
         }

@@ -107,6 +107,19 @@ ObjectListSettings
     margin-bottom: 15px;
 }
 
+.supplier-invoice-edit-posted {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.supplier-invoice-edit-currency {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 20px;
+}
+
 /* ObjectInventory */
 .supplier-invoice-inventory-edit {
     overflow-y: auto;
@@ -185,7 +198,7 @@ ObjectListSettings
     display: flex;
 }
 
-.product-row-edit-uom {
+.supplier-invoice-inventory-edit-uom {
     width: 100px;
     margin-bottom: 0px;
 }

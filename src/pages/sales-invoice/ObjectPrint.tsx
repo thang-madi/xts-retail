@@ -18,7 +18,7 @@ import { BottomBar, } from '../../components/ContextMenu'
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
+import { apiRequest, actions } from '../../data-storage/slice-sales-invoice'                   // 
 // import { OrderProductRowView } from './ObjectInventory'
 // import PaymentEditPage from './PaymentEdit'
 import { ITEM_VALUE_ACTIONS, XTSObjectPrintProps, XTSObjectViewProps } from '../../data-objects/types-components'

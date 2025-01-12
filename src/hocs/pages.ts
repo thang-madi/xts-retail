@@ -56,15 +56,20 @@ import CashReceiptListPage from '../pages/cash-receipt/ObjectList'
 // import CashPaymentEditPage from '../pages/cash-payment/ObjectEdit'
 // import CashPaymentListPage from '../pages/cash-payment/ObjectList'
 
-// import PaymentReceiptIndexPage from '../pages/payment-receipt'
-// import PaymentReceiptViewPage from '../pages/payment-receipt/ObjectView'
-// import PaymentReceiptEditPage from '../pages/payment-receipt/ObjectEdit'
-// import PaymentReceiptListPage from '../pages/payment-receipt/ObjectList'
+import PaymentReceiptIndexPage from '../pages/payment-receipt'
+import PaymentReceiptViewPage from '../pages/payment-receipt/ObjectView'
+import PaymentReceiptEditPage from '../pages/payment-receipt/ObjectEdit'
+import PaymentReceiptListPage from '../pages/payment-receipt/ObjectList'
 
 // import PaymentExpenseIndexPage from '../pages/payment-expense'
 // import PaymentExpenseViewPage from '../pages/payment-expense/ObjectView'
 // import PaymentExpenseEditPage from '../pages/payment-expense/ObjectEdit'
 // import PaymentExpenseListPage from '../pages/payment-expense/ObjectList'
+
+import PriceRegistrationIndexPage from '../pages/price-registration'
+import PriceRegistrationViewPage from '../pages/price-registration/ObjectView'
+import PriceRegistrationEditPage from '../pages/price-registration/ObjectEdit'
+import PriceRegistrationListPage from '../pages/price-registration/ObjectList'
 
 enum PAGE_TYPES {
     INDEX = 'IndexPage',
@@ -80,7 +85,7 @@ function getPage(dataType: string, pageType: PAGE_TYPES): React.FC {
             IndexPage: OrderViewPage,
             ViewPage: OrderViewPage,
             EditPage: OrderEditPage,
-            listPage: OrderListPage,
+            ListPage: OrderListPage,
         },
         XTSSalesInvoice: {
             IndexPage: SalesInvoiceIndexPage,
@@ -98,26 +103,32 @@ function getPage(dataType: string, pageType: PAGE_TYPES): React.FC {
             IndexPage: CashReceiptIndexPage,
             ViewPage: CashReceiptViewPage,
             EditPage: CashReceiptEditPage,
-            ListPage: OrderListPage,
+            ListPage: CashReceiptListPage,
         },
-        // XTSPaymentReceipt: {
-        //     IndexPage: PaymentReceiptIndexPage,
-        //     ViewPage: PaymentReceiptViewPage,
-        //     EditPage: PaymentReceiptEditPage,
-        //     ListPage: OrderListPage,
-        // },
+        XTSPaymentReceipt: {
+            IndexPage: PaymentReceiptIndexPage,
+            ViewPage: PaymentReceiptViewPage,
+            EditPage: PaymentReceiptEditPage,
+            ListPage: PaymentReceiptListPage,
+        },
         // XTSCashPayment: {
         //     IndexPage: CashPaymentIndexPage,
         //     ViewPage: CashPaymentViewPage,
         //     EditPage: CashPaymentEditPage,
-        //     ListPage: OrderListPage,
+        //     ListPage: CashPaymentListPage,
         // },
         // XTSPaymentExpense: {
         //     IndexPage: PaymentExpenseIndexPage,
         //     ViewPage: PaymentExpenseViewPage,
         //     EditPage: PaymentExpenseEditPage,
-        //     ListPage: OrderListPage,
+        //     ListPage: PaymentExpenseListPage,
         // },
+        XTSProductsPriceRegistration: {
+            IndexPage: PriceRegistrationIndexPage,
+            ViewPage: PriceRegistrationViewPage,
+            EditPage: PriceRegistrationEditPage,
+            ListPage: PriceRegistrationListPage,
+        },
     }
 
     return mapPages[dataType][pageType]

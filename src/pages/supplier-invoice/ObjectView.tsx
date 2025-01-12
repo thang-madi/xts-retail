@@ -18,7 +18,7 @@ import { BottomBar } from '../../components/ContextMenu'
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
+import { apiRequest, actions } from '../../data-storage/slice-supplier-invoice'                   // 
 import { ObjectInventoryView } from './ObjectInventory'
 import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
 import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
@@ -93,7 +93,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             })
             props.choiceItemValue(itemValue)
         }
-        console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
+        // console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
     }
 
     const editItem = () => {
@@ -123,9 +123,8 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     }
 
     /////////////////////////////////////////
-    // Payment
+    // 
 
-    // const { user, company } = useSelector((state: RootState) => state.session)
 
     const [editButton, setEditButton] = useState<boolean>(false)
     const [printButton, setPrintButton] = useState<boolean>(false)
@@ -149,13 +148,22 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         setPageInfo()
     }
 
+    const { user, company } = useSelector((state: RootState) => state.session)
+    useEffect(() => {
+        if (company) {
+            setEditButton(true)
+        } else if (user) {
+            setEditButton(true)
+        }
+    }, [dataObject])
+
     /////////////////////////////////////////
     // Update after save
 
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.supplierInvoice.tempData)
+    const tempData = useSelector((state: RootState) => state.supplierInvoices.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {

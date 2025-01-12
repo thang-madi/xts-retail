@@ -20,22 +20,22 @@ import {
 import {
     apiRequest as apiRequest_Customers,
     actions as actions_Customers,
-} from './slice-customers'
+} from './slice-customer'
 
 import {
     apiRequest as apiRequest_MeasurementUnits,
     actions as actions_MeasurementUnits,
-} from './slice-measurement-units'
+} from './slice-measurement-unit'
 
 import {
     apiRequest as apiRequest_Orders,
     actions as actions_Orders,
-} from './slice-orders'
+} from './slice-sales-order'
 
 import {
     apiRequest as apiRequest_Products,
     actions as actions_Products,
-} from './slice-products'
+} from './slice-product'
 
 import {
     apiRequest as apiRequest_UOMClassifier,
@@ -45,22 +45,22 @@ import {
 import {
     apiRequest as apiRequest_Users,
     actions as actions_Users,
-} from './slice-users'
+} from './slice-user'
 
 import {
     apiRequest as apiRequest_Individuals,
     actions as actions_Individuals,
-} from './slice-individuals'
+} from './slice-individual'
 
 import {
     apiRequest as apiRequest_Employees,
     actions as actions_Employees,
-} from './slice-employees'
+} from './slice-employee'
 
 import {
     apiRequest as apiRequest_Carts,
     actions as actions_Carts,
-} from './slice-carts'
+} from './slice-cart'
 
 import {
     apiRequest as apiRequest_StructuralUnit,
@@ -86,6 +86,17 @@ import {
     apiRequest as apiRequest_SupplierInvoice,
     actions as actions_SupplierInvoice,
 } from './slice-supplier-invoice'
+
+import {
+    apiRequest as apiRequest_Currency,
+    actions as actions_Currency,
+} from './slice-currency'
+
+import {
+    apiRequest as apiRequest_PriceRegistration,
+    actions as actions_PriceRegistration,
+} from './slice-price-registration'
+
 
 /////////////////////////////////////////////
 // Export's
@@ -114,7 +125,7 @@ const xtsSlicesMapping = {
     },
 
     XTSReport: {
-        sliceName: 'report',
+        sliceName: 'reports',
         apiRequest: apiRequest_Report,
         actions: actions_Report
     },
@@ -132,7 +143,7 @@ const xtsSlicesMapping = {
     },
 
     XTSOrder: {
-        sliceName: 'orders',
+        sliceName: 'salesOrders',
         apiRequest: apiRequest_Orders,
         actions: actions_Orders
     },
@@ -174,35 +185,46 @@ const xtsSlicesMapping = {
     },
 
     XTSStructuralUnit: {
-        sliceName: 'structuralUnit',
+        sliceName: 'structuralUnits',
         apiRequest: apiRequest_StructuralUnit,
         actions: actions_StructuralUnit
     },
 
     XTSCashReceipt: {
-        sliceName: 'cashReceipt',
+        sliceName: 'cashReceipts',
         apiRequest: apiRequest_CashReceipt,
         actions: actions_CashReceipt
     },
 
     XTSPaymentReceipt: {
-        sliceName: 'paymentReceipt',
+        sliceName: 'paymentReceipts',
         apiRequest: apiRequest_PaymentReceipt,
         actions: actions_PaymentReceipt
     },
 
     XTSSalesInvoice: {
-        sliceName: 'salesInvoice',
+        sliceName: 'salesInvoices',
         apiRequest: apiRequest_SalesInvoice,
         actions: actions_SalesInvoice
     },
 
     XTSSupplierInvoice: {
-        sliceName: 'supplierInvoice',
+        sliceName: 'supplierInvoices',
         apiRequest: apiRequest_SupplierInvoice,
         actions: actions_SupplierInvoice
     },
 
+    XTSCurrency: {
+        sliceName: 'currencies',
+        apiRequest: apiRequest_Currency,
+        actions: actions_Currency
+    },
+
+    XTSProductsPriceRegistration: {
+        sliceName: 'priceRegistrations',
+        apiRequest: apiRequest_PriceRegistration,
+        actions: actions_PriceRegistration
+    },
 }
 
 export function getXTSSlice(dataType: string): XTSSlice {

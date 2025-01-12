@@ -140,7 +140,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     //
 
     return (
-        <div className='edit-page' >
+        <div className='structural-unit-edit' >
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 

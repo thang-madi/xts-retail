@@ -29,7 +29,7 @@ import './index.css'
 // Main component
 
 // OK
-const StructuralUnitCard: React.FC<XTSObjectCardProps> = (props) => {
+const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     const { item, itemName } = props
     const formData = item as XTSStructuralUnit                            //
@@ -79,7 +79,7 @@ const StructuralUnitCard: React.FC<XTSObjectCardProps> = (props) => {
 
     return (
         <Card
-            className='item-card'
+            className='structural-unit-item-card'
             onClick={clickItem}
         >
             {/* <Avatar
@@ -88,7 +88,7 @@ const StructuralUnitCard: React.FC<XTSObjectCardProps> = (props) => {
                 src={imageSrc}
             /> */}
 
-            <div className='item-card-content' >
+            <div className='structural-unit-item-card-content' >
                 <div><b>{formData.description}</b></div>
                 <div>Dạng kho: {formData.structuralUnitType?.presentation}</div>
                 <div>Kho 2 pha: {formData.orderWarehouse}</div>
@@ -97,7 +97,7 @@ const StructuralUnitCard: React.FC<XTSObjectCardProps> = (props) => {
                 </pre>
 
                 <Button
-                    className={(props.itemName) && 'item-card-button-choice' || 'item-card-button-choice-hidden'}
+                    className={(props.itemName) && 'structural-unit-item-card-button-choice' || 'structural-unit-item-card-button-choice-hidden'}
                     htmlType='button'
                     onClick={choiceItem}
                     icon={<SelectOutlined />} />
@@ -110,4 +110,4 @@ const StructuralUnitCard: React.FC<XTSObjectCardProps> = (props) => {
 /////////////////////////////////////////////
 // Export's
 
-export default StructuralUnitCard               //
+export default ObjectCard               //

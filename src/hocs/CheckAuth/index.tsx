@@ -15,8 +15,7 @@ import { RootState } from "../../data-storage";
 /////////////////////////////////////////////
 // Main component
 
-
-// function CheckAuth({ children }) {
+// OK
 const CheckAuth: React.FC<any> = (props) => {
 
     const { children } = props
@@ -40,12 +39,12 @@ const CheckAuth: React.FC<any> = (props) => {
         '/connect-user',
         '/about',
         '/carts',
-        '/products',
+        // '/products',
         '/test',
         '/test-mobile',
         '/settings',
-        '/product/',
-        '/order/',
+        '/view',
+        // '/order-view',
         '/uom-classifier',
         '/customer-profile',
     ]

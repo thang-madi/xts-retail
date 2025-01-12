@@ -26,11 +26,19 @@ const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
     const navigate = useNavigate()
     const { itemName } = props
 
+    // const [searchParams, setSearchParams] = useSearchParams()
+    // const id = searchParams.get('id')
+    // let action = (id) && ITEM_VALUE_ACTIONS.VIEW || ITEM_VALUE_ACTIONS.LIST
+    // if (searchParams.get('edit')) {
+    //     action = ITEM_VALUE_ACTIONS.EDIT
+    // }
     const [searchParams, setSearchParams] = useSearchParams()
     const id = searchParams.get('id')
-    let action = (id) && ITEM_VALUE_ACTIONS.VIEW || ITEM_VALUE_ACTIONS.LIST
-    if (searchParams.get('edit')) {
+    let action = ITEM_VALUE_ACTIONS.LIST
+    if (!props.itemName && searchParams.get('edit')) {
         action = ITEM_VALUE_ACTIONS.EDIT
+    } else if (!props.itemName && id) {
+        action = ITEM_VALUE_ACTIONS.VIEW
     }
 
     const afterSave = (tempData: any): void => {

@@ -101,7 +101,8 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const copyLink = () => {
         // const url = `http://localhost:3000/products?id=${dataObject.objectId.id}`
-        const url = `https://t.me/XTSRetail_bot?startapp=products__${dataObject.objectId.id}`
+        // const url = `https://t.me/XTSRetail_bot?startapp=products__${dataObject.objectId.id}`
+        const url = `${window.location.protocol}//${window.location.hostname}/view?id=${dataObject.objectId.id}&type=XTSProduct`
         copyToClipboard(url)
 
         // if (TWA.shareMessage) {
@@ -158,34 +159,26 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
-            <div style={{ width: '100%', height: '500px', overflow: 'hidden', margin: '0px' }}>
+            <div className='product-view-image' >
                 <Image.PreviewGroup items={pictureItems}>
                     <Image src={picture} />
                 </Image.PreviewGroup>
             </div>
 
-            < div style={{ display: 'flex', width: '100%', minHeight: '50px', backgroundColor: 'azure', alignItems: 'center' }}>
-                <div style={{
-                    display: 'flex',
-                    textAlign: 'center',
-                    marginLeft: '20px',
-                    fontSize: '28px',
-                    fontStyle: 'italic',
-                    fontWeight: 'bold',
-                    color: 'orange'
-                }}>
+            < div className='product-view-price-bar'>
+                <div className='product-view-price-bar-value'>
                     {formatCurrency(dataObject?._price)}
                 </div>
             </div>
 
-            <div style={{ marginLeft: '20px', marginTop: '10px' }}>
+            <div className='product-view-description' >
                 {dataObject?.description}
             </div>
 
-            <div style={{ marginLeft: '20px', marginTop: '10px', marginBottom: '5px' }}>
+            <div className='product-view-uom' >
                 <b>Đơn vị tính:</b>
             </div>
-            <List
+            <List className='product-view-list-uoms'
                 dataSource={dataObject?._uoms || []}
                 renderItem={(row: any) => (
                     <Space style={{ display: 'flex' }}>
@@ -193,7 +186,6 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                         <b style={{ color: 'blue' }}>{row?.uom?.presentation}</b>
                     </Space>
                 )}
-                style={{ marginLeft: '20px' }}
             />
 
             {(dataObject?._characteristics?.length > 0) &&
@@ -213,9 +205,6 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                         locale={{ emptyText: '-' }}
                         renderItem={(row: any) => (
                             <List.Item>
-                                {/* <ProductUOMCard
-                            row={row}
-                        /> */}
                                 <div>
                                     {row?.characteristic_presentation}
                                 </div>
@@ -228,16 +217,10 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 </>
             }
 
-            <div style={{ marginLeft: '20px', marginTop: '10px', }}>
+            <div className='product-view-long-description' >
                 <b>Chi tiết sản phẩm:</b>
-                <div style={{ marginTop: '10px' }}> {dataObject?.descriptionFull}</div>
+                <div className='product-view-long-description-text'> {dataObject?.descriptionFull}</div>
             </div>
-
-            {/* <ViewMenu
-                editItem={(user) && editItem || undefined}
-                refresh={refreshObject}
-                stepBack={props.stepBack}
-            /> */}
 
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
@@ -248,7 +231,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     onClick: (handleAddToCart), icon: <ShoppingCartOutlined />, title: 'Vào giỏ', visible: Boolean(!props.itemName && !user)
                 }}
                 action2={{
-                    onClick: (copyLink), icon: <LinkOutlined />, title: 'Link', visible: Boolean(!props.itemName && user)
+                    onClick: (copyLink), icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link', visible: Boolean(!props.itemName && user)
                 }}
             />
 

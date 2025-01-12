@@ -104,7 +104,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
     // 
 
     return (
-        <div className='list-page'>
+        <div className='structural-unit-list'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
@@ -114,7 +114,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
                 grid={listGrid}
                 dataSource={dataList}
                 renderItem={(item: XTSObject) => (
-                    <List.Item className='list-page-item'>
+                    <List.Item className='structural-unit-list-item'>
                         <ObjectCard
                             item={item}
                             itemName={props.itemName}

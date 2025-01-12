@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Card, Descriptions, Divider, FloatButton, List, Modal, notification, Space, Tag } from 'antd'
-import { ArrowLeftOutlined, CheckCircleOutlined, CheckOutlined, ContainerOutlined, CopyOutlined, DeleteOutlined, DollarCircleOutlined, EditOutlined, ReloadOutlined, SelectOutlined, ShoppingCartOutlined, TruckOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CheckCircleOutlined, CheckOutlined, ContainerOutlined, CopyOutlined, DeleteOutlined, DollarCircleOutlined, EditOutlined, LinkOutlined, ReloadOutlined, SelectOutlined, ShoppingCartOutlined, TruckOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 
 
@@ -25,13 +25,13 @@ import { PDFViewer, printFormURL } from '../../components/PDFViewer'
 import SubPage from '../../hocs/SubPage'
 import { requestData_ByDataItem, requestData_SaveObject, requestData_UpdateObject } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
-import { VND } from '../../commons/common-use'
+import { copyToClipboard, VND } from '../../commons/common-use'
 import { TWA } from '../../commons/telegram'
 
 /////////////////////////////////////////////
 // Object's
 
-import { apiRequest, actions } from '../../data-storage/slice-orders'                   // orders
+import { apiRequest, actions } from '../../data-storage/slice-sales-order'
 import PrintPage from '../../hocs/PrintPage'
 import RelatedPage from '../../hocs/RelatedPage'
 import OrderStateTag from './OrderStateTag'
@@ -234,7 +234,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // ???
     // Xem xét lại, vì dữ liệu đã được update vào dataObject rồi, nên không cần phải theo dõi đoạn trả về nữa
 
-    const tempData = useSelector((state: RootState) => state.orders.tempData)
+    const tempData = useSelector((state: RootState) => state.salesOrders.tempData)
     useEffect(() => {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
@@ -252,6 +252,16 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // Related page
 
     const [relatedOpen, setRelatedOpen] = useState(false)
+
+    /////////////////////////////////////////////
+    // Copy Link
+
+    const copyLink = () => {
+        // const url = `http://localhost:3000/products?id=${dataObject.objectId.id}`
+        // const url = `https://t.me/XTSRetail_bot?startapp=products__${dataObject.objectId.id}`
+        const url = `${window.location.protocol}//${window.location.hostname}/view?id=${dataObject.objectId.id}&type=XTSOrder`
+        copyToClipboard(url)
+    }
 
     /////////////////////////////////////////
     // 
@@ -391,6 +401,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: paymentButton }}
                 action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
                 action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-button-icon' />, visible: deliveredButton }}
+                action4={{ onClick: (copyLink), icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link' }}
             />
 
         </div >

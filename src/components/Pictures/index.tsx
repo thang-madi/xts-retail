@@ -45,7 +45,7 @@ export interface XTSAppPicturesProps {
 
 export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
 
-    const { dataType, pictures, newPictures, deletedPictures, setNewPictures, setDeletedPictures, setDefaultPicture, imageProps } = props
+    const { dataType, pictures = [], newPictures = [], deletedPictures = [], setNewPictures, setDeletedPictures, setDefaultPicture, imageProps } = props
     const [imageItems, setImageItems] = useState<XTSMediaItem[]>([])
     const [currentIndex, setCurrentIndex] = useState<number>(0)
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
@@ -57,15 +57,12 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
             (!deletedPictures) && true ||
             deletedPictures.findIndex((item: any) => item.id === picture.id) === -1
         )
-        // console.log('pictures', pictures)
-        // console.log('tempPictures', tempPictures)
         const _imageItems = tempPictures.map((item: XTSMediaItem) => ({ ...item, imageSrc: fileStorageURL + item.presentation }))
         if (newPictures && newPictures.length > 0) {
             for (let newPicture of newPictures) {
                 _imageItems.push(newPicture)
             }
         }
-        // console.log('_imageItems', _imageItems)
         setImageItems(_imageItems)
     }, [pictures, newPictures, deletedPictures])
 
@@ -126,22 +123,42 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
     /////////////////////////////////////////////
     // Choice picture
 
-    const beforeUpload = (file: RcFile) => {
-        // console.log('file', file)
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            if (newPictures) {
-                setNewPictures([...newPictures, {
-                    id: null,
+    // const beforeUpload = (file: RcFile) => {
+    //     const reader = new FileReader()
+    //     reader.onload = (e) => {
+    //         if (newPictures) {
+    //             setNewPictures([...newPictures, {
+    //                 id: null,
+    //                 dataType,
+    //                 imageSrc: e.target?.result
+    //             }])
+    //             setCurrentIndex(imageItems.length)
+    //         }
+    //     }
+    //     reader.readAsDataURL(file)
+    //     return false
+    // }
+
+    const beforeUpload = (file: RcFile, fileList: RcFile[]) => {
+        const updatedPictures = [...newPictures]
+        fileList.forEach((_file) => {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                updatedPictures.push({
+                    id: '',
                     dataType,
-                    imageSrc: e.target?.result
-                }])
-                setCurrentIndex(imageItems.length)
+                    imageSrc: e.target?.result as string,
+                    presentation: ''
+                })
+                if (fileList.indexOf(_file) === fileList.length - 1) {
+                    setNewPictures(updatedPictures)
+                    setCurrentIndex(imageItems.length)
+                }
             }
-            // console.log('file', e.target.result)
-        }
-        reader.readAsDataURL(file)
-        return false
+            reader.readAsDataURL(_file)
+        })
+
+        return false    // Trả về false để không dùng cơ chế xử lý của antd
     }
 
     /////////////////////////////////////////////
@@ -150,11 +167,10 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
     const [webcamOpen, setWebcamOpen] = useState(false)
 
     const captureImage = (file: RcFile) => {
-        if (newPictures) {
-            setNewPictures([...newPictures, { id: null, dataType, imageSrc: file }])
-            setCurrentIndex(imageItems.length)
-        }
-        // console.log('file', e.target.result)
+        // if (newPictures) {
+        setNewPictures([...newPictures, { id: null, dataType, imageSrc: file }])
+        setCurrentIndex(imageItems.length)
+        // }
     }
 
     /////////////////////////////////////////////
@@ -162,25 +178,17 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
 
     return (
 
-        <Space
+        <div
             className='pictures-group'
-            direction='vertical'
-            size={0}
-        // style={{
-        //     alignItems: 'center',
-        //     // border: '2px solid #000',
-        //     width: '100%',
-        //     padding: '10px',
-        //     position: 'relative',
-        // }}
+        // direction='vertical'
+        // size={0}
         >
-            <Skeleton active loading={false} paragraph={{ rows: 5 }} title />
-            <LazyLoad height={200} offset={100} once >
+
+            <div className='pictures-image' >
                 <Image
-                    // className='lazyload'
                     src={imageItems[currentIndex]?.imageSrc}
                     alt="Picture"
-                    preview={false}
+                    preview={true}
                     {...imageProps}
                     style={{
                         // display: 'block',
@@ -188,85 +196,51 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
                         // marginRight: '0px'
                     }}
                 />
-            </LazyLoad>
+            </div>
+
 
             <Button
                 className='left-button'
                 icon={<LeftOutlined />}
                 onClick={handlePrevClick}
-            // style={{
-            //     position: 'absolute',
-            //     top: '45%',
-            //     left: '20px',
-            //     transform: 'translateY(-50%)',
-            //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            //     color: 'white'
-            // }}
             />
 
             <Button
                 className='right-button'
                 icon={<RightOutlined />}
                 onClick={handleNextClick}
-            // style={{
-            //     position: 'absolute',
-            //     top: '45%',
-            //     right: '30px',
-            //     transform: 'translateY(-50%)',
-            //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            //     color: 'white'
-            // }}
             />
 
             <List
                 className='picture-list'
                 grid={{ gutter: 16 }}
                 dataSource={imageItems}
-                // style={{
-                //     width: '100%',
-                //     height: '50px',
-                //     display: 'flex',
-                //     justifyContent: 'center',
-                //     alignItems: 'center',
-                //     flexWrap: 'wrap',
-                //     marginTop: '10px',
-                //     // paddingBottom: '0px',
-                // }}
                 locale={{ emptyText: '...' }}
                 renderItem={item => (
                     <List.Item
                         className='picture-form-item'
                         onClick={() => handleImageClick(item)}
-                    // style={{
-                    //     display: 'flex',
-                    //     justifyContent: 'center',
-                    //     alignItems: 'center',
-                    //     marginBottom: '0px',
-                    //     paddingBottom: '0px',
-                    // }}
                     >
                         <Image
                             className={`picture-icon ${imageItems.indexOf(item) === currentIndex ? 'picture-icon-active' : ''}`}
-                            // className='picture-icon img'
                             style={{
                                 width: '30px', height: '40px', objectFit: 'contain',
                                 borderRadius: '5px',
-                                // border: imageItems.indexOf(item) === currentIndex ? '2px solid blue' : 'none',
                             }}
                             src={item.imageSrc}
                             alt={item.presentation}
+                            // placeholder={<div>Loading...</div>}
                             preview={false}
-                            placeholder={<div>Loading...</div>}
                         />
                     </List.Item>
                 )}
             />
 
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Upload
                     showUploadList={false}
                     beforeUpload={beforeUpload}
-                // style={{ margin: 0, padding: 0 }}
+                    multiple={true}
                 >
                     <Button className='picture-button' icon={<UploadOutlined />}>
                         Chọn
@@ -274,7 +248,6 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
                 </Upload>
                 <Button
                     className='picture-button'
-                    // style={{ marginLeft: '10px' }}
                     icon={<CameraOutlined />}
                     onClick={() => setWebcamOpen(true)}
                 >
@@ -282,7 +255,6 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
                 </Button>
                 <Button
                     className='picture-button'
-                    // style={{ marginLeft: '10px' }}
                     icon={<CheckSquareOutlined />}
                     onClick={setDefault}
                 >
@@ -290,7 +262,6 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
                 </Button>
                 <Button
                     className='picture-button'
-                    // style={{ marginLeft: '10px' }}
                     icon={<CloseOutlined />}
                     onClick={deletePicture}
                 >
@@ -308,7 +279,7 @@ export const Pictures: React.FC<XTSAppPicturesProps> = (props) => {
                 setWebcamOpen={setWebcamOpen}
             />
 
-        </Space >
+        </div >
 
     )
 }

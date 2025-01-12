@@ -50,7 +50,7 @@ const HomePage: React.FC<any> = (props) => {
 
     dayjs.locale('vi')
 
-    const dashboard = useSelector((state: RootState) => state.report.dashboard) || {}
+    const dashboard = useSelector((state: RootState) => state.reports.dashboard) || {}
 
     // console.log('dashboardData', dashboard)
 
@@ -132,7 +132,7 @@ const HomePage: React.FC<any> = (props) => {
         const { actions } = getXTSSlice('XTSOrder')
         const orderStates = getXTSEnum('XTSSalesOrderState')
         dispatch(actions.setFilterItem({ key: 'orderState', value: orderStates[orderStateId] }))
-        navigate('/orders')
+        navigate('/sales-orders')
     }
 
     const openDailyReport = () => {
@@ -151,11 +151,11 @@ const HomePage: React.FC<any> = (props) => {
 
         switch (dataType) {
             case 'XTSOrder':
-                navigate('/orders?edit=true')
+                navigate('/sales-orders?edit=true')
                 break
 
             case 'XTSSupplierInvoice':
-                navigate('/supplier-invoice?edit=true')
+                navigate('/supplier-invoices?edit=true')
                 break
 
             case 'MoneyReceipt':

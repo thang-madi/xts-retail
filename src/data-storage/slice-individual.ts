@@ -16,24 +16,25 @@ import { initialState_Objects } from "./initial-states";
 /////////////////////////////////////////////
 // Begin
 
-const searchFields: string[] = ['description', 'sku', 'price', 'descriptionFull', 'comment']
+const searchFields: string[] = ['description']
 const sortBy: XTSListSortItem[] = [{ key: 'descriptiion', descending: false }]
 const initialState: XTSObjectState = initialState_Objects(searchFields, sortBy)
 
 export const apiRequest = createAsyncThunk(
-    'products/apiRequest',
-    (data: any, thunkAPI: any) => postRequestWithThunk(data, thunkAPI, sliceProducts.actions)
+    'individuals/apiRequest',
+    (data: any, thunkAPI) => postRequestWithThunk(data, thunkAPI, sliceIndividual.actions)
 )
 
-const sliceProducts = createSlice({
-    name: 'products',
+const sliceIndividual = createSlice({
+    name: 'individuals',
     initialState,
     reducers,
     extraReducers(builder) {
         builder
             .addCase(apiRequest.pending, (state) => setLoading(state))
-            .addCase(apiRequest.fulfilled, (state) => setSucceeded(state))
+            .addCase(apiRequest.fulfilled, (state, action) => setSucceeded(state))
             .addCase(apiRequest.rejected, (state, action) => setError(state, action))
+
     },
     // extra: extraData,
 })
@@ -41,5 +42,5 @@ const sliceProducts = createSlice({
 /////////////////////////////////////////////
 // Export's
 
-export default sliceProducts.reducer
-export const actions = sliceProducts.actions
+export default sliceIndividual.reducer
+export const actions = sliceIndividual.actions

@@ -70,7 +70,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         status
     } = useGetDataObject(getDataObjectParams)
 
-    // console.log('ProductEdit.dataObject', dataObject)
+    console.log('ProductEdit.dataObject', dataObject)
     // console.log('ProductEdit.formData', formData)
 
     const openPageParams: UseOpenPageParams = {
@@ -239,7 +239,8 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     const [defaultPicture, setDefaultPicture] = useState<XTSMediaItem>()
 
     const pictureProps = { dataType: dataType_AttachedFile, pictures, newPictures, deletedPictures, setNewPictures, setDeletedPictures, setDefaultPicture }
-    const imageProps = { height: '400px' }
+    // const imageProps = { height: '400px' }
+    const imageProps = {}
 
     // const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
     const _pictures = dataObject['_pictures']
@@ -347,17 +348,17 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         />
 
                         <FormInput
-                            itemName='_uomCoefficient_'
+                            itemName='_uomCoefficient'
                             dataType='Number'
                             itemProps={{
                                 label: 'Hệ số Ri',
                                 required: false,
                                 style: { width: 100 },
                             }}
-                            inputProps={{
+                            inputNumberProps={{
                                 placeholder: 'Nhập hệ số Ri',
-                                allowClear: true,
-                                readOnly: true,
+                                // allowClear: true,
+                                readOnly: false,
                             }}
                             {...commonItemProps}
                         />

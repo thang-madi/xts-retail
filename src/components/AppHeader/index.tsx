@@ -24,7 +24,7 @@ import { isAndroid, isFullscreenAndroid, isFullscreenIOS, isFullscreenTDesktop, 
 // Object's
 
 import './index.css'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Loader } from '../Loader'
 
 /////////////////////////////////////////////
@@ -81,6 +81,7 @@ const AppHeader: React.FC = () => {
 
     const deviceId = getLocalDeviceId()
     const userToken = getLocalUserToken()
+    const location = useLocation()
 
     // console.log('deviceId', deviceId)
     // console.log('userToken', userToken)
@@ -100,6 +101,9 @@ const AppHeader: React.FC = () => {
 
     // Thực hiện đăng nhập khi mới mở
     useEffect(() => {
+        if (location.pathname = '/view') {
+            return
+        }
 
         const telegramId = TWA.initDataUnsafe.user?.id || ''
         const zaloId = null

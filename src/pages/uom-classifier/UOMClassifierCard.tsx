@@ -21,7 +21,7 @@ import './index.css'
 // Main component
 
 // OK
-const UOMClassifierCard: React.FC<XTSObjectCardProps> = (props) => {
+const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     const { item } = props
     const formData = item as XTSUOMClassifier
@@ -53,14 +53,14 @@ const UOMClassifierCard: React.FC<XTSObjectCardProps> = (props) => {
 
     return (
 
-        <Card className='card-group' onClick={clickItem}>
-            <div className='card-content' >
+        <Card className='uom-classifier-card-group' onClick={clickItem}>
+            <div className='uom-classifier-card-content' >
                 <div>
                     <div>Tên gọi: {formData?.description}</div>
                     <div>Mã: {formData?.code}</div>
                 </div>
                 <Button
-                    className='card-button'
+                    className='uom-classifier-card-button'
                     onClick={choiceItem}
                     icon={<SelectOutlined />}
                 >
@@ -74,4 +74,4 @@ const UOMClassifierCard: React.FC<XTSObjectCardProps> = (props) => {
 /////////////////////////////////////////////
 // Export's
 
-export default UOMClassifierCard
+export default ObjectCard

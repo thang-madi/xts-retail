@@ -24,7 +24,7 @@ import CartsPage from '../../pages/cart'
 import CustomersPage from '../../pages/customer'
 // import IndividualsPage from '../../pages/individual'
 import ProductsPage from '../../pages/product'
-import OrdersPage from '../../pages/sales-order'
+import SalesOrderPage from '../../pages/sales-order'
 // import ProductCharacteristicListPage from '../pages/product-characteristic/product-characteristic-list'
 // import ProductCharacteristicPage from '../pages/product-characteristic/product-characteristic-view'
 import UOMClassifierPage from '../../pages/uom-classifier'
@@ -37,7 +37,10 @@ import SalesInvoicesPage from '../../pages/sales-invoice'
 import SupplierInvoicesPage from '../../pages/supplier-invoice'
 import CashReceiptsPage from '../../pages/cash-receipt'
 import PaymentReceiptsPage from '../../pages/payment-receipt'
+import CurrenciesPage from '../../pages/currency'
+import PriceRegistrationPage from '../../pages/price-registration'
 
+import ViewPage from '../../pages/views'
 
 import AppHeader from '../AppHeader'
 import AppFooter from '../AppFooter'
@@ -103,7 +106,7 @@ export const routeItems = () => {
                 { path: '/connect-user', element: < ConnectPage /> },
                 { path: '/carts', element: < CartsPage /> },
                 { path: '/customers', element: < CustomersPage /> },
-                { path: '/orders', element: < OrdersPage /> },
+                { path: '/sales-orders', element: < SalesOrderPage /> },
                 // { path: '/order/:id', element: < OrderViewPage /> },
                 { path: '/products', element: < ProductsPage /> },
                 // { path: '/product/:id', element: < ProductViewPage /> },
@@ -117,11 +120,16 @@ export const routeItems = () => {
                 { path: '/daily-report', element: < DailyReport /> },
                 { path: '/settlement-with-customers-report', element: < SettlementWithCustomersReport /> },
 
-                { path: '/structural-unit', element: < StructuralUnitsPage /> },
-                { path: '/sales-invoice', element: < SalesInvoicesPage /> },
-                { path: '/supplier-invoice', element: < SupplierInvoicesPage /> },
-                { path: '/cash-receipt', element: < CashReceiptsPage /> },
-                { path: '/payment-receipt', element: < PaymentReceiptsPage /> },
+                { path: '/structural-units', element: < StructuralUnitsPage /> },
+                { path: '/sales-invoices', element: < SalesInvoicesPage /> },
+                { path: '/supplier-invoices', element: < SupplierInvoicesPage /> },
+                { path: '/cash-receipts', element: < CashReceiptsPage /> },
+                { path: '/payment-receipts', element: < PaymentReceiptsPage /> },
+                { path: '/currencies', element: < CurrenciesPage /> },
+                { path: '/price-registrations', element: < PriceRegistrationPage /> },
+
+                { path: '/view', element: < ViewPage /> },
+                // { path: '/product-view', element: < ProductsPage /> },
 
                 // { path: '/test', element: < TestPage /> },
                 // { path: '/test-mobile', element: < MobileTestPage /> },
