@@ -101,7 +101,7 @@ const AppHeader: React.FC = () => {
 
     // Thực hiện đăng nhập khi mới mở
     useEffect(() => {
-        if (location.pathname = '/view') {
+        if (location.pathname === '/view') {
             return
         }
 
