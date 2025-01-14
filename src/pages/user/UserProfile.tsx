@@ -41,7 +41,6 @@ import './index.css'
 /////////////////////////////////////////////
 // Main component
 
-// function UserProfilePage(props) {
 const UserProfilePage: React.FC<any> = (props) => {
 
     /////////////////////////////////////////////
@@ -57,8 +56,10 @@ const UserProfilePage: React.FC<any> = (props) => {
         if (itemValue.id && itemValue.action === ITEM_VALUE_ACTIONS.EDIT) {
             newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
             setItemValue(newItemValue)
+        } else if (user) {
+            navigate('/home')
         } else {
-            navigate(-1)
+            navigate('/about')
         }
     }
 
@@ -140,7 +141,7 @@ const UserProfilePage: React.FC<any> = (props) => {
     switch (itemValue.action) {
         case ITEM_VALUE_ACTIONS.EDIT:
             return (
-                <div className='user-profile-edit-page'>
+                <div className='user-profile-edit'>
                     <CustomerEditPage
                         pageId={pageId}
                         itemValue={itemValue}
@@ -154,7 +155,7 @@ const UserProfilePage: React.FC<any> = (props) => {
             )
         case ITEM_VALUE_ACTIONS.VIEW:
             return (
-                <div className='user-profile-view-page'>
+                <div className='user-profile-view'>
                     <CustomerViewPage
                         pageId={pageId}
                         itemValue={itemValue}

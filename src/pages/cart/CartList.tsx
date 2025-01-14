@@ -41,7 +41,7 @@ import './index.css'
 /////////////////////////////////////////////
 // Main component
 
-const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // Cart
+const RecordListPage: React.FC<XTSRecordListProps> = (props) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -201,8 +201,8 @@ const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // C
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
                 refresh={{ onClick: refreshList }}
-                action1={{ onClick: selectAll, title: 'Chọn tất cả', icon: <CheckSquareOutlined /> }}
-                action2={{ onClick: createOrder, title: 'Tạo đơn', icon: <FileTextOutlined />, visible: (status === REQUEST_STATUSES.IDLE) }}
+                action1={{ onClick: selectAll, title: 'Chọn tất cả', icon: <CheckSquareOutlined className='context-menu-button-icon' /> }}
+                action2={{ onClick: createOrder, title: 'Tạo đơn', icon: <FileTextOutlined className='context-menu-button-icon' />, visible: (status === REQUEST_STATUSES.IDLE) }}
             />
 
         </div >
@@ -212,4 +212,4 @@ const CartListPage: React.FC<XTSRecordListProps> = (props) => {             // C
 /////////////////////////////////////////////
 // Export's
 
-export default CartListPage                                                         // Cart
+export default RecordListPage

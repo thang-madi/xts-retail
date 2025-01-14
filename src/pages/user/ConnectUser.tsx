@@ -17,6 +17,7 @@ import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
 import { requestData_ByDataItem } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
+import Password from 'antd/es/input/Password'
 
 /////////////////////////////////////////////
 // Object's
@@ -27,7 +28,7 @@ import { getXTSSlice } from '../../data-storage/xts-mappings'
 /////////////////////////////////////////////
 // Main component
 
-// function ConnectPage() {
+// OK
 const ConnectPage: React.FC<any> = () => {
 
     const navigate = useNavigate()
@@ -39,7 +40,7 @@ const ConnectPage: React.FC<any> = () => {
     const deviceId = getLocalDeviceId()
     // const userToken = getLocalUserToken()
 
-    // Sau khi đăng nhập thành công thì chuyển đến trang trước
+    // Sau khi đăng nhập thành công thì chuyển đến trang Home
     const { path } = location?.state || { path: '/home' }
     const { user, telegramId, zaloId, phone } = useSelector((state: RootState) => state.session)
     useEffect(() => {
@@ -81,66 +82,61 @@ const ConnectPage: React.FC<any> = () => {
         console.log('Failed:', errorInfo);
     }
 
-    // const cancel = () => {
-
-    // }
-
+    const cancel = () => {
+        navigate(-1)
+    }
 
     return (
-        <div >
+        <div className='user-connect-user'>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Typography.Title level={5}>
-                    Kết nối người dùng nội bộ
-                </Typography.Title>
-            </div>
+            <Typography.Title level={5} className='user-connect-user-title'>
+                Kết nối người dùng nội bộ
+            </Typography.Title>
 
             <Loader isLoading={loading} />
 
-            <Form
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                layout='vertical'
-                // align='center'
-                className={(loading) && 'hidden' || '_'}
-            >
-                <Space direction='vertical' align='center' style={{ marginTop: '30px', width: '100%' }} >
+            <Card className='user-connect-user-card'>
+                <Form
+                    className={(loading) && 'hidden' || 'user-connect-user-form'}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    layout='vertical'
+                >
 
-                    <Card>
-                        <Form.Item
-                            label='Tên đăng nhập'
-                            name='userName'
-                            initialValue='Test'
-                            style={{ width: '210px' }}
-                        >
-                            <Input
-                                placeholder='Tên đăng nhập'
-                                required={false}
-                                style={{ width: '100%' }}
-                            />
+                    <Form.Item
+                        className='user-connect-user-form-item-input'
+                        label='Tên đăng nhập'
+                        name='userName'
+                        initialValue={process.env.REACT_APP_DEFAULT_USER_NAME}
+                    >
+                        <Input
+                            className='user-connect-user-form-item-input-value'
+                            placeholder='Tên đăng nhập'
+                            required={false}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        className='user-connect-user-form-item-input'
+                        label='Mật khẩu'
+                        name='password'
+                        initialValue={process.env.REACT_APP_DEFAULT_USER_PASSWORD}
+                    >
+                        <Input.Password
+                            className='user-connect-user-form-item-input-value'
+                            placeholder='Password'
+                        />
+                    </Form.Item>
+
+                    <div className='user-connect-user-button-group'>
+                        <Form.Item>
+                            <Button block type='primary' htmlType='submit'>Đăng nhập</Button>
                         </Form.Item>
+                        <Button block type='default' onClick={cancel}>Hủy bỏ</Button>
+                    </div>
 
-                        <Form.Item
-                            label='Mật khẩu'
-                            name='password'
-                            initialValue='1'
-                            style={{ width: '210px' }}
-                        >
-                            <Input.Password
-                                placeholder='Password'
-                                style={{ width: '100%' }}
-                            />
-                        </Form.Item>
-
-                        <Space direction='horizontal'>
-                            <Form.Item>
-                                <Button block type='primary' htmlType='submit'>Đăng nhập</Button>
-                            </Form.Item>
-                        </Space>
-                    </Card>
-
-                </Space>
-            </Form>
+                </Form>
+            </Card>
 
         </div >
     )

@@ -83,15 +83,15 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
     // const userProfile = useSelector((state: RootState) => state.session.userProfile)
     // const appTitle = (userProfile) && userProfile.presentation || 'XTS Retail'
 
-    const { userToken, user, phone, company } = useSelector((state: RootState) => state.session)
+    const { userToken, userProfile, user, company, phone } = useSelector((state: RootState) => state.session)
 
     var menuItems = []
 
     if (!userToken) {
         menuItems = [
             // homeItem,
-            cartItem,
-            productItem,
+            // cartItem,
+            // productItem,
             // ordersItem,
             // customersItem,
             // userProfileItem,
@@ -99,7 +99,18 @@ const AppMenu: React.FC<AppMenuProps> = (props) => {
             loginItem,
             // logoutItem
         ]
-
+    } else if (!userProfile) {
+        menuItems = [
+            // homeItem,
+            cartItem,
+            productItem,
+            // ordersItem,
+            // customersItem,
+            userProfileItem,
+            aboutItem,
+            // loginItem,
+            // logoutItem
+        ]
     } else if (!user) {
         menuItems = [
             // homeItem,

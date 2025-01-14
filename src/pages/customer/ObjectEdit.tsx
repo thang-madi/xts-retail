@@ -11,7 +11,7 @@ import { CameraOutlined, CheckCircleOutlined, CloseCircleOutlined, SaveOutlined,
 // Application's
 
 import { useCreatePage, UseCreatePageParams, useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams, useSaveFormData, UseSaveFormDataParams } from '../../hooks/usePage'
-import { requestData_ByDataItem, requestData_SaveObject } from '../../data-objects/request-data'
+import { requestData_ByDataItem, requestData_ByPropertyValues, requestData_SaveObject } from '../../data-objects/request-data'
 import { FormInput, FormSelect } from '../../components/FormItems'
 import { AppAvatar } from '../../components/Avatar'
 import { BottomBar } from '../../components/ContextMenu'
@@ -32,7 +32,7 @@ import { Loader } from '../../components/Loader'
 // Main component
 
 // OK                                             
-const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Customer
+const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
     /////////////////////////////////////////////
     // Các useHook chuẩn
@@ -135,11 +135,12 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
 
             const customer = fileOwner
             const object = {
-                _type: 'XTSCounterparty',
+                _type: 'XTSExternalAccount',
                 objectId: externalAccount,
                 customer
             }
-            const requestData = requestData_ByDataItem('XTSUpdateObjectsRequest', { objects: [object] })
+            console.log('objects', object)
+            const requestData = requestData_ByPropertyValues('XTSUpdateObjectsRequest', { objects: [object] })
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
             // dispatch(actions.setTemp(null))
@@ -184,7 +185,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {         // Cus
                     file,
                     attributeName,      // Điền giá trị file vào thuộc tính attributeName là 'picture'
                 }
-                console.log('fileOwner 2', fileOwner)
+                console.log('fileOwner', fileOwner)
                 console.log('file', file)
 
                 const requestData = requestData_ByDataItem('XTSUploadFileRequest', dataItem)

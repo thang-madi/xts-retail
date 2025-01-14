@@ -637,7 +637,7 @@ export function useSaveDataRecord(params: UseSaveFormDataParams) {
 export function useSaveFormData(params: UseSaveFormDataParams) {
 
     // const { dataType, setItemValue, afterSave } = params
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
 
     // const { pathname } = useLocation()
@@ -649,7 +649,6 @@ export function useSaveFormData(params: UseSaveFormDataParams) {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         // console.log('useSaveFormData.useEffect', responseTypes)
 
-        // if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.find(item => item === tempData['_type'])) {
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
             const { objects } = tempData
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
@@ -669,7 +668,7 @@ export function useSaveFormData(params: UseSaveFormDataParams) {
                 params.choiceItemValue(itemValue)
             }
         }
-    }, [status, tempData, navigate, dispatch])
+    }, [status, tempData])
 
     return { status }
 }

@@ -27,7 +27,7 @@ import './index.css'
 /////////////////////////////////////////////
 // Main component
 
-const CartCard: React.FC<XTSRecordCardProps> = (props) => {
+const RecordCard: React.FC<XTSRecordCardProps> = (props) => {
 
     const { item, itemName, choiceItemValue } = props
     const formData = item as XTSCart
@@ -208,4 +208,4 @@ const CartCard: React.FC<XTSRecordCardProps> = (props) => {
 /////////////////////////////////////////////
 // Export's
 
-export default CartCard
+export default RecordCard

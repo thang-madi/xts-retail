@@ -13,15 +13,15 @@ import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/type
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './CartList'                          // cart
-// import ViewPage from './cart-view'                      // cart
-// import EditPage from './cart-edit'                      // cart
+import ListPage from './CartList'                          // 
+// import ViewPage from './cart-view'                      // 
+// import EditPage from './cart-edit'                      // 
 
 /////////////////////////////////////////////
 // Main component
 
 // OK
-const CartsPage: React.FC<XTSObjectIndexProps> = (props) => {                 // Carts
+const CartsPage: React.FC<XTSObjectIndexProps> = (props) => {                 // 
 
     const navigate = useNavigate()
     const { itemName } = props
@@ -81,4 +81,4 @@ const CartsPage: React.FC<XTSObjectIndexProps> = (props) => {                 //
 /////////////////////////////////////////////
 // Export
 
-export default CartsPage                                // Carts
+export default CartsPage                                // 

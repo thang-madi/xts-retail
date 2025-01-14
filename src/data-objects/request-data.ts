@@ -158,18 +158,36 @@ export function requestData_UploadFile(
     return requestData
 }
 
-//
+// OK
 export function requestData_ByDataItem(requestName: string, dataItem: { [key: string]: any }): XTSRequestData {
 
     const requestObject = createXTSObject(requestName, dataItem)
-    // console.log('requestObject', requestObject)
 
-    // for (let key in dataItem) {
-    //     if (requestObject.hasOwnProperty(key)) {
-    //         requestObject[key] = dataItem[key]
-    //         // console.log('key', key)
-    //     }
-    // }
+    // const headers = { 'Content-Type': 'application/json' }
+    const headers = {}
+    const body = requestObject
+    const requestData = createXTSObject('XTSRequestData', { headers, body })
+
+    // console.log('requestObject')
+    // console.log(formValues)
+    // console.log(requestObject)
+
+    return requestData
+}
+
+// OK
+export function requestData_ByPropertyValues(requestName: string, propertyValues: { [key: string]: any }): XTSRequestData {
+
+    // console.log('requestData_ByDataItem.requestObject', dataItem)
+    const requestObject = createXTSObject(requestName)
+    // console.log('requestData_ByDataItem.requestObject', requestObject)
+
+    for (let key in propertyValues) {
+        if (requestObject.hasOwnProperty(key)) {
+            requestObject[key] = propertyValues[key]
+            // console.log('key', key)
+        }
+    }
 
     // const headers = { 'Content-Type': 'application/json' }
     const headers = {}
