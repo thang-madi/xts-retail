@@ -6,6 +6,9 @@ import { XTSObject } from '../data-objects/types-common'
 import { compareXTSValues } from '../data-objects/common-use'
 import { XTSListFilterItem, XTSListSortItem } from '../data-storage/interfaces'
 
+import { saveAs } from 'file-saver'
+import JSZip from 'jszip'
+
 /////////////////////////////////////////////
 // UUID
 
@@ -155,4 +158,60 @@ export function arrayFilter(objects: XTSObject[], filter: XTSListFilterItem[]) {
             })
         })
     }
+}
+
+
+/////////////////////////////////////////////
+// Download files - option 1
+
+// async function downloadFile(url: string, folder: string): Promise<void> {
+//     const localFilename = path.basename(url)
+//     const localPath = path.join(folder, localFilename)
+//     const response = await fetch(url)
+//     const buffer = await response.arrayBuffer()
+//     fs.writeFileSync(localPath, Buffer.from(buffer))
+// }
+
+// export async function downloadFiles(urls: string[], folder: string) {
+//     for (const url of urls) {
+//         try {
+//             await downloadFile(url, folder)
+//             console.log(`Download completed for ${url}`)
+//         } catch (error) {
+//             console.error(`Failed to download ${url}:`, error)
+//         }
+//     }
+// }
+
+
+/////////////////////////////////////////////
+// Download files - option 2
+
+const extractFileName = (url: string): string => {
+    const urlParts = url.split('/')
+    return urlParts[urlParts.length - 1]
+}
+
+export function downloadFile(imageURL: string) {
+    try {
+        const fileName = extractFileName(imageURL)
+        saveAs(imageURL, fileName)
+        console.log(`Download completed for ${imageURL}`)
+    } catch (error) {
+        console.error(`Failed to download ${imageURL}:`, error)
+    }
+}
+
+export const downloadAndZipImages = async (imagerURLs: string[], zipFileName: string) => {
+    const zip = new JSZip()
+    for (const url of imagerURLs) {
+        const response = await fetch(url, { mode: 'no-cors' })
+        const blob = await response.blob()
+        const fileName = url.split('/').pop()
+        if (fileName) {
+            zip.file(fileName, blob)
+        }
+    }
+    const zipBlob = await zip.generateAsync({ type: 'blob' })
+    saveAs(zipBlob, `${zipFileName}.zip`)
 }

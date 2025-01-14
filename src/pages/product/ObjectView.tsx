@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, Empty, FloatButton, Image, List, Skeleton, Space } from 'antd'
-import { ArrowLeftOutlined, CopyOutlined, EditOutlined, LeftOutlined, LinkOutlined, ReloadOutlined, RightOutlined, SelectOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CopyOutlined, DownloadOutlined, EditOutlined, FileZipOutlined, LeftOutlined, LinkOutlined, ReloadOutlined, RightOutlined, SelectOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 
 
 /////////////////////////////////////////////
 // Application's
 
 import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
-import { copyToClipboard, formatCurrency } from '../../commons/common-use'
+import { copyToClipboard, downloadAndZipImages, downloadFile, formatCurrency } from '../../commons/common-use'
 import { BottomBar, } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSMediaItem, XTSObjectViewProps } from '../../data-objects/types-components'
 import { REQUEST_STATUSES } from '../../commons/enums'
@@ -161,13 +161,29 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <div className='product-view-image' >
                 <Image.PreviewGroup items={pictureItems}>
-                    <Image src={picture} />
+                    <Image src={picture} >
+
+                    </Image>
                 </Image.PreviewGroup>
             </div>
-
             < div className='product-view-price-bar'>
                 <div className='product-view-price-bar-value'>
                     {formatCurrency(dataObject?._price)}
+                </div>
+                <div className='product-view-price-bar-download'>
+                    <Button
+                        className='product-view-download-button'
+                        icon={<DownloadOutlined />}
+                        onClick={() => downloadFile(picture)}
+                    >
+                        Tải ảnh về
+                    </Button>
+                    <Button
+                        icon={<FileZipOutlined />}
+                        onClick={() => downloadAndZipImages(pictureItems, `${dataObject.sku}_${dataObject.description}`)}
+                    >
+                        Nén và tải về
+                    </Button>
                 </div>
             </div>
 
@@ -188,7 +204,8 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                 )}
             />
 
-            {(dataObject?._characteristics?.length > 0) &&
+            {
+                (dataObject?._characteristics?.length > 0) &&
                 <>
                     <div>Đặc tính sản phẩm</div>
                     <List
