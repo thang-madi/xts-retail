@@ -15,13 +15,26 @@ import { useIndexPage } from '../../hooks/usePage'
 /////////////////////////////////////////////
 // Object's
 
-import ListPage from './UOMClassifierList'                      // uom-classifier
-import ViewPage from './UOMClassifierView'                      // uom-classifier
-// import EditPage from './uom-classifier-edit'                   // uom-classifier
+import ListPage from './ObjectList'                      // uom-classifier
+import ViewPage from './ObjectView'                      // uom-classifier
+import EditPage from './ObjectEdit'                      // uom-classifier
 import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/types-components'
 
 /////////////////////////////////////////////
 // Main component
+
+// OK
+export const dataType = 'XTSUOMClassifier'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: UOMClassifierPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
 
 // OK
 const UOMClassifierPage: React.FC<XTSObjectIndexProps> = (props) => {
@@ -47,7 +60,7 @@ const UOMClassifierPage: React.FC<XTSObjectIndexProps> = (props) => {
     }
 
     const params = {
-        dataType: 'XTSUOMClassifier',
+        dataType,
         id: id || undefined,
         itemName,
         action,

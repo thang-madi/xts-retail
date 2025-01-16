@@ -25,7 +25,7 @@ import { VirtualGrid } from '../../components/Virtualized'
 import ObjectCard from './ObjectCard'
 import ObjectListSettings from './ObjectListSettings'
 import { XTSStructuralUnit } from '../../data-objects/types-application'      //
-
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -38,7 +38,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     // const [searchString, setSearchString] = useState<string>('')
 
-    const dataType = 'XTSStructuralUnit'
+    // const dataType = 'XTSStructuralUnit'
     const requestParams = {
         // Tham số trong requestObject
         limit: 50,

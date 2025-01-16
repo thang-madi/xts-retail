@@ -24,6 +24,20 @@ import './index.css'
 /////////////////////////////////////////////
 // Main component
 
+// OK
+export const dataType = 'XTSSalesInvoice'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: SalesInvoicesPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+//
 const SalesInvoicesPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const navigate = useNavigate()
@@ -47,7 +61,7 @@ const SalesInvoicesPage: React.FC<XTSObjectIndexProps> = (props) => {
     }
 
     const params: UseIndexPageParams = {
-        dataType: 'XTSSalesInvoice',
+        dataType,
         id: id || undefined,
         itemName,
         action,

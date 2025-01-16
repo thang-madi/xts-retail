@@ -25,6 +25,8 @@ import { TWA } from '../../commons/telegram'
 import { FormSelect } from '../../components/FormItems'
 import { XTSObjectId } from '../../data-objects/types-common'
 import { ListSettings } from '../../components/ListSettings'
+import { dataType } from './'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main's
@@ -36,7 +38,7 @@ const UOMClassifierListSettings: React.FC<any> = (props) => {
 
     const dispatch = useDispatch()
 
-    const dataType = 'XTSUOMClassifier'
+    // const dataType = 'XTSUOMClassifier'
     const { sliceName, actions } = getXTSSlice(dataType)
     const { filter, sortBy } = useSelector((state: any) => state[sliceName])
 

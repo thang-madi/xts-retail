@@ -27,6 +27,7 @@ import { Loader } from '../../components/Loader'
 
 // import { apiRequest, actions } from '../../data-storage/slice-customers'        // customers
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -54,7 +55,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSCounterparty'
+    // const dataType = 'XTSCounterparty'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,

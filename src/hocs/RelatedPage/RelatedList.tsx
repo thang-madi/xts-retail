@@ -151,6 +151,9 @@ const RelatedListPage: React.FC<XTSRelatedListPageProps> = (props) => {
                     </List.Item>
                 )}
             />
+            <div className='related-modal-page-empty-row'>
+
+            </div>
             <BottomBar
                 stepBack={{ onClick: props.stepBack }}
                 action1={{ onClick: createSalesInvoice, title: 'Giao thêm', icon: <TruckOutlined className='context-menu-button-icon' />, visible: isSalesOrder }}

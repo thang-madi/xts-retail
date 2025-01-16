@@ -27,7 +27,7 @@ import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { generateUUID } from '../../commons/common-use'
 import AmountInput from '../../components/AmountInput'
-
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -54,7 +54,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSOrder'
+    // const dataType = 'XTSOrder'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,

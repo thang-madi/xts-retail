@@ -79,6 +79,8 @@ const HomePage: React.FC<any> = (props) => {
     /////////////////////////////////////////////
     // 
 
+    const devMode = (process.env.REACT_APP_MODE === 'Development') && '(Development mode)' || ''
+
     const { company, employee, user, customer } = useSelector((state: RootState) => state.session)
 
     const conditions: XTSCondition[] = []
@@ -158,12 +160,20 @@ const HomePage: React.FC<any> = (props) => {
                 navigate('/supplier-invoices?edit=true')
                 break
 
-            case 'MoneyReceipt':
-                // navigate('/sales-invoice?edit=true')
+            case 'CashReceipt':
+                navigate('/money-receipt-cash')
                 break
 
-            case 'MoneyExpense':
-                // navigate('/sales-invoice?edit=true')
+            case 'PaymentReceipt':
+                navigate('/money-receipt-payment')
+                break
+
+            case 'CashPayment':
+                navigate('/money-expense-cash')
+                break
+
+            case 'PaymentExpense':
+                navigate('/money-expense-payment')
                 break
 
             default:
@@ -262,25 +272,48 @@ const HomePage: React.FC<any> = (props) => {
 
             {/* <div className='home-page-group'>
                 TẠO CHỨNG TỪ
-            </div> */}
+                </div> */}
 
-            <Card className='home-page-create-group'>
-                <Button className='home-page-button' onClick={() => createDocument('XTSOrder')}>
+            {/* <Card className='home-page-create-group'>
+            </Card > */}
+
+            <div className='home-page-button-group'>
+                <Button className='home-page-button-100' onClick={() => createDocument('XTSOrder')}>
                     Bán hàng
                 </Button>
-                <Button className='home-page-button' onClick={() => createDocument('XTSSupplierInvoice')}>
-                    Nhập hàng
+                {/* <Button className='home-page-button-90' onClick={() => createDocument('XTSSupplierInvoice')}>
+                    Mua hàng
+                </Button> */}
+                <Button className='home-page-button-120' onClick={() => createDocument('CashReceipt')}>
+                    Thu tiền mặt
                 </Button>
-                <Button className='home-page-button' onClick={() => createDocument('MoneyReceipt')} disabled>
-                    Thu tiền
+                <Button className='home-page-button-140' onClick={() => createDocument('PaymentReceipt')}>
+                    Thu chuyển khoản
                 </Button>
-                <Button className='home-page-button' onClick={() => createDocument('MoneyExpense')} disabled>
-                    Chi tiền
+            </div>
+
+
+            <div className='home-page-button-group'>
+
+                {/* <Button className='home-page-button' onClick={() => createDocument('XTSOrder')}>
+                    Bán hàng
+                </Button> */}
+                <Button className='home-page-button-100' onClick={() => createDocument('XTSSupplierInvoice')}>
+                    Mua hàng
                 </Button>
-            </Card >
+                <Button className='home-page-button-120' onClick={() => createDocument('CashPayment')} disabled>
+                    Chi tiền mặt
+                </Button>
+                <Button className='home-page-button-140' onClick={() => createDocument('PaymentExpense')} disabled>
+                    Chi chuyển khoản
+                </Button>
+            </div>
+
+            {/* <Card className='home-page-create-group'>
+            </Card > */}
 
             <div className='home-page-bottom'>
-                {(company?.presentation) || employee?.presentation}
+                {(company?.presentation) || employee?.presentation} {devMode}
             </div>
 
             <FloatButton

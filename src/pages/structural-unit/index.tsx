@@ -21,6 +21,19 @@ import EditPage from './ObjectEdit'
 // Main component
 
 // OK
+export const dataType = 'XTSStructuralUnit'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: StructuralUnitsPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+// OK
 const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
 
     const navigate = useNavigate()
@@ -46,7 +59,7 @@ const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
     }
 
     const params = {
-        dataType: 'XTSStructuralUnit',                 //
+        dataType,
         id: id || undefined,
         itemName,
         action,

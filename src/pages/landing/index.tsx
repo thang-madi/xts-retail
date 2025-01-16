@@ -25,6 +25,7 @@ import { useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
 import { generateUUID } from '../../commons/common-use'
 
 import './index.css'
+import { env } from 'process'
 
 /////////////////////////////////////////////
 // Main component
@@ -50,12 +51,14 @@ const LandingPage: React.FC<any> = (props) => {
         navigate(`/${route}?id=${id}`, { replace: true })
     }
 
+    const devMode = (process.env.REACT_APP_MODE === 'Development') && 'Development mode' || ''
+
     const title1 = 'CHÀO MỪNG BẠN ĐẾN VỚI'
     const title2 = 'CỬA HÀNG'
     const storeName = 'DUNG-BABY'
 
     const footerTitle = 'CHUYÊN BÁN BUÔN - QUẦN ÁO TRẺ EM'
-    const footerAddress = 'Địa chỉ: B5 Khu liên hợp thể thao - Ninh Hiệp - Gia Lâm - Hà Nội'
+    const footerAddress = 'Địa chỉ: B5 Khu liên hợp Thể thao Ninh Hiệp - Gia Lâm - Hà Nội'
     const footerPhone = 'Zalo/Mob.: 0981.98.98.86 - 039.673.2222 - 0979.30.07.86'
 
     /////////////////////////////////////////////
@@ -76,7 +79,7 @@ const LandingPage: React.FC<any> = (props) => {
         <div className='landing-page'>
             {/* {(route && id) && <Navigate to={`/${route}?id=${id}`} replace={true} />} */}
             <div className='landing-page-header-group'>
-
+                {devMode}
             </div>
             <div className='landing-page-welcome-title-1'>
                 {title1}

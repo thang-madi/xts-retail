@@ -56,10 +56,21 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
             onClick={clickItem}
         >
             <div className='sales-order-card-title' >
-                {formData.objectId.presentation
-                    .replace('của khách', '')
-                    .replace('(chưa kết chuyển)', '(nháp)')
-                    .replace('Đơn hàng', 'Đơn hàng số')}
+                <div>
+                    {formData.objectId.presentation
+                        .replace('của khách', '')
+                        .replace('(chưa kết chuyển)', '(nháp)')
+                        .replace('Đơn hàng', 'Đơn hàng số')}
+                </div>
+                <Button
+                    className='sales-order-card-choice-button'
+                    htmlType='button'
+                    onClick={choiceItem}
+                    style={{ display: (props.itemName) && 'block' || 'none' }}
+                // icon={<SelectOutlined />}
+                >
+                    Chọn
+                </Button>
             </div>
 
             <Divider className='sales-order-card-divider' orientation='center' />
@@ -91,13 +102,13 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                 <b>{formData.documentAmount?.toLocaleString('vi-VN')} đồng</b>
             </div>
 
-            <Button
+            {/* <Button
                 htmlType='button'
                 onClick={choiceItem}
                 style={{ display: (props.itemName) && 'block' || 'none' }}
             >
                 <SelectOutlined />Chọn
-            </Button>
+            </Button> */}
 
         </Card >
     )

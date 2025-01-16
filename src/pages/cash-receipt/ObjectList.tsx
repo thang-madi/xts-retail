@@ -27,6 +27,7 @@ import { COMPARISION_OPERATORS, XTSCondition, XTSObjectId } from '../../data-obj
 import ObjectListSettings from './ObjectListSettings'
 import OrderCard from './ObjectCard'
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -39,7 +40,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     const { user, externalAccount, company, employee, customer } = useSelector((state: RootState) => state.session)
 
-    const dataType = 'XTSCashReceipt'
+    // const dataType = 'XTSCashReceipt'
 
     const conditions: XTSCondition[] = []
     if (company) {

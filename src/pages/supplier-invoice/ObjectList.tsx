@@ -26,7 +26,7 @@ import { Loader } from '../../components/Loader'
 import { COMPARISION_OPERATORS, XTSCondition, XTSObjectId } from '../../data-objects/types-common'
 import ObjectListSettings from './ObjectListSettings'
 import OrderCard from './ObjectCard'
-
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -39,7 +39,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     const { user, externalAccount, company, employee, customer } = useSelector((state: RootState) => state.session)
 
-    const dataType = 'XTSSupplierInvoice'
+    // const dataType = 'XTSSupplierInvoice'
     // const requestParams = { limit: 50 }   // Tham số trong requestObject
 
     const conditions: XTSCondition[] = []

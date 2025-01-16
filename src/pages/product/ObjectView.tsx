@@ -25,6 +25,7 @@ import { Loader } from '../../components/Loader'
 
 import { XTSFileRow } from '../../data-objects/types-application'
 import { useSaveCart } from '../../hooks/useCarts'
+import { dataType } from './'
 
 import './index.css'
 
@@ -37,7 +38,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     const { itemValue, pageId } = props
 
     const object_id = itemValue.id
-    const dataType = 'XTSProduct'
+    // const dataType = 'XTSProduct'
 
     const { user, telegramId } = useSelector((state: any) => state.session)
 
@@ -75,15 +76,11 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const doItem = (action: ITEM_VALUE_ACTIONS): void => {
         if (props.choiceItemValue) {
-            // console.log('dataObject', dataObject)
-            const itemValue = createXTSObject('XTSItemValue', {
-                id: dataObject.objectId.id,
-                presentation: dataObject.presentation,
-                dataType: dataObject.objectId.dataType,
-                itemName: props.itemName,
-                dataItem: dataObject,
-                action,
-            })
+            const itemValue = createXTSObject('XTSItemValue')
+            Object.assign(itemValue, dataObject.objectId)
+            itemValue.dataItem = dataObject
+            itemValue.action = action
+            itemValue.itemName = props.itemName
             props.choiceItemValue(itemValue)
         }
     }

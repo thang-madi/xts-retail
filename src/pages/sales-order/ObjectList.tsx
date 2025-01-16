@@ -26,6 +26,7 @@ import { COMPARISION_OPERATORS, XTSCondition, XTSObjectId } from '../../data-obj
 
 import ObjectCard from './ObjectCard'
 import ObjectListSettings from './ObjectListSettings'
+import { dataType } from './'
 
 import './index.css'
 
@@ -40,7 +41,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
     // const  = useSelector((state: RootState) => state.session.externalAccount)
     const { user, externalAccount, company, employee, customer } = useSelector((state: RootState) => state.session)
 
-    const dataType = 'XTSOrder'
+    // const dataType = 'XTSOrder'
     // const requestParams = { limit: 50 }   // Tham số trong requestObject
 
     const conditions: XTSCondition[] = []

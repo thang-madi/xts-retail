@@ -29,6 +29,9 @@ import { REQUEST_STATUSES } from '../../commons/enums'
 
 import { ProductUOMCard, ProductUOMRowEditPage } from './ProductUomRow'
 import { XTSFileRow } from '../../data-objects/types-application'
+import { dataType } from './'
+
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component
@@ -55,7 +58,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSProduct'
+    // const dataType = 'XTSProduct'
     // const tabNames = ['uoms', '_pictures']
 
     const getDataObjectParams: UseGetDataObjectParams = {

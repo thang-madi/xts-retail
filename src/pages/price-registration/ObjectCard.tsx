@@ -15,7 +15,7 @@ import { createXTSObject, objectPresentation } from '../../data-objects/common-u
 /////////////////////////////////////////////
 // Object's
 
-import { XTSProductsPriceRegistration, XTSSupplierInvoice } from '../../data-objects/types-application'
+import { XTSPriceRegistration, XTSSupplierInvoice } from '../../data-objects/types-application'
 import './index.css'
 import { getLabels } from './common'
 
@@ -25,7 +25,7 @@ import { getLabels } from './common'
 const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
     const { item, itemName, additionals } = props
-    const formData = item as XTSProductsPriceRegistration
+    const formData = item as XTSPriceRegistration
 
     // const labels = getLabels(formData)
 

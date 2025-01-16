@@ -35,7 +35,7 @@ import { RootState } from '../../data-storage'
 // Object's
 
 import { ObjectInventoryEdit } from './ObjectInventory'                 // 
-
+import { dataType } from './'
 import './index.css'
 import { getLabels } from './common'
 
@@ -63,7 +63,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSSupplierInvoice'
+    // const dataType = 'XTSSupplierInvoice'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,

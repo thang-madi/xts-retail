@@ -21,6 +21,19 @@ import EditPage from './ObjectEdit'
 // Main component
 
 // OK
+export const dataType = 'XTSEmployee'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: EmployeesPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+// OK
 const EmployeesPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const navigate = useNavigate()
@@ -45,7 +58,7 @@ const EmployeesPage: React.FC<XTSObjectIndexProps> = (props) => {
     }
 
     const params = {
-        dataType: 'XTSEmployee',
+        dataType,
         id: id || undefined,
         itemName,
         action,

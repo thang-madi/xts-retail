@@ -23,8 +23,10 @@ import { BottomBar } from '../../components/ContextMenu'
 import { XTSObject } from '../../data-objects/types-common'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
-import { UOMClassifierListSettings } from './UOMClassifierListSettings'
-import UOMClassifierCard from './UOMClassifierCard'
+import { UOMClassifierListSettings } from './ObjectListSettings'
+import UOMClassifierCard from './ObjectCard'
+import { dataType } from './'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component
@@ -32,7 +34,7 @@ import UOMClassifierCard from './UOMClassifierCard'
 // OK
 const UOMClassifierListPage: React.FC<XTSObjectListProps> = (props) => {
 
-    const dataType = 'XTSUOMClassifier'
+    // const dataType = 'XTSUOMClassifier'
     const requestParams = { limit: 50 }   // Tham số trong requestObject
 
     // const getDataListParams: UseGetDataListParams = {

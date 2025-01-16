@@ -59,7 +59,8 @@ export interface XTSPrintPageProps {
 export interface XTSObjectIndexProps {
     itemName?: string
     renderKey?: number
-    choiceItemValue?: (itemValue: XTSItemValue | undefined) => void
+    choiceItemValue?: (itemValue: XTSItemValue) => void
+    // choiceItemValue?: (itemValue: XTSItemValue) => void
 }
 
 export interface XTSObjectListProps {

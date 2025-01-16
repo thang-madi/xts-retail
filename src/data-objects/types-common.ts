@@ -256,6 +256,26 @@ export abstract class XTSResponse extends XTSMessage {
     }
 }
 
+// 
+export class XTSCreateObjectRequest extends XTSRequest {
+
+    object?: XTSObject
+    fillingValues: any
+    constructor() {
+        super('XTSCreateObjectRequest')
+    }
+}
+
+// 
+export class XTSCreateObjectResponse extends XTSResponse {
+
+    object?: XTSObject
+
+    constructor() {
+        super('XTSCreateObjectResponse')
+    }
+}
+
 // OK
 export class XTSCreateObjectsRequest extends XTSRequest {
 

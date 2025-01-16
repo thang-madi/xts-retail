@@ -35,7 +35,7 @@ import { apiRequest, actions } from '../../data-storage/slice-sales-order'
 import PrintPage from '../../hocs/PrintPage'
 import RelatedPage from '../../hocs/RelatedPage'
 import OrderStateTag from './OrderStateTag'
-
+import { dataType } from './'
 import './index.css'
 import { OrderInventoryView } from './ObjectInventory'
 
@@ -49,7 +49,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     const dispatch = useDispatch()
 
     const object_id = itemValue.id
-    const dataType = 'XTSOrder'
+    // const dataType = 'XTSOrder'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -78,16 +78,14 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const doItem = (action: ITEM_VALUE_ACTIONS): void => {
         if (props.choiceItemValue) {
-            const itemValue = createXTSObject('XTSItemValue', {
-                id: dataObject.objectId.id,
-                presentation: dataObject.presentation,
-                dataType: dataObject.objectId.dataType,
-                itemName: props.itemName,
-                action,
-            })
+            const itemValue = createXTSObject('XTSItemValue')
+            Object.assign(itemValue, dataObject.objectId)
+            itemValue.dataItem = dataObject
+            itemValue.action = action
+            itemValue.itemName = props.itemName
             props.choiceItemValue(itemValue)
+            // console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
         }
-        // console.log('doItem.itemValue', itemValue, action, props.choiceItemValue)
     }
 
     const editItem = () => {

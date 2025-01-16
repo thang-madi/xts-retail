@@ -30,6 +30,7 @@ import { Loader } from '../../components/Loader'
 
 import { downloadFile } from '../../commons/common-print'
 import { PDFViewer, printFormURL } from '../../components/PDFViewer'
+import { dataType } from './'
 
 import './index.css'
 
@@ -42,7 +43,7 @@ const ObjectPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
 
     const openPageParams: UseOpenPageParams = {
         pageId: '',
-        pageName: 'XTSSalesInvoice',
+        pageName: dataType,
         pageTitle: 'In đối tượng',
         // renderKey: 0,
     }

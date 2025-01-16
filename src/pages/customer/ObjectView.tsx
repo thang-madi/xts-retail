@@ -22,7 +22,8 @@ import { Loader } from '../../components/Loader'
 /////////////////////////////////////////////
 // Object's
 
-// import './index.css'
+import { dataType } from './'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component
@@ -37,7 +38,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     // const { user, telegramId } = useSelector((state: any) => state.session)
 
     const object_id = itemValue.id
-    const dataType = 'XTSCounterparty'
+    // const dataType = 'XTSCounterparty'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -64,18 +65,11 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const doItem = (action: ITEM_VALUE_ACTIONS): void => {
         if (props.choiceItemValue) {
-            // console.log('dataObject', dataObject)
             const itemValue = createXTSObject('XTSItemValue')
             Object.assign(itemValue, dataObject.objectId)
             itemValue.dataItem = dataObject
             itemValue.action = action
             itemValue.itemName = props.itemName
-            // , {
-            // id: dataObject.objectId.id,
-            // presentation: dataObject.presentation,
-            // dataType: dataObject.objectId.dataType,
-            // action,
-            // })
             props.choiceItemValue(itemValue)
         }
     }

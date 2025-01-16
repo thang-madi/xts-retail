@@ -22,6 +22,7 @@ import { Loader } from '../../components/Loader'
 /////////////////////////////////////////////
 // Object's
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -32,7 +33,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const { itemValue, pageId } = props
 
-    const dataType = 'XTSCurrency'                        //
+    // const dataType = 'XTSCurrency'                        //
     const object_id = itemValue.id
 
     const getDataObjectParams: UseGetDataObjectParams = {

@@ -1,75 +1,32 @@
 
+import { XTSObjectEditProps, XTSObjectIndexProps, XTSObjectViewProps } from '../data-objects/types-components'
 
-import CustomerIndexPage from '../pages/customer'
-import CustomerViewPage from '../pages/customer/ObjectView'
-import CustomerEditPage from '../pages/customer/ObjectEdit'
-import CustomerListPage from '../pages/customer/ObjectList'
+// import * as getPages_XTSCashReceipt from '../pages/cash-receipt'
+// import * as getPages_XTSCurrency from '../pages/currency'
+// import * as getPages_XTSCounterparty from '../pages/customer'
+// import * as getPages_XTSEmployee from '../pages/employee'
+// import * as getPages_XTSPaymentReceipt from '../pages/payment-receipt'
+// import * as getPages_XTSPriceRegistration from '../pages/price-registration'
+// import * as getPages_XTSProduct from '../pages/product'
+// import * as getPages_XTSSalesInvoice from '../pages/sales-invoice'
+// import * as getPages_XTSSalesOrder from '../pages/sales-order'
+// import * as getPages_XTSStructuralUnit from '../pages/structural-unit'
+// import * as getPages_XTSSupplierInvoice from '../pages/supplier-invoice'
+// import * as getPages_XTSUOMClassifier from '../pages/uom-classifier'
 
-import EmployeeIndexPage from '../pages/employee'
-import EmployeeViewPage from '../pages/employee/ObjectView'
-import EmployeeEditPage from '../pages/employee/ObjectEdit'
-import EmployeeListPage from '../pages/employee/ObjectList'
-
-import ProductIndexPage from '../pages/product'
-import ProductViewPage from '../pages/product/ObjectView'
-import ProductEditPage from '../pages/product/ObjectEdit'
-import ProductListPage from '../pages/product/ObjectList'
-
-import StructuralUnitIndexPage from '../pages/structural-unit'
-import StructuralUnitViewPage from '../pages/structural-unit/ObjectView'
-import StructuralUnitEditPage from '../pages/structural-unit/ObjectEdit'
-import StructuralUnitListPage from '../pages/structural-unit/ObjectList'
-
-// import ProductCharacteristicIndexPage from '../pages/product-characteristic'
-// import ProductCharacteristicViewPage from '../pages/product-characteristic/ObjectView'
-// import ProductCharacteristicEditPage from '../pages/product-characteristic/ObjectEdit'
-// import ProductCharacteristicListPage from '../pages/product-characteristic/ObjectList'
-
-// import UOMClassifierIndexPage from '../pages/uom-classifier'
-// import UOMClassifierViewPage from '../pages/uom-classifier/ObjectView'
-// import UOMClassifierEditPage from '../pages/uom-classifier/ObjectEdit'
-// import UOMClassifierListPage from '../pages/uom-classifier/ObjectList'
-
-import OrderIndexPage from '../pages/sales-order'
-import OrderViewPage from '../pages/sales-order/ObjectView'
-import OrderEditPage from '../pages/sales-order/ObjectEdit'
-import OrderListPage from '../pages/sales-order/ObjectList'
-
-import SalesInvoiceIndexPage from '../pages/sales-invoice'
-import SalesInvoiceViewPage from '../pages/sales-invoice/ObjectView'
-import SalesInvoiceEditPage from '../pages/sales-invoice/ObjectEdit'
-import SalesInvoiceListPage from '../pages/sales-invoice/ObjectList'
-
-import SupplierInvoiceIndexPage from '../pages/supplier-invoice'
-import SupplierInvoiceViewPage from '../pages/supplier-invoice/ObjectView'
-import SupplierInvoiceEditPage from '../pages/supplier-invoice/ObjectEdit'
-import SupplierInvoiceListPage from '../pages/supplier-invoice/ObjectList'
-import { XTSObjectEditProps, XTSObjectViewProps } from '../data-objects/types-components'
-
-import CashReceiptIndexPage from '../pages/cash-receipt'
-import CashReceiptViewPage from '../pages/cash-receipt/ObjectView'
-import CashReceiptEditPage from '../pages/cash-receipt/ObjectEdit'
-import CashReceiptListPage from '../pages/cash-receipt/ObjectList'
-
-// import CashPaymentsPage '../pages/cash-payment'
-// import CashPaymentViewPage from '../pages/cash-payment/ObjectView'
-// import CashPaymentEditPage from '../pages/cash-payment/ObjectEdit'
-// import CashPaymentListPage from '../pages/cash-payment/ObjectList'
-
-import PaymentReceiptIndexPage from '../pages/payment-receipt'
-import PaymentReceiptViewPage from '../pages/payment-receipt/ObjectView'
-import PaymentReceiptEditPage from '../pages/payment-receipt/ObjectEdit'
-import PaymentReceiptListPage from '../pages/payment-receipt/ObjectList'
-
-// import PaymentExpenseIndexPage from '../pages/payment-expense'
-// import PaymentExpenseViewPage from '../pages/payment-expense/ObjectView'
-// import PaymentExpenseEditPage from '../pages/payment-expense/ObjectEdit'
-// import PaymentExpenseListPage from '../pages/payment-expense/ObjectList'
-
-import PriceRegistrationIndexPage from '../pages/price-registration'
-import PriceRegistrationViewPage from '../pages/price-registration/ObjectView'
-import PriceRegistrationEditPage from '../pages/price-registration/ObjectEdit'
-import PriceRegistrationListPage from '../pages/price-registration/ObjectList'
+import { getPages as getPages_XTSCashReceipt } from '../pages/cash-receipt'
+import { getPages as getPages_XTSCurrency } from '../pages/currency'
+import { getPages as getPages_XTSCounterparty } from '../pages/customer'
+import { getPages as getPages_XTSEmployee } from '../pages/employee'
+import { getPages as getPages_XTSPaymentReceipt } from '../pages/payment-receipt'
+import { getPages as getPages_XTSPriceRegistration } from '../pages/price-registration'
+import { getPages as getPages_XTSProduct } from '../pages/product'
+import { getPages as getPages_XTSSalesInvoice } from '../pages/sales-invoice'
+import { getPages as getPages_XTSSalesOrder } from '../pages/sales-order'
+import { getPages as getPages_XTSStructuralUnit } from '../pages/structural-unit'
+import { getPages as getPages_XTSSupplierInvoice } from '../pages/supplier-invoice'
+import { getPages as getPages_XTSUOMClassifier } from '../pages/uom-classifier'
+// import ...
 
 enum PAGE_TYPES {
     INDEX = 'IndexPage',
@@ -78,68 +35,51 @@ enum PAGE_TYPES {
     LIST = 'ListPage',
 }
 
-function getPage(dataType: string, pageType: PAGE_TYPES): React.FC {
+// 
+function getPages(dataType: string) {
 
-    const mapPages: { [key: string]: any } = {
-        XTSOrder: {
-            IndexPage: OrderViewPage,
-            ViewPage: OrderViewPage,
-            EditPage: OrderEditPage,
-            ListPage: OrderListPage,
-        },
-        XTSSalesInvoice: {
-            IndexPage: SalesInvoiceIndexPage,
-            ViewPage: SalesInvoiceViewPage,
-            EditPage: SalesInvoiceEditPage,
-            ListPage: SalesInvoiceListPage,
-        },
-        XTSSupplierInvoice: {
-            IndexPage: SupplierInvoiceIndexPage,
-            ViewPage: SupplierInvoiceViewPage,
-            EditPage: SupplierInvoiceEditPage,
-            ListPage: SupplierInvoiceListPage,
-        },
-        XTSCashReceipt: {
-            IndexPage: CashReceiptIndexPage,
-            ViewPage: CashReceiptViewPage,
-            EditPage: CashReceiptEditPage,
-            ListPage: CashReceiptListPage,
-        },
-        XTSPaymentReceipt: {
-            IndexPage: PaymentReceiptIndexPage,
-            ViewPage: PaymentReceiptViewPage,
-            EditPage: PaymentReceiptEditPage,
-            ListPage: PaymentReceiptListPage,
-        },
-        // XTSCashPayment: {
-        //     IndexPage: CashPaymentIndexPage,
-        //     ViewPage: CashPaymentViewPage,
-        //     EditPage: CashPaymentEditPage,
-        //     ListPage: CashPaymentListPage,
-        // },
-        // XTSPaymentExpense: {
-        //     IndexPage: PaymentExpenseIndexPage,
-        //     ViewPage: PaymentExpenseViewPage,
-        //     EditPage: PaymentExpenseEditPage,
-        //     ListPage: PaymentExpenseListPage,
-        // },
-        XTSProductsPriceRegistration: {
-            IndexPage: PriceRegistrationIndexPage,
-            ViewPage: PriceRegistrationViewPage,
-            EditPage: PriceRegistrationEditPage,
-            ListPage: PriceRegistrationListPage,
-        },
+    const mapDataType: { [key: string]: any } = {
+        XTSCashReceipt: getPages_XTSCashReceipt,
+        XTSCurrency: getPages_XTSCurrency,
+        XTSCounterparty: getPages_XTSCounterparty,
+        XTSEmployee: getPages_XTSEmployee,
+        XTSPaymentReceipt: getPages_XTSPaymentReceipt,
+        XTSPriceRegistration: getPages_XTSPriceRegistration,
+        XTSProduct: getPages_XTSProduct,
+        XTSStructuralUnit: getPages_XTSStructuralUnit,
+        XTSSupplierInvoice: getPages_XTSSupplierInvoice,
+        XTSOrder: getPages_XTSSalesOrder,
+        XTSSalesInvoice: getPages_XTSSalesInvoice,
+        XTSUOMClassifier: getPages_XTSUOMClassifier,
+        // ... Bổ sung thêm
     }
 
-    return mapPages[dataType][pageType]
+    const getPages = mapDataType[dataType]
+    return getPages()
 }
 
-//
+// OK
+export function getPage(dataType: string, pageType: PAGE_TYPES): React.FC {
+    const pages = getPages(dataType) as any
+    return pages[pageType]
+}
+
+// OK
 export function getViewPage(dataType: string): React.FC<XTSObjectViewProps> {
     return getPage(dataType, PAGE_TYPES.VIEW)
 }
 
-//
+// OK
 export function getEditPage(dataType: string): React.FC<XTSObjectEditProps> {
     return getPage(dataType, PAGE_TYPES.EDIT)
+}
+
+// OK
+export function getListPage(dataType: string): React.FC<XTSObjectEditProps> {
+    return getPage(dataType, PAGE_TYPES.LIST)
+}
+
+// OK
+export function getIndexPage(dataType: string): React.FC<XTSObjectIndexProps> {
+    return getPage(dataType, PAGE_TYPES.INDEX)
 }

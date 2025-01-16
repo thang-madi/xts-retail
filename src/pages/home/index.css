@@ -150,16 +150,46 @@
 .home-page-create-group .ant-card-body {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 0px;
 }
 
-.home-page-button {
-    margin: 0px;
-    width: 90px;
+.home-page-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 0px 10px 0px 10px;
+    flex-grow: 1;
+    /* margin-right: 20px; */
+    /* width: 100%; */
+}
+
+.home-page-button-100 {
+    margin: 0px 10px 0px 10px;
+    width: 100px;
     min-height: 40px;
+    flex-grow: 1;
     color: cadetblue;
     border-radius: 20px;
-    /* font-weight: bold; */
+}
+
+.home-page-button-120 {
+    margin: 0px 10px 0px 10px;
+    width: 120px;
+    min-height: 40px;
+    flex-grow: 1;
+    color: cadetblue;
+    border-radius: 20px;
+}
+
+.home-page-button-140 {
+    margin: 0px 10px 0px 10px;
+    width: 140px;
+    min-height: 40px;
+    flex-grow: 1;
+    color: cadetblue;
+    border-radius: 20px;
 }

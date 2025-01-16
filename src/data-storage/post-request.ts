@@ -145,6 +145,13 @@ export async function postRequestWithThunk(requestData: XTSRequestData, thunkAPI
                 dispatch(sliceActions.setTemp(responseData))
                 dispatch(sliceActions.update(_objects))
                 break
+            case 'XTSCreateObjectResponse':
+                // console.log('XTSCreateObjectsResponse - responseData', responseData)
+                _objects = [responseData.object]
+                dispatch(sliceActions.setTemp(responseData))
+                dispatch(sliceActions.update(_objects))
+                // dispatch(sliceActions.setVList({ refresh: true }))      // Cập nhật vList
+                break
             case 'XTSCreateObjectsResponse':
                 // console.log('XTSCreateObjectsResponse - responseData', responseData)
                 _objects = responseData.objects

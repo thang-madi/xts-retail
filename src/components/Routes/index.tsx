@@ -40,6 +40,12 @@ import PaymentReceiptsPage from '../../pages/payment-receipt'
 import CurrenciesPage from '../../pages/currency'
 import PriceRegistrationPage from '../../pages/price-registration'
 
+import CashReceiptPage from '../../pages/money/CashReceipt'
+import CashExpensePage from '../../pages/money/Expense'
+
+import PaymentReceiptPage from '../../pages/money/PaymentReceipt'
+import PaymentExpensePage from '../../pages/money/Expense'
+
 import ViewPage from '../../pages/views'
 
 import AppHeader from '../AppHeader'
@@ -127,6 +133,12 @@ export const routeItems = () => {
                 { path: '/payment-receipts', element: < PaymentReceiptsPage /> },
                 { path: '/currencies', element: < CurrenciesPage /> },
                 { path: '/price-registrations', element: < PriceRegistrationPage /> },
+
+                { path: '/money-receipt-cash', element: < CashReceiptPage /> },
+                { path: '/money-expense-cash', element: < CashExpensePage /> },
+
+                { path: '/money-receipt-payment', element: < PaymentReceiptPage /> },
+                { path: '/money-expense-payment', element: < PaymentExpensePage /> },
 
                 { path: '/view', element: < ViewPage /> },
                 // { path: '/product-view', element: < ProductsPage /> },

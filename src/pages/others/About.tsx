@@ -1,6 +1,5 @@
 
 
-// function AboutPage(props) {
 const AboutPage: React.FC<any> = (props) => {
 
     return (

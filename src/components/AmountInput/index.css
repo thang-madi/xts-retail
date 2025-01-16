@@ -4,9 +4,13 @@
     align-items: center;
 }
 
-/* .amount-input-field {
-    text-align: right !important;
-} */
+.amount-input-field {
+    margin-bottom: 12px;
+}
+
+.amount-input-title {
+    margin-bottom: 14px;
+}
 
 .amount-input-field .ant-input-number-input {
     text-align: right;

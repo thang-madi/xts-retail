@@ -39,7 +39,7 @@ import { XTSOrderProductRow, XTSProduct } from '../../data-objects/types-applica
 import { SALES_ORDER_STATES } from './enums'
 import { OrderInventoryEdit } from './ObjectInventory'                 // 
 import OrderStateTag from './OrderStateTag'
-
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -66,7 +66,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    const dataType = 'XTSOrder'
+    // const dataType = 'XTSOrder'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,

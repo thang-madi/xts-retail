@@ -20,6 +20,7 @@ import { Loader } from '../../components/Loader'
 
 import ObjectCard from './ObjectCard'
 import ObjectListSettings from './ObjectListSettings'
+import { dataType } from './'
 
 import './index.css'
 
@@ -31,7 +32,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     const { user } = useSelector((state: any) => state.session)
 
-    const dataType = 'XTSProduct'
+    // const dataType = 'XTSProduct'
     const requestParams = { limit: 50 }   // Tham số trong requestObject
 
     const getObjectListParams: UseGetObjectListParams = {

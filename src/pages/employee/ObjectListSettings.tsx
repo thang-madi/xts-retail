@@ -18,6 +18,7 @@ import { ListSettings } from '../../components/ListSettings'
 /////////////////////////////////////////////
 // Object's
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -30,7 +31,7 @@ const EmployeeListSettings: React.FC<any> = (props) => {
 
     const dispatch = useDispatch()
 
-    const dataType = 'XTSEmployee'
+    // const dataType = 'XTSEmployee'
     const { sliceName, actions } = getXTSSlice(dataType)
     const { filter, sortBy } = useSelector((state: any) => state[sliceName])
 

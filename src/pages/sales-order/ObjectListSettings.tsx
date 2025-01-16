@@ -26,7 +26,7 @@ import { FormSelect } from '../../components/FormItems'
 // import { XTSSalesOrderState } from '../../data-objects/types-enums'
 import { XTSObjectId } from '../../data-objects/types-common'
 import { ListSettings } from '../../components/ListSettings'
-
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -39,7 +39,7 @@ const ObjectListSettings: React.FC<any> = (props) => {
 
     const dispatch = useDispatch()
 
-    const dataType = 'XTSOrder'
+    // const dataType = 'XTSOrder'
     const { sliceName, actions } = getXTSSlice(dataType)
     const { filter, sortBy } = useSelector((state: any) => state[sliceName])
 

@@ -53,7 +53,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // Bắt đầu mở Page
 
     const object_id = itemValue?.id
-    // const dataType = 'XTSCurrency'
+    // const dataType = 'XTSUOMClassifier'
 
     const getDataObjectParams: UseGetDataObjectParams = {
         dataType,
@@ -67,7 +67,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     } = useGetDataObject(getDataObjectParams)
 
     const pageName = dataType
-    const pageTitle = (!dataObject?.objectId.id) && 'Đơn vị mới' || dataObject?.description + ' (soạn)'
+    const pageTitle = (!dataObject?.objectId.id) && 'Đơn vị tính mới' || dataObject?.description + ' (soạn)'
     const openPageParams: UseOpenPageParams = {
         pageId,
         pageName,
@@ -141,7 +141,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     //
 
     return (
-        <div className='currency-edit' >
+        <div className='structural-unit-edit' >
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
@@ -154,7 +154,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <FormInput
                         itemName='objectId'
-                        dataType='XTSCurrency'
+                        dataType='XTSStructuralUnit'
                         itemProps={{
                             className: 'hidden',
                             label: 'ObjectId',
@@ -181,28 +181,44 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         }}
                         {...commonItemProps}
                     />
-                    <FormInput
-                        itemName='descriptionFull'
-                        dataType='String'
+                    <FormSelect
+                        itemName='structuralUnitType'
+                        dataType='XTSStructuralUnitType'
                         itemProps={{
-                            label: 'Tên gọi đầy đủ',
+                            label: 'Dạng đơn vị',
+                            required: false,
                             labelCol: { span: 4 },
+                            style: { width: '200px' }
                         }}
-                        inputProps={{
-                            placeholder: 'Nhập tên gọi đầy đủ',
-                            allowClear: true,
+                        selectProps={{
                             required: false
                         }}
                         {...commonItemProps}
                     />
-                    <FormInput
-                        itemName='mainCurrency'
-                        dataType='XTSCurrency'
+                    <Space>
+                        <FormInput
+                            itemName='orderWarehouse'
+                            dataType='Boolean'
+                            itemProps={{
+                                label: 'Kho 2 pha',
+                                // className: 'hidden',
+                            }}
+                            checkerProps={{
+                                required: false
+                            }}
+                            {...commonItemProps}
+                        />
+
+                    </Space>
+
+                    {/* <FormInput
+                        itemName='employeeResponsible'
+                        dataType='XTSEmployee'
                         itemProps={{
+                            label: 'Chăm sóc',
                             // className: 'hidden',
-                            label: 'Tiền tệ tỷ giá',
+                            required: false,
                             labelCol: { span: 4 },
-                            style: { width: '200px' }
                         }}
                         inputProps={{
                             placeholder: '',
@@ -210,21 +226,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             required: false
                         }}
                         {...commonItemProps}
-                    />
-                    <FormInput
-                        itemName='symbolicPresentation'
-                        dataType='String'
-                        itemProps={{
-                            label: 'Ký hiệu',
-                            labelCol: { span: 4 },
-                        }}
-                        inputProps={{
-                            placeholder: 'Nhập ký hiệu',
-                            allowClear: true,
-                            required: false
-                        }}
-                        {...commonItemProps}
-                    />
+                    /> */}
 
                 </Card>
 

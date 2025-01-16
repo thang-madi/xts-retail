@@ -21,6 +21,7 @@ import { FormSelect } from '../../components/FormItems'
 // import FormItem from 'antd/es/form/FormItem'
 // import { XTSSalesOrderState } from '../../data-objects/types-enums'
 import { ListSettings } from '../../components/ListSettings'
+import { dataType } from './'
 
 import './index.css'
 
@@ -32,7 +33,7 @@ const ObjectListSettings: React.FC<any> = (props) => {
 
     // const { dataType, itemProps, inputProps } = props
 
-    const dataType = 'XTSCounterparty'
+    // const dataType = 'XTSCounterparty'
     const dispatch = useDispatch()
 
     const { sliceName, actions } = getXTSSlice(dataType)

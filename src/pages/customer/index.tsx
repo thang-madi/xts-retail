@@ -21,6 +21,19 @@ import EditPage from './ObjectEdit'
 // Main component
 
 // OK
+export const dataType = 'XTSCounterparty'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: CustomersPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+// OK
 const CustomersPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const navigate = useNavigate()
@@ -40,7 +53,7 @@ const CustomersPage: React.FC<XTSObjectIndexProps> = (props) => {
     }
 
     const params = {
-        dataType: 'XTSCounterparty',
+        dataType,
         id: id || undefined,
         itemName,
         action,

@@ -22,7 +22,21 @@ import EditPage from './ObjectEdit'
 /////////////////////////////////////////////
 // Main component
 
-const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // Orders
+// OK
+export const dataType = 'XTSOrder'
+
+// OK
+export function getPages() {
+    return {
+        IndexPage: OrdersPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+//
+const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // 
 
     const navigate = useNavigate()
     const { itemName } = props
@@ -47,7 +61,7 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // Order
     }
 
     const params: UseIndexPageParams = {
-        dataType: 'XTSOrder',
+        dataType,
         id: id || undefined,
         itemName,
         action,

@@ -27,6 +27,7 @@ import { COMPARISION_OPERATORS, XTSCondition, XTSObjectId } from '../../data-obj
 import ObjectListSettings from './ObjectListSettings'
 import OrderCard from './ObjectCard'
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -39,7 +40,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     const { user, externalAccount, company, employee, customer } = useSelector((state: RootState) => state.session)
 
-    const dataType = 'XTSProductsPriceRegistration'
+    // const dataType = 'XTSPriceRegistration'
     // const requestParams = { limit: 50 }   // Tham số trong requestObject
 
     const conditions: XTSCondition[] = []
@@ -139,7 +140,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
             <ObjectListSettings
-                dataType='XTSProductsPriceRegistration'
+                dataType='XTSPriceRegistration'
                 itemProps={{}}
                 inputProps={{}}
             />
@@ -168,7 +169,7 @@ export const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
             /> */}
 
             <VirtualGrid
-                dataType={'XTSProductsPriceRegistration'}
+                dataType={'XTSPriceRegistration'}
                 items={dataList}
                 renderItem={renderItem}
                 rowHeight={100}

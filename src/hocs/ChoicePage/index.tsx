@@ -32,6 +32,7 @@ import PriceRegistrationsPage from '../../pages/price-registration'
 // Object's
 
 import './index.css'
+import { getIndexPage } from '../pages'
 
 /////////////////////////////////////////////
 // Main's
@@ -51,7 +52,7 @@ function getObjectPage(dataType: string): React.FC<any> {
         XTSEmployee: EmployeesPage,
         XTSStructuralUnit: StructuralUnitsPage,
         XTSCurrency: CurrenciesPage,
-        XTSProductsPriceRegistration: PriceRegistrationsPage,
+        XTSPriceRegistration: PriceRegistrationsPage,
 
         // XTSCashReceipt: CashReceiptPage,
         // XTSPaymentReceipt: PaymentReceiptPage,
@@ -87,7 +88,8 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
         props.choiceItemValue(itemValue)
     }
 
-    const ObjectIndexPage = getObjectPage(dataType)
+    // const ObjectIndexPage = getObjectPage(dataType)
+    const ObjectIndexPage = getIndexPage(dataType)
 
     useEffect(() => {
         if (modalProps.open) {

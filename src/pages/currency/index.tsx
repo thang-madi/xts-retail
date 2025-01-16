@@ -21,6 +21,19 @@ import EditPage from './ObjectEdit'
 // Main component
 
 // OK
+export const dataType = 'XTSCurrency'
+
+// 
+export function getPages() {
+    return {
+        IndexPage: CurrenciesPage,
+        ViewPage,
+        EditPage,
+        ListPage,
+    }
+}
+
+// OK
 const CurrenciesPage: React.FC<XTSObjectIndexProps> = (props) => {      //
 
     const navigate = useNavigate()
@@ -46,7 +59,7 @@ const CurrenciesPage: React.FC<XTSObjectIndexProps> = (props) => {      //
     }
 
     const params = {
-        dataType: 'XTSCurrency',                 //
+        dataType,
         id: id || undefined,
         itemName,
         action,

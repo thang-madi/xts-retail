@@ -220,7 +220,7 @@ const xtsSlicesMapping = {
         actions: actions_Currency
     },
 
-    XTSProductsPriceRegistration: {
+    XTSPriceRegistration: {
         sliceName: 'priceRegistrations',
         apiRequest: apiRequest_PriceRegistration,
         actions: actions_PriceRegistration

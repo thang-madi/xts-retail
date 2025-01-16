@@ -25,6 +25,7 @@ import { VirtualGrid } from '../../components/Virtualized'
 import { XTSCounterparty } from '../../data-objects/types-application'
 import ObjectCard from './ObjectCard'
 import ObjectListSettings from './ObjectListSettings'
+import { dataType } from './'
 
 import './index.css'
 
@@ -38,7 +39,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     // const [searchString, setSearchString] = useState<string>('')
 
-    const dataType = 'XTSCounterparty'
+    // const dataType = 'XTSCounterparty'
     const requestParams = {
         // Tham số trong requestObject
         limit: 50,

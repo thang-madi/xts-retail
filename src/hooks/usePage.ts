@@ -113,7 +113,7 @@ export interface UseIndexPageParams {
     itemName?: string
     // reopen?: boolean
     action?: ITEM_VALUE_ACTIONS
-    choiceItemValue?: (itemValue: XTSItemValue | undefined) => void
+    choiceItemValue?: (itemValue: XTSItemValue) => void
     afterSave?: (tempData: any) => void
     navigate: NavigateFunction
 }
@@ -569,7 +569,6 @@ export function useSaveDataObject(params: UseSaveFormDataParams) {
         const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
         // console.log('useSaveFormData.useEffect', responseTypes)
 
-        // if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.find(item => item === tempData['_type'])) {
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
             const { objects } = tempData
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
@@ -588,7 +587,7 @@ export function useSaveDataObject(params: UseSaveFormDataParams) {
             }
 
         }
-    }, [status, tempData, navigate, dispatch])
+    }, [status, tempData])
 
     return { status }
 }

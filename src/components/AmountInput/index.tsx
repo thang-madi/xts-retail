@@ -75,6 +75,9 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
 
     return (
         <div className=''>
+            <div className='amount-input-title'>
+                {props.description}
+            </div>
             <InputNumber
                 className='amount-input-field'
                 readOnly={true}

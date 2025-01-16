@@ -17,6 +17,8 @@ import { createXTSObject } from '../../data-objects/common-use'
 import { BottomBar } from '../../components/ContextMenu'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
+import { dataType } from './'
+import './index.css'
 
 /////////////////////////////////////////////
 // Main component
@@ -28,7 +30,7 @@ const UOMClassifierViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const { id } = useParams()
     const object_id = (id) || itemValue?.id
-    const dataType = 'XTSUOMClassifier'
+    // const dataType = 'XTSUOMClassifier'
     // const tabNames = []
 
     const getDataObjectParams: UseGetDataObjectParams = {
@@ -59,16 +61,7 @@ const UOMClassifierViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const doItem = (action: ITEM_VALUE_ACTIONS): void => {
         if (props.choiceItemValue) {
-            // console.log('dataObject', dataObject)
-            // const itemValue = createXTSObject('XTSItemValue', {
-            //     id: dataObject.objectId.id,
-            //     presentation: dataObject.presentation,
-            //     dataType: dataObject.objectId.dataType,
-            //     action,
-            // })
-            // choiceItemValue(itemValue)
             if (props.choiceItemValue) {
-                // console.log('clickItem.choiceItemValue 2')
                 const itemValue = createXTSObject('XTSItemValue')
                 Object.assign(itemValue, dataObject.objectId)
                 itemValue.dataItem = dataObject

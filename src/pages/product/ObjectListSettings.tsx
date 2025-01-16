@@ -24,6 +24,7 @@ import { ListSettings } from '../../components/ListSettings'
 /////////////////////////////////////////////
 // Object's
 
+import { dataType } from './'
 import './index.css'
 
 /////////////////////////////////////////////
@@ -36,7 +37,7 @@ const ObjectListSettings: React.FC<any> = (props) => {
 
     const dispatch = useDispatch()
 
-    const dataType = 'XTSProduct'
+    // const dataType = 'XTSProduct'
     const { sliceName, actions } = getXTSSlice(dataType)
     const { filter, sortBy } = useSelector((state: any) => state[sliceName])
 

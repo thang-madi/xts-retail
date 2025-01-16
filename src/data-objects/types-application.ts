@@ -643,7 +643,7 @@ export class XTSPaymentReceiptPaymentDetails extends XTSObjectRow {
 }
 
 // 
-export class XTSProductsPriceRegistration extends XTSObject {
+export class XTSPriceRegistration extends XTSObject {
 
     date: string = '0001-01-01T00:00:00'
     number: string = ''
@@ -655,7 +655,7 @@ export class XTSProductsPriceRegistration extends XTSObject {
     inventory: XTSProductsPriceRegistrationInventory[] = []
 
     constructor() {
-        super('XTSProductsPriceRegistration')
+        super('XTSPriceRegistration')
     }
 }
 

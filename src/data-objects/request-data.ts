@@ -121,6 +121,23 @@ export function requestData_SaveObject(dataObject: XTSObject): XTSRequestData {
 }
 
 //
+export function requestData_CreateObject(dataObject: XTSObject, fillingValues?: any): XTSRequestData {
+
+    const requestName = 'XTSCreateObjectRequest'
+    const requestObject = createXTSObject(requestName)
+
+    requestObject.object = dataObject
+    requestObject.fillingValues = fillingValues
+
+    const headers = {}
+    // const body = JSON.stringify(requestObject)
+    const body = requestObject
+    const requestData = createXTSObject('XTSRequestData', { headers, body })
+
+    return requestData
+}
+
+//
 export function requestData_UpdateObject(attributeValues: { [key: string]: any }): XTSRequestData {
 
     const requestName = 'XTSUpdateObjectsRequest'
