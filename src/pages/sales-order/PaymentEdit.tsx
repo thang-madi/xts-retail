@@ -98,7 +98,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
         const requestData = requestData_SaveObject(dataObject)
 
         const { apiRequest, actions } = getXTSSlice(dataType)
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
 

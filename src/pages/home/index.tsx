@@ -114,7 +114,7 @@ const HomePage: React.FC<any> = (props) => {
         const { apiRequest, actions } = getXTSSlice('XTSReport')
 
         // console.log('requestData', requestData)
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     }

@@ -232,7 +232,7 @@ ListSettings
 
 .sales-order-inventory-edit-card {
     margin: 0px;
-    height: 122px;
+    height: 150px;
 }
 
 .sales-order-inventory-edit-card .ant-card-body {
@@ -244,7 +244,7 @@ ListSettings
 
 .sales-order-inventory-edit-card-picture {
     width: 120px;
-    height: 120px;
+    height: 145px;
     overflow: hidden;
 }
 
@@ -259,12 +259,9 @@ ListSettings
 }
 
 .sales-order-inventory-edit-card-info-description {
+    margin-top: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
-}
-
-.sales-order-inventory-edit-amount {
-    display: flex;
-    justify-content: space-between;
 }
 
 .sales-order-inventory-edit-quantity {
@@ -312,7 +309,14 @@ ListSettings
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
     gap: 3px;
+}
+
+.sales-order-inventory-edit-amount {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 
 /* SupplierInvoiceInventoryView */

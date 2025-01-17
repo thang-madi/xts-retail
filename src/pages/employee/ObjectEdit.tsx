@@ -144,7 +144,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             }
             const requestData = requestData_ByDataItem('XTSUpdateObjectsRequest', { objects: [object] })
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             // dispatch(actions.setTemp(null))
 
             dispatch(apiRequest(requestData))
@@ -164,7 +164,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
             const requestData = requestData_ByDataItem('XTSDeleteFilesRequest', { fileIds },)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             // dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         }
@@ -193,7 +193,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 const requestData = requestData_ByDataItem('XTSUploadFileRequest', dataItem)
                 console.log('requestData', requestData)
                 // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-                dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+                dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
                 // dispatch(actions.setTemp(null))
                 dispatch(actions.setUploadFilesCountDown({ uploadFilesCountDown: 1 }))
                 dispatch(apiRequest(requestData))
@@ -229,7 +229,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         const { apiRequest, actions } = getXTSSlice(dataType)
 
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     })

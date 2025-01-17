@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import { isEmptyObjectId } from "./common-use"
+import { getXTSEnum, getXTSEnumItem, isEmptyObjectId } from "./common-use"
 
 export function fillDefaultValues(object: any, defaultValues: any) {
 
@@ -63,6 +63,17 @@ export function fillDefaultValues(object: any, defaultValues: any) {
         asignObject(object, defaultValues, 'externalAccount')
         asignObject(object, defaultValues, 'company')
         asignObject(object, defaultValues, 'customer')
+
+    } else if (_type === 'XTSCashReceipt') {
+        asignObject(object, defaultValues, 'company')
+        asignObject(object, defaultValues, 'author')
+        asignObject(object, defaultValues, 'employeeResponsible')
+        object.operationKind = getXTSEnumItem('XTSOperationKindsCashReceipt', 'FromCustomer')
+    } else if (_type === 'XTSPaymentReceipt') {
+        asignObject(object, defaultValues, 'company')
+        asignObject(object, defaultValues, 'author')
+        asignObject(object, defaultValues, 'employeeResponsible')
+        object.operationKind = getXTSEnumItem('XTSOperationKindsPaymentReceipt', 'FromCustomer')
     }
 }
 

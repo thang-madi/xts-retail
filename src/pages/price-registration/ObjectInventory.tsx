@@ -17,7 +17,7 @@ import { generateUUID } from '../../commons/common-use'
 // import { RowEditMenu } from '../../components/ContextMenu'
 import { XTSObject, XTSObjectId, XTSObjectRow } from '../../data-objects/types-common'
 import { XTSObjectRowProps } from '../../data-objects/types-components'
-import { XTSOrderProductRow, XTSProduct, XTSProductsPriceRegistrationInventory, XTSProductUOMRow, XTSSupplierInvoice } from '../../data-objects/types-application'
+import { XTSOrderProductRow, XTSProduct, XTSPriceRegistrationInventory, XTSProductUOMRow, XTSSupplierInvoice } from '../../data-objects/types-application'
 import { createXTSObject } from '../../data-objects/common-use'
 import { useCreatePage, UseCreatePageParams } from '../../hooks/usePage'
 import { RootState } from '../../data-storage'
@@ -83,7 +83,7 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
 // 
 export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
-    const dataRow = props.dataRow as XTSProductsPriceRegistrationInventory
+    const dataRow = props.dataRow as XTSPriceRegistrationInventory
     const currencyPresentation = (props.dataObject as XTSSupplierInvoice)?.documentCurrency?.presentation
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)

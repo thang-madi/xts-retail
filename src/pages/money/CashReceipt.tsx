@@ -150,14 +150,13 @@ const ReceiptPage: React.FC<any> = (props) => {
 
         if (status !== REQUEST_STATUSES.LOADING) {
             const fillingValues = {
-                salesOrder: dataObject.documentBasis,
+                documentBasis: dataObject.documentBasis,
                 amount: dataObject.documentAmount,
             }
             const requestData = requestData_CreateObject(dataObject, fillingValues)
             const { apiRequest, actions } = getXTSSlice(dataType)
 
-            // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         }

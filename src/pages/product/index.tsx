@@ -40,6 +40,8 @@ const ProductsPage: React.FC<XTSObjectIndexProps> = (props) => {
     const navigate = useNavigate()
     const { itemName } = props
 
+    console.log('objectIds', props.objectIds)
+
     const [searchParams, setSearchParams] = useSearchParams()
     const id = searchParams.get('id')
     // let action = (id) && ITEM_VALUE_ACTIONS.VIEW || undefined
@@ -96,6 +98,7 @@ const ProductsPage: React.FC<XTSObjectIndexProps> = (props) => {
                 <ListPage
                     pageId={pageId}
                     itemName={props.itemName}
+                    objectIds={props.objectIds}                 // Hiện tại mới chỉ dùng cho Product
                     choiceItemValue={choiceItemValue}
                     stepBack={stepBack}
                     renderKey={props.renderKey}

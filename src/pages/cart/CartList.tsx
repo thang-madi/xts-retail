@@ -130,7 +130,7 @@ const RecordListPage: React.FC<XTSRecordListProps> = (props) => {
         const { apiRequest, actions } = getXTSSlice('XTSOrder')
 
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     }

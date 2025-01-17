@@ -104,7 +104,7 @@ const ListSettings: React.FC<XTSListSettingsProps> = (props) => {
     /////////////////////////////////////////////
     // Visiblility
 
-    const [searchVisible, setSearchVisible] = useState(false)
+    const [searchVisible, setSearchVisible] = useState(true)
     const [filterVisible, setFilterVisible] = useState(false)
 
     const toggleSearchInput = () => {

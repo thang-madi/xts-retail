@@ -18,6 +18,7 @@ export interface XTSChoicePageProps {
     modalProps: { [key: string]: any }
     itemName: string
     dataType: string
+    objectIds?: XTSObjectId[]
     form: any
     // pageOwnerId: string
     choiceItemValue: (itemValue: XTSItemValue) => void
@@ -59,6 +60,7 @@ export interface XTSPrintPageProps {
 export interface XTSObjectIndexProps {
     itemName?: string
     renderKey?: number
+    objectIds?: XTSObjectId[]
     choiceItemValue?: (itemValue: XTSItemValue) => void
     // choiceItemValue?: (itemValue: XTSItemValue) => void
 }
@@ -66,6 +68,7 @@ export interface XTSObjectIndexProps {
 export interface XTSObjectListProps {
     pageId: string
     itemName?: string
+    objectIds?: XTSObjectId[]
     renderKey?: number
     choiceItemValue?: (itemValue: XTSItemValue) => void
     stepBack?: () => void

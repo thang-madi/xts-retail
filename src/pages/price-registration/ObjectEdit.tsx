@@ -21,7 +21,7 @@ import { BottomBar, } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSObjectEditProps } from '../../data-objects/types-components'
 import { requestData_SaveObject } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
-import { XTSOrderProductRow, XTSProduct, XTSProductsPriceRegistrationInventory, XTSSalesInvoiceInventory, XTSSupplierInvoiceInventory } from '../../data-objects/types-application'
+import { XTSOrderProductRow, XTSProduct, XTSPriceRegistrationInventory, XTSSalesInvoiceInventory, XTSSupplierInvoiceInventory } from '../../data-objects/types-application'
 import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
@@ -160,7 +160,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
         // console.log('requestData', requestData)
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     })
@@ -508,7 +508,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                         xxl: 5,
                     }}
                     dataSource={dataObject.inventory}
-                    renderItem={(dataRow: XTSProductsPriceRegistrationInventory) => (
+                    renderItem={(dataRow: XTSPriceRegistrationInventory) => (
                         <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
                             <ObjectInventoryEdit
                                 dataRow={dataRow}

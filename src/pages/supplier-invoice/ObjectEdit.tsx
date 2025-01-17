@@ -19,14 +19,14 @@ import { FormInput, FormSelect } from '../../components/FormItems'
 // import { deleteTabRow, getFormValuesWithTabs, setFormTabs, updateTabRow, updateTabRow_new } from '../../commons/object-tabs'
 import { BottomBar, } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSObjectEditProps } from '../../data-objects/types-components'
-import { requestData_SaveObject } from '../../data-objects/request-data'
+import { requestData_GetObject, requestData_SaveObject } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
-import { XTSOrderProductRow, XTSProduct, XTSSalesInvoiceInventory, XTSSupplierInvoiceInventory } from '../../data-objects/types-application'
-import { XTSObjectRow } from '../../data-objects/types-common'
+import { XTSOrderProductRow, XTSProduct, XTSSalesInvoiceInventory, XTSSupplierInvoice, XTSSupplierInvoiceInventory } from '../../data-objects/types-application'
+import { XTSObjectId, XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
 import { XTSItemValue } from '../../data-objects/types-form'
-import { createXTSObject, getXTSEnum, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
+import { compareXTSValues, createXTSObject, getXTSEnum, getXTSEnumItem, isEmptyObjectId, objectPresentation } from '../../data-objects/common-use'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
@@ -95,6 +95,31 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     }
     const { setPageInfo } = useOpenPage(openPageParams)
 
+    const [objectIds, setObjectIds] = useState<XTSObjectId[]>([])
+
+    useEffect(() => {
+        console.log('docOrderId', dataObject.docOrder)
+        if (!isEmptyObjectId(dataObject.docOrder)) {
+            const { sliceName, apiRequest, actions } = getXTSSlice('XTSOrder')
+            const requestData = requestData_GetObject('XTSOrder', dataObject.docOrder.id)
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
+            dispatch(apiRequest(requestData))
+        }
+    }, [dataObject?.docOrder])
+
+    const docOrder = useSelector((state: RootState) => state.salesOrders.objects.find(object => compareXTSValues(object.objectId, dataObject?.docOrder) === 0))
+
+    useEffect(() => {
+        console.log('docOrder', docOrder)
+        if (docOrder) {
+            const _objectIds = (docOrder as XTSSupplierInvoice).inventory.map((item: any) => item.product)
+            if (_objectIds.length > 0) {
+                console.log('_objectIds', _objectIds)
+                setObjectIds(_objectIds)
+            }
+        }
+    }, [docOrder])
+
     /////////////////////////////////////////////
     // Làm việc với ChoicePage   
 
@@ -159,7 +184,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
         // console.log('requestData', requestData)
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     })
@@ -531,6 +556,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     }}
                     itemName={choicePageInit.itemName}      // 'product'
                     dataType={choicePageInit.dataType}      // 'XTSProduct'
+                    objectIds={objectIds}
                     form={form}                             // Xem xét bỏ đi
                     choiceItemValue={choiceItemValue}
                 // pageOwnerId={pageId}

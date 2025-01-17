@@ -130,7 +130,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             const requestData = requestData_UpdateObject(attributeValues)
 
             const { apiRequest, actions } = getXTSSlice(dataType)
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         }

@@ -37,6 +37,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
 
     const getObjectListParams: UseGetObjectListParams = {
         dataType,
+        objectIds: props.objectIds,
         requestParams,
         download: true,
     }

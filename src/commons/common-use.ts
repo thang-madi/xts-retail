@@ -152,7 +152,7 @@ export function arrayFilter(objects: XTSObject[], filter: XTSListFilterItem[]) {
         return objects.filter(item => {
             return filter.every(filterItem => {
                 const itemValue = (item as any)[filterItem.key]
-                const ABC = compareXTSValues(itemValue, filterItem.value)
+                // const ABC = compareXTSValues(itemValue, filterItem.value)
                 // console.log('itemValue, filterItem, ABC', itemValue, filterItem, ABC)
                 return compareXTSValues(itemValue, filterItem.value) === 0
             })

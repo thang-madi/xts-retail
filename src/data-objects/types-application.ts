@@ -241,6 +241,7 @@ export class XTSOrderProductRow extends XTSObjectRow {
     vatAmount: number = 0
     total: number = 0
 
+    _sku: string = ''
     _coefficient: number = 0
     _price: number = 0
     _vatRateRate: number = 0
@@ -580,7 +581,7 @@ export class XTSCashReceiptPaymentDetails extends XTSObjectRow {
     contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     document: XTSObjectId = new XTSObjectId('')
     paymentAmount: number = 0
-    settlementAmount: number = 0
+    settlementsAmount: number = 0
     rate: number = 0
     multiplicity: number = 0
     advanceFlag: boolean = false
@@ -631,7 +632,7 @@ export class XTSPaymentReceiptPaymentDetails extends XTSObjectRow {
     contract: XTSObjectId = new XTSObjectId('XTSCounterpartyContract')
     document: XTSObjectId = new XTSObjectId('')
     paymentAmount: number = 0
-    settlementAmount: number = 0
+    settlementsAmount: number = 0
     rate: number = 0
     multiplicity: number = 0
     advanceFlag: boolean = false
@@ -652,7 +653,7 @@ export class XTSPriceRegistration extends XTSObject {
     comment: string = ''
     documentBasis: XTSObjectId = new XTSObjectId('')
 
-    inventory: XTSProductsPriceRegistrationInventory[] = []
+    inventory: XTSPriceRegistrationInventory[] = []
 
     constructor() {
         super('XTSPriceRegistration')
@@ -660,7 +661,7 @@ export class XTSPriceRegistration extends XTSObject {
 }
 
 // 
-export class XTSProductsPriceRegistrationInventory extends XTSObjectRow {
+export class XTSPriceRegistrationInventory extends XTSObjectRow {
 
     _lineNumber: number = 0
     product: XTSObjectId = new XTSObjectId('XTSProduct')
@@ -673,6 +674,6 @@ export class XTSProductsPriceRegistrationInventory extends XTSObjectRow {
     currencyOld: XTSObjectId = new XTSObjectId('XTSCurrency')
 
     constructor() {
-        super('XTSProductsPriceRegistrationInventory')
+        super('XTSPriceRegistrationInventory')
     }
 }

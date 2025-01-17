@@ -15,7 +15,7 @@ import { MIN_SEARCH_LENGTH, PAGE_ITEMS } from '../commons/constants'
 import { getXTSSlice } from '../data-storage/xts-mappings'
 import { RootState } from '../data-storage'
 import { compareFunction, compareXTSValues, createXTSObject, isEmptyObjectId } from '../data-objects/common-use'
-import { XTSObject, XTSRecordFilter, XTSRecordKey } from '../data-objects/types-common'
+import { XTSObject, XTSObjectId, XTSRecordFilter, XTSRecordKey } from '../data-objects/types-common'
 import { XTSItemValue } from '../data-objects/types-form'
 import { ITEM_VALUE_ACTIONS } from '../data-objects/types-components'
 import { requestData_DownloadObjectList, requestData_GetObject, requestData_GetObjectList, requestData_GetRecordSet } from '../data-objects/request-data'
@@ -80,6 +80,7 @@ export interface UseGetObjectListParams {
     requestParams: { [key: string]: any }
     download: boolean
     sortBy?: string
+    objectIds?: XTSObjectId[]
 }
 
 // OK
@@ -217,7 +218,7 @@ export function useGetDataObject(params: UseGetDataObjectParams): { [key: string
         if (object_id) {
             const requestData = requestData_GetObject(dataType, object_id)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(apiRequest(requestData))
         }
     }
@@ -291,7 +292,7 @@ export function useGetDataRecord(params: UseGetDataRecordParams) {
         const body = JSON.stringify(requestObject)
         const requestData = { headers, body }
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(apiRequest(requestData))
     }
 
@@ -347,14 +348,14 @@ export function useGetDataList(params: UseGetDataListParams) {
         if (params.classType === 'object') {
             const requestData = requestData_GetObjectList(params.dataType, length, count, params.requestParams)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         } else if (params.classType === 'record') {
             const filter = params.requestParams.filter
             const requestData = requestData_GetRecordSet(params.dataType, filter)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
             console.log('requestData', requestData)
@@ -389,14 +390,50 @@ export function useGetObjectList(params: UseGetObjectListParams) {
     const { sliceName, apiRequest, actions } = getXTSSlice(params.dataType)
     const { objects, status, tempData, searchString, searchFields, filter, sortBy } = useSelector((state: any) => (state[sliceName]))
     const dataLength = objects.length
-    // console.log('objects.length 1 - ', dataLength)
 
     const dataList = useMemo(() => {
+        // if (searchString.length < MIN_SEARCH_LENGTH) {
+        //     // return objects
+        // } else {
+        //     const lowerCaseText = searchString.toLowerCase()
+        //     return objects.filter((object: any) => {
+        //         let result = false
+        //         for (const field of searchFields) {
+        //             let fieldValue: any = object[field]
+        //             if (fieldValue && typeof fieldValue === 'object' && fieldValue.hasOwnProperty('presentation')) {
+        //                 fieldValue = fieldValue.presentation
+        //             }
+        //             result = String(fieldValue).toLowerCase().includes(lowerCaseText)
+        //             if (result) break
+        //         }
+        //         return result
+        //     })
+        // }
+
+        let filteredObjects
+        console.log('params.objectIds', params.objectIds)
+        if (!params.objectIds) {
+            filteredObjects = objects
+        } else {
+            filteredObjects = objects.filter((object: XTSObject) => {
+                if (params.objectIds) {
+                    return params.objectIds.findIndex((objectId: XTSObjectId) => object.objectId.id === objectId.id) !== -1
+                } else {
+                    return false
+                }
+            })
+        }
+
+        console.log('filteredObjects', filteredObjects)
+        // }
+        // filteredObjects = arrayFilter([...objects], filter)
+        // return arraySort(filteredObjects, sortBy)
+        const filterResult = arrayFilter([...filteredObjects], filter)
         if (searchString.length < MIN_SEARCH_LENGTH) {
-            // return objects
+            return arraySort(filterResult, sortBy)
         } else {
             const lowerCaseText = searchString.toLowerCase()
-            return objects.filter((object: any) => {
+            return filterResult.filter((object: any) => {
                 let result = false
                 for (const field of searchFields) {
                     let fieldValue: any = object[field]
@@ -409,9 +446,6 @@ export function useGetObjectList(params: UseGetObjectListParams) {
                 return result
             })
         }
-
-        const filteredObjects = arrayFilter([...objects], filter)
-        return arraySort(filteredObjects, sortBy)
     }, [objects, searchString, filter, sortBy])
 
     const refreshList = () => {
@@ -437,13 +471,13 @@ export function useGetObjectList(params: UseGetObjectListParams) {
         if (params.download) {
             const requestData = requestData_DownloadObjectList(params.dataType, params.requestParams)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         } else {
             const requestData = requestData_GetObjectList(params.dataType, length, count, params.requestParams)
             // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-            dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
             dispatch(actions.setTemp(null))
             dispatch(apiRequest(requestData))
         }
@@ -528,7 +562,7 @@ export function useGetRecordSet(params: UseGetRecordSetParams) {
         const filter = params.requestParams.filter
         const requestData = requestData_GetRecordSet(params.dataType, filter)
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
         console.log('requestData', requestData)
@@ -644,18 +678,25 @@ export function useSaveFormData(params: UseSaveFormDataParams) {
     const { sliceName, apiRequest, actions } = xtsSlice
 
     const { status, tempData } = useSelector((state: any) => state[sliceName])
+    // console.log('sliceName', sliceName, status, tempData)
     useEffect(() => {
-        const responseTypes = ['XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
-        // console.log('useSaveFormData.useEffect', responseTypes)
+        const responseTypes = ['XTSCreateObjectResponse', 'XTSCreateObjectsResponse', 'XTSUpdateObjectsResponse']
 
         if (status === REQUEST_STATUSES.SUCCEEDED && (tempData) && responseTypes.includes(tempData['_type'])) {
-            const { objects } = tempData
+            // const { objects } = tempData
             dispatch(actions.setStatus(REQUEST_STATUSES.IDLE))
             if (params.afterSave) {
                 params.afterSave(tempData)
             }
-            if ((params.choiceItemValue) && objects[0].objectId?.id) {         // id chính thức được lưu là nằm trong tempData
-                const objectId = objects[0].objectId
+            let objectId: any
+            // id chính thức được lưu là nằm trong tempData
+            if (tempData['_type'] === 'XTSCreateObjectResponse') {
+                objectId = tempData.object.objectId
+            } else {
+                objectId = tempData.objects[0].objectId
+            }
+            if ((params.choiceItemValue) && objectId?.id) {
+                // const objectId = objects[0].objectId
                 const action = (params.itemName) && ITEM_VALUE_ACTIONS.CHOICE || ITEM_VALUE_ACTIONS.VIEW
                 const itemValue = createXTSObject('XTSItemValue', {
                     id: objectId.id,
@@ -664,6 +705,7 @@ export function useSaveFormData(params: UseSaveFormDataParams) {
                     presentation: objectId.presentation,
                     action,
                 })
+                // console.log('itemValue', itemValue)
                 params.choiceItemValue(itemValue)
             }
         }

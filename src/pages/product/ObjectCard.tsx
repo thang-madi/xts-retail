@@ -186,7 +186,7 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                     }}
                 >
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ flexGrow: 1, textAlign: 'center' }}>Vào đơn hàng</span><SelectOutlined />
+                        <span style={{ flexGrow: 1, textAlign: 'center' }}>Chọn</span><SelectOutlined />
                     </div>
                 </Button>
                 <Button

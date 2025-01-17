@@ -35,6 +35,7 @@ export interface XTSFormInputProps {
     datePickerProps?: any,
     checkerProps?: any,
     form?: FormInstance,
+    renderKey?: number,
     setPageInfo?: () => void,
 }
 
@@ -47,6 +48,7 @@ export interface XTSFormSelectProps {
     itemProps?: any,
     selectProps?: any,
     form?: FormInstance,
+    // renderKey?: number,
 }
 
 //
@@ -304,8 +306,9 @@ const FormObjectSelect: React.FC<any> = (props) => {
 
         const option = options.find((item: any) => item.value?.id === value)
         if (option) {
-            // form.setFieldValue(itemName, option.value.presentation)
-            dataObject[itemName] = createXTSObject('XTSObjectId', option.value)
+            // dataObject[itemName] = createXTSObject('XTSObjectId', option.value)
+            Object.assign(dataObject[itemName], option.value)
+            // console.log(itemName, createXTSObject('XTSObjectId', option.value), dataObject, option.value)
             if (selectProps.onChange) {
                 selectProps.onChange(option.value)
             }
@@ -325,9 +328,9 @@ const FormObjectSelect: React.FC<any> = (props) => {
         if (!option) {
             option = _selectOptions.find((item: any) => item.label === attributeValue.presentation)
         }
-        if (option) {
-            form.setFieldValue(_itemName, option.value)
-        }
+        // if (option) {
+        //     form.setFieldValue(_itemName, option.value)
+        // }
     }, [attributeValue.id, options])
 
     /////////////////////////////////////////////
@@ -339,6 +342,8 @@ const FormObjectSelect: React.FC<any> = (props) => {
                 {...selectProps}
                 options={selectOptions}
                 onChange={selectItemValue}
+                value={attributeValue.id}
+                defaultValue={attributeValue.id}
             />
         </Form.Item>
     )
@@ -381,9 +386,9 @@ const FormTextSelect: React.FC<any> = (props) => {
     }
 
     const attributeValue = dataObject[itemName]
-    useEffect(() => {
-        form.setFieldValue(_itemName, attributeValue)
-    }, [attributeValue])
+    // useEffect(() => {
+    //     form.setFieldValue(_itemName, attributeValue)
+    // }, [attributeValue])
 
     /////////////////////////////////////////////
     // 
@@ -392,6 +397,7 @@ const FormTextSelect: React.FC<any> = (props) => {
         <Form.Item name={_itemName} {...itemProps} >
             <Select
                 {...selectProps}
+                value={attributeValue}
                 options={selectOptions}
                 onChange={selectItemValue}
             />

@@ -71,7 +71,7 @@ function getObjectPage(dataType: string): React.FC<any> {
 // OK
 const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
 
-    const { modalProps, itemName, dataType } = props
+    const { modalProps, itemName, dataType, objectIds } = props
     const [renderKey, setRenderKey] = useState(0)
     // console.log('ChoicePage.props', props)
 
@@ -88,7 +88,6 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
         props.choiceItemValue(itemValue)
     }
 
-    // const ObjectIndexPage = getObjectPage(dataType)
     const ObjectIndexPage = getIndexPage(dataType)
 
     useEffect(() => {
@@ -112,6 +111,7 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
                 <ObjectIndexPage
                     itemName={itemName}
                     choiceItemValue={choiceItemValue}
+                    objectIds={objectIds}
                     renderKey={renderKey}
                 />
             </div>

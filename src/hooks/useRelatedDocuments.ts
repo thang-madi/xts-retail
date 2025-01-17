@@ -69,7 +69,7 @@ export function useGetRelatedDocuments(params: UseGetRelatedDocumentsParams) {
 
         const requestData = requestData_GetRelatedDocument(params.objectId)
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     }

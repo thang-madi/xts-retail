@@ -13,7 +13,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 5px;
-    background-color: lightsteelblue;
+    background-color: rgba(176, 196, 222, 0.5);
     /* transform: translateX(-50%); */
     z-index: 990;
     /* gap: 2px; */

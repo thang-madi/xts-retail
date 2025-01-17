@@ -65,7 +65,7 @@ export const OrderInventoryView: React.FC<any> = (props) => {
                 </div>
 
                 <div className='sales-order-inventory-view-card-info' >
-                    <div className='sales-order-inventory-view-card-info-description' >{dataRow.product?.presentation}</div>
+                    <div className='sales-order-inventory-view-card-info-description' >{`${dataRow.product?.presentation} ${dataRow._sku}`} </div>
                     <div>Đơn giá: {dataRow._price} đồng/chiếc</div>
                     <div>Số lượng: {dataRow.quantity} {dataRow.uom?.presentation}</div>
                     <div className='sales-order-inventory-view-amount' >
@@ -267,16 +267,16 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                 </div>
 
                 <div className='sales-order-inventory-edit-card-info'>
-                    <div className='sales-invoice-inventory-edit-card-info-description'>
-                        {dataRow.product?.presentation}
+                    <div className='sales-order-inventory-edit-card-info-description'>
+                        {`${dataRow.product?.presentation} ${dataRow._sku}`}
                     </div>
 
                     <div className='sales-order-inventory-edit-quantity'>
 
-                        <div>
+                        {/* <div>
                             <div className='sales-order-inventory-edit-quantity-title-short'>SL: </div>
                             <div className='sales-order-inventory-edit-quantity-title-long'>Số lượng: </div>
-                        </div>
+                        </div> */}
 
                         <div className='sales-order-inventory-edit-quantity-group'>
 
@@ -306,7 +306,7 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                             min={0}
                             // max={dataRow.amount}
                             title='Nhập số lượng'
-                            description='Số lượng'
+                            description=''
                             // renderKey={renderKey}
                             onChange={(quantity) => changeRowData({ quantity })}
                         />
@@ -322,7 +322,7 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                             min={0}
                             // max={dataRow.amount}
                             title='Nhập đơn giá (chiếc)'
-                            description='Đơn giá (chiếc)'
+                            description=''
                             // renderKey={renderKey}
                             onChange={(_price) => changeRowData({ _price })}
                         />

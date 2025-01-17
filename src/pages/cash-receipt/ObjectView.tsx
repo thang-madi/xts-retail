@@ -201,14 +201,20 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
                 <div className='cash-receipt-view-item'>
                     <div className='cash-receipt-view-item-title'
-                    >Cơ sở: </div>
-                    <div>{objectPresentation(dataObject.documentBasis)}</div>
+                    >Dạng giao dịch: </div>
+                    <div>{dataObject.operationKind.presentation}</div>
                 </div>
 
                 <div className='cash-receipt-view-item'>
                     <div className='cash-receipt-view-item-title'
                     >{labels.counterpartyLabel}: </div>
                     <div>{dataObject.counterparty.presentation}</div>
+                </div>
+
+                <div className='cash-receipt-view-item'>
+                    <div className='cash-receipt-view-item-title'
+                    >Cơ sở: </div>
+                    <div>{objectPresentation(dataObject.documentBasis)}</div>
                 </div>
 
                 {/* <div className='cash-receipt-view-item'>

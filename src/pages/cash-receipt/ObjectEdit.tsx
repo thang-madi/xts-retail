@@ -19,14 +19,14 @@ import { FormInput, FormSelect } from '../../components/FormItems'
 // import { deleteTabRow, getFormValuesWithTabs, setFormTabs, updateTabRow, updateTabRow_new } from '../../commons/object-tabs'
 import { BottomBar, } from '../../components/ContextMenu'
 import { ITEM_VALUE_ACTIONS, XTSObjectEditProps } from '../../data-objects/types-components'
-import { requestData_SaveObject } from '../../data-objects/request-data'
+import { requestData_CreateObject, requestData_SaveObject } from '../../data-objects/request-data'
 import { getXTSSlice } from '../../data-storage/xts-mappings'
 import { XTSOrderProductRow, XTSProduct, XTSSalesInvoiceInventory, XTSSupplierInvoiceInventory } from '../../data-objects/types-application'
 import { XTSObjectRow } from '../../data-objects/types-common'
 import { deleteTabRow, updateTabRow } from '../../commons/common-tabs'
 import ChoicePage from '../../hocs/ChoicePage'
 import { XTSItemValue } from '../../data-objects/types-form'
-import { createXTSObject, getXTSEnum, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
+import { createXTSObject, getXTSEnum, getXTSEnumItem, isEmptyObjectId, objectPresentation } from '../../data-objects/common-use'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { Loader } from '../../components/Loader'
 import { RootState } from '../../data-storage'
@@ -39,6 +39,7 @@ import { RootState } from '../../data-storage'
 import { getLabels } from './common'
 import { dataType } from './'
 import './index.css'
+import AmountInput from '../../components/AmountInput'
 
 /////////////////////////////////////////////
 // Main component
@@ -148,27 +149,121 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     // const defaultValues = useSelector(state => state.session.defaultValues)
     const finish = ((values: any) => {
 
-        // const requestData = createSaveObjectRequest(dataObject, values, valueTabs)
+        if (status === REQUEST_STATUSES.LOADING) {
+            return
+        }
 
-        // if (dataObject['shipmentDate'].startsWith('0001-01-01')) {
-        //     dataObject['shipmentDate'] = dayjs().format('YYYY-MM-DD')
-        // }
-        // console.log('dataObject:', dataObject)
+        if (isEmptyObjectId(dataObject.objectId)) {
 
-        const requestData = requestData_SaveObject(dataObject)
-        const { apiRequest, actions } = getXTSSlice(dataType)
+            const fillingValues = {
+                documentBasis: dataObject.documentBasis,
+                amount: dataObject.documentAmount,
+            }
+            const requestData = requestData_CreateObject(dataObject, fillingValues)
+            const { apiRequest, actions } = getXTSSlice(dataType)
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
+            dispatch(actions.setTemp(null))
+            dispatch(apiRequest(requestData))
 
-        // console.log('requestData', requestData)
-        // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
-        dispatch(actions.setTemp(null))
-        dispatch(apiRequest(requestData))
+        } else {
+            const requestData = requestData_SaveObject(dataObject)
+            const { apiRequest, actions } = getXTSSlice(dataType)
+
+            dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
+            dispatch(actions.setTemp(null))
+            dispatch(apiRequest(requestData))
+        }
     })
 
     // finishFailed
     // Hàm sự kiện khi có lỗi trên Form
     const finishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
+    }
+
+    const initialOperationKinds = () => {
+        if (!isEmptyObjectId(dataObject.objectId)) {
+            return [
+                dataObject.operationKind
+            ]
+        } else {
+            return [
+                {
+                    _type: "XTSObjectId",
+                    dataType: "XTSOperationKindsCashReceipt",
+                    id: "FromCustomer",
+                    presentation: "Từ khách hàng",
+                },
+                {
+                    _type: "XTSObjectId",
+                    dataType: "XTSOperationKindsCashReceipt",
+                    id: "FromSupplier",
+                    presentation: "Từ người bán",
+                },
+                {
+                    _type: "XTSObjectId",
+                    dataType: "XTSOperationKindsCashReceipt",
+                    id: "Other",
+                    presentation: "Thu khác",
+                },
+            ]
+        }
+    }
+
+    const [operationKinds] = useState(initialOperationKinds())
+
+    const [visibleSalesOrder, setVisibleSalesOrder] = useState(false)
+    const [visibleSupplierInvoice, setVisibleSupplierInvoice] = useState(false)
+
+    // const [enableOperationKind, setEnableOperationKind] = useState(false)
+    const [enableCounterparty, setEnableCounterparty] = useState(false)
+    const [enableSalesOrder, setEnableSalesOrder] = useState(false)
+    const [enableSupplierInvoice, setEnableSupplierInvoice] = useState(false)
+
+    const setVisibilities = () => {
+        if (isEmptyObjectId(dataObject.objectId)) {
+            // setEnableOperationKind(true)
+            setEnableCounterparty(true)
+            setEnableSalesOrder(true)
+            setEnableSupplierInvoice(true)
+        } else {
+            // setEnableOperationKind(false)
+            setEnableCounterparty(false)
+            setEnableSalesOrder(false)
+            setEnableSupplierInvoice(false)
+        }
+
+        if (dataObject.operationKind.id === 'FromCustomer') {
+            setVisibleSalesOrder(true)
+            setVisibleSupplierInvoice(false)
+        } else if (dataObject.operationKind.id === 'FromSupplier') {
+            setVisibleSalesOrder(false)
+            setVisibleSupplierInvoice(true)
+        } else if (dataObject.operationKind.id === 'Other') {
+            setVisibleSalesOrder(false)
+            setVisibleSupplierInvoice(false)
+        } else {
+            setVisibleSalesOrder(false)
+            setVisibleSupplierInvoice(false)
+        }
+    }
+
+    const operationKindOnChange = (value: any) => {
+        // console.log('operationKindOnChange', dataObject, value)
+        // setDataObject({ ...dataObject, operationKind: value })
+        // setRenderKey(prev => prev + 1)
+        setVisibilities()
+    }
+
+    const changeAmount = (amount: number) => {
+        console.log('dataObject.paymentDetails.length', dataObject.paymentDetails.length)
+        if (dataObject.paymentDetails.length === 1) {
+            const paymentRow = dataObject.paymentDetails[0]
+            paymentRow.paymentAmount = amount
+            paymentRow.settlementsAmount = amount
+        }
+        console.log('dataObject', dataObject)
+        // dataObject.documentAmount = amount
     }
 
     // const saveAndSend = (): void => {
@@ -270,6 +365,9 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
             setSaveButton(true)
         }
 
+        // console.log('dataObject.operationKind', dataObject.operationKind)
+        setVisibilities()
+
         // if (status !== REQUEST_STATUSES.IDLE) {
         //     setSendButton(false)
         //     // } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
@@ -333,9 +431,31 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <Divider className='cash-receipt-edit-divider' orientation='center' />
 
-                    <div className='cash-receipt-edit-item'>
+                    {/* <div className='cash-receipt-edit-item'>
                         <div className='cash-receipt-edit-item-label'>Cơ sở: </div>
                         <div>{objectPresentation(dataObject.documentBasis)}</div>
+                    </div> */}
+
+                    <div className={(company) && 'cash-receipt-edit-item-visible' || 'cash-receipt-edit-item-hidden'}>
+                        <FormSelect
+                            itemName='operationKind'
+                            dataType='XTSOperationKindsCashReceipt'
+                            options={operationKinds}
+                            // renderKey={renderKey}
+                            itemProps={{
+                                className: 'cash-receipt-edit-item-label',
+                                label: 'Dạng giao dịch',
+                                required: false,
+                                labelCol: { span: 4 },
+                            }}
+                            selectProps={{
+                                className: 'cash-receipt-edit-item-order-state-value',
+                                required: false,
+                                disabled: (!company) && true || false,
+                                onChange: operationKindOnChange,
+                            }}
+                            {...commonItemProps}
+                        />
                     </div>
 
                     <FormInput
@@ -351,29 +471,55 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             placeholder: labels.counterpartyPlaceHolder,
                             allowClear: true,
                             required: true,
-                            readOnly: (!user) && true || false,
+                            // readOnly: (!user) && true || false,
+                            readOnly: (!enableCounterparty)
                         }}
                         {...commonItemProps}
                     />
 
-                    {/* <div className={(company) && 'cash-receipt-edit-item-visible' || 'cash-receipt-edit-item-hidden'}>
-                        <FormSelect
-                            itemName='orderState'
-                            dataType='XTSSalesOrderState'
+                    <div style={(visibleSalesOrder) && { display: 'block' } || { display: 'none' }}>
+                        <FormInput
+                            itemName='documentBasis'
+                            dataType='XTSOrder'
+                            // renderKey={renderKey}
                             itemProps={{
                                 className: 'cash-receipt-edit-item-label',
-                                label: 'Trạng thái đơn hàng',
-                                required: false,
+                                label: 'Đơn hàng của khách',
                                 labelCol: { span: 4 },
+                                wrapperCol: { span: 20 },
+                                // style: (dataObject.operationKind.id !== 'FromCustomer') && { display: 'none' } || {}
                             }}
-                            selectProps={{
-                                className: 'cash-receipt-edit-item-order-state-value',
-                                required: false,
-                                disabled: (!company) && true || false,
+                            inputProps={{
+                                placeholder: labels.counterpartyPlaceHolder,
+                                allowClear: true,
+                                required: true,
+                                readOnly: (!enableSalesOrder)
                             }}
                             {...commonItemProps}
                         />
-                    </div> */}
+                    </div>
+
+                    <div style={(visibleSupplierInvoice) && { display: 'block' } || { display: 'none' }}>
+                        <FormInput
+                            itemName='documentBasis'
+                            dataType='XTSSupplierInvoice'
+                            // renderKey={renderKey}
+                            itemProps={{
+                                className: 'cash-receipt-edit-item-label',
+                                label: 'Hóa đơn nhận hàng',
+                                labelCol: { span: 4 },
+                                wrapperCol: { span: 20 },
+                                // style: (dataObject.operationKind.id !== 'FromSupplier') && { display: 'none' } || {}
+                            }}
+                            inputProps={{
+                                placeholder: labels.counterpartyPlaceHolder,
+                                allowClear: true,
+                                required: true,
+                                readOnly: (!enableSupplierInvoice),
+                            }}
+                            {...commonItemProps}
+                        />
+                    </div>
 
                     {/* <div className={(company) && 'edit-page-item-hidden' || 'edit-page-item-visible'}>
                         Trạng thái đơn hàng: <OrderStateTag value={dataObject.orderState?.presentation} />
@@ -393,7 +539,8 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                                 placeholder: 'Chọn nhân viên',
                                 allowClear: true,
                                 required: true,
-                                readOnly: (!company) && true || false,
+                                // readOnly: (!company) && true || false,
+                                readOnly: true,
                             }}
                             {...commonItemProps}
                         />
@@ -441,7 +588,17 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <div className='cash-receipt-edit-item' >
                         <div>Số tiền: </div>
-                        <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} {dataObject.cashCurrency?.presentation}</b>
+                        {/* <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} {dataObject.cashCurrency?.presentation}</b> */}
+                        <AmountInput
+                            dataObject={dataObject}
+                            itemName='documentAmount'
+                            min={0}
+                            // max={dataRow.amount}
+                            title='Nhập số tiền'
+                            description=''
+                            // renderKey={renderKey}
+                            onChange={(amount) => changeAmount(amount)}
+                        />
                     </div>
 
                 </Card>

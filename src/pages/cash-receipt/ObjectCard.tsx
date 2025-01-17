@@ -63,14 +63,19 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
             <Divider className='cash-receipt-card-divider' orientation='center' />
 
-            <div className='cash-receipt-view-item'>
-                <div className='cash-receipt-view-item-title'>Cơ sở: </div>
-                <div>{objectPresentation(formData.documentBasis)}</div>
+            <div className='cash-receipt-card-row' >
+                <div>Dạng giao dịch: </div>
+                <div>{formData.operationKind?.presentation}</div>
             </div>
 
             <div className='cash-receipt-card-row' >
                 <div>Người trả: </div>
                 <div>{formData.counterparty?.presentation}</div>
+            </div>
+
+            <div className='cash-receipt-view-item'>
+                <div className='cash-receipt-view-item-title'>Cơ sở: </div>
+                <div>{objectPresentation(formData.documentBasis)}</div>
             </div>
 
             {/* <div className='cash-receipt-card-row'>

@@ -108,7 +108,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         const { apiRequest, actions } = getXTSSlice(dataType)
 
         // dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
-        dispatch(actions.setStatus(REQUEST_STATUSES.SENDING))
+        dispatch(actions.setStatus(REQUEST_STATUSES.LOADING))
         dispatch(actions.setTemp(null))
         dispatch(apiRequest(requestData))
     })
