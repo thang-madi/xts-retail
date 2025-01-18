@@ -144,7 +144,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
     //  
 
     return (
-        <div className='employee-view-page' >
+        <div className='employee-view' >
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
             {/* <AppAvatar

@@ -128,7 +128,7 @@ ObjectListSettings
 
 .supplier-invoice-inventory-edit-card {
     margin: 0px;
-    height: 140px;
+    height: 150px;
 }
 
 .supplier-invoice-inventory-edit-card .ant-card-body {
@@ -140,7 +140,7 @@ ObjectListSettings
 
 .supplier-invoice-inventory-edit-card-picture {
     width: 120px;
-    height: 120px;
+    height: 145px;
     overflow: hidden;
 }
 
@@ -158,9 +158,8 @@ ObjectListSettings
     font-weight: bold;
 }
 
-.supplier-invoice-inventory-edit-amount {
+.supplier-invoice-inventory-edit-quantity-group {
     display: flex;
-    justify-content: space-between;
 }
 
 .supplier-invoice-inventory-edit-quantity {
@@ -171,32 +170,28 @@ ObjectListSettings
     gap: 3px;
 }
 
-@media (max-width:575px) {
+/* @media (max-width:575px) {
     .supplier-invoice-inventory-edit-quantity-title-long {
         display: none;
     }
-}
+} */
 
-@media (min-width:576px) {
+/* @media (min-width:576px) {
     .supplier-invoice-inventory-edit-quantity-title-short {
         display: none;
         margin-left: 6px;
     }
-}
+} */
 
-.supplier-invoice-inventory-edit-quantity-title-long {
+/* .supplier-invoice-inventory-edit-quantity-title-long {
     min-width: 1px;
     margin-right: 5px;
-}
+} */
 
-.supplier-invoice-inventory-edit-quantity-title-short {
+/* .supplier-invoice-inventory-edit-quantity-title-short {
     min-width: 1px;
     margin-right: 5px;
-}
-
-.supplier-invoice-inventory-edit-quantity-group {
-    display: flex;
-}
+} */
 
 .supplier-invoice-inventory-edit-uom {
     width: 100px;
@@ -208,9 +203,15 @@ ObjectListSettings
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
     gap: 3px;
 }
 
+.supplier-invoice-inventory-edit-amount {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
 
 /* SupplierInvoiceInventoryView */
 .supplier-invoice-inventory-view {
@@ -258,6 +259,10 @@ ObjectListSettings
     justify-content: space-between;
 }
 
+.supplier-invoice-inventory-view-quantity-group {
+    display: flex;
+}
+
 .supplier-invoice-inventory-view-quantity {
     display: flex;
     flex-direction: row;
@@ -266,34 +271,30 @@ ObjectListSettings
     gap: 3px;
 }
 
-@media (max-width:575px) {
+/* @media (max-width:575px) {
     .supplier-invoice-inventory-view-quantity-title-long {
         display: none;
     }
-}
+} */
 
-@media (min-width:576px) {
+/* @media (min-width:576px) {
     .supplier-invoice-inventory-view-quantity-title-short {
         display: none;
         margin-left: 6px;
     }
-}
+} */
 
-.supplier-invoice-inventory-view-quantity-title-long {
+/* .supplier-invoice-inventory-view-quantity-title-long {
     min-width: 1px;
     margin-right: 5px;
-}
+} */
 
-.supplier-invoice-inventory-view-quantity-title-short {
+/* .supplier-invoice-inventory-view-quantity-title-short {
     min-width: 1px;
     margin-right: 5px;
-}
+} */
 
-.supplier-invoice-inventory-view-quantity-group {
-    display: flex;
-}
-
-.product-row-edit-uom {
+.supplier-invoice-inventory-view-uom {
     width: 100px;
     margin-bottom: 0px;
 }
@@ -303,6 +304,7 @@ ObjectListSettings
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
     gap: 3px;
 }
 

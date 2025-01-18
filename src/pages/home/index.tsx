@@ -278,35 +278,44 @@ const HomePage: React.FC<any> = (props) => {
             </Card > */}
 
             <div className='home-page-button-group'>
+
+                <div className='home-page-button-group-title'>
+                    Hàng hóa
+                </div>
                 <Button className='home-page-button-100' onClick={() => createDocument('XTSOrder')}>
-                    Bán hàng
+                    Bán
                 </Button>
-                {/* <Button className='home-page-button-90' onClick={() => createDocument('XTSSupplierInvoice')}>
-                    Mua hàng
-                </Button> */}
-                <Button className='home-page-button-120' onClick={() => createDocument('CashReceipt')}>
-                    Thu tiền mặt
-                </Button>
-                <Button className='home-page-button-140' onClick={() => createDocument('PaymentReceipt')}>
-                    Thu chuyển khoản
+                <Button className='home-page-button-100' onClick={() => createDocument('XTSSupplierInvoice')}>
+                    Mua
                 </Button>
             </div>
 
+            <div className='home-page-button-group'>
+
+                <div className='home-page-button-group-title'>
+                    Tiền mặt
+                </div>
+                <Button className='home-page-button-100' onClick={() => createDocument('CashReceipt')}>
+                    Thu
+                </Button>
+                <Button className='home-page-button-100' onClick={() => createDocument('CashPayment')} disabled>
+                    Chi
+                </Button>
+
+            </div>
 
             <div className='home-page-button-group'>
 
-                {/* <Button className='home-page-button' onClick={() => createDocument('XTSOrder')}>
-                    Bán hàng
-                </Button> */}
-                <Button className='home-page-button-100' onClick={() => createDocument('XTSSupplierInvoice')}>
-                    Mua hàng
+                <div className='home-page-button-group-title'>
+                    Chuyển khoản
+                </div>
+                <Button className='home-page-button-100' onClick={() => createDocument('PaymentReceipt')}>
+                    Thu
                 </Button>
-                <Button className='home-page-button-120' onClick={() => createDocument('CashPayment')} disabled>
-                    Chi tiền mặt
+                <Button className='home-page-button-100' onClick={() => createDocument('PaymentExpense')} disabled>
+                    Chi
                 </Button>
-                <Button className='home-page-button-140' onClick={() => createDocument('PaymentExpense')} disabled>
-                    Chi chuyển khoản
-                </Button>
+
             </div>
 
             {/* <Card className='home-page-create-group'>

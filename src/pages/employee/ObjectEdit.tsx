@@ -279,7 +279,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
     //
 
     return (
-        <div className='employee-edit-page' >
+        <div className='employee-edit' >
 
             <AppAvatar
                 {...avatarProps}

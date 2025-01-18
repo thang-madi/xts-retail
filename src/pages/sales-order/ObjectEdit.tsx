@@ -204,6 +204,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                     _coefficient: 1,
                     _vatRateRate: productObject._vatRateRate,
                     _picture: productObject.picture,
+                    _sku: productObject.sku
                 })
                 updateRow('inventory', newDataRow)
             }
@@ -245,7 +246,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
             setSendButton(false)
         } else if (company) {
-            setSendButton(false)
+            setSendButton(true)
         } else {
             setSendButton(true)
         }

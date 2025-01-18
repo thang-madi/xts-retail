@@ -38,11 +38,11 @@ export const OrderInventoryView: React.FC<any> = (props) => {
     const { dataRow } = props
     // console.log('OrderProductRowCard.dataRow', dataRow)
 
-    const editRow = () => {
-        if (props.openObjectRow) {
-            props.openObjectRow(dataRow)
-        }
-    }
+    // const editRow = () => {
+    //     if (props.openObjectRow) {
+    //         props.openObjectRow(dataRow)
+    //     }
+    // }
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
 
@@ -126,11 +126,11 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
     /////////////////////////////////////////////
     // Change dataRow
 
-    interface _ChangeData {
-        delta?: number
-        characteristic?: XTSObjectId
-        uom?: XTSObjectId
-    }
+    // interface _ChangeData {
+    //     delta?: number
+    //     characteristic?: XTSObjectId
+    //     uom?: XTSObjectId
+    // }
 
     // const handleChangeData = (e: any, newData: _ChangeData) => {
     //     e.stopPropagation()
@@ -148,7 +148,6 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
         const { quantity = dataRow.quantity, _price = dataRow._price, characteristic = dataRow.characteristic, uom } = newData
 
-        // const newQuantity = quantity 
         if (newData.quantity === 0) {
             setOpenPopConfirm(true)
         } else {
@@ -173,7 +172,6 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
             }
 
             const newDataRow = createXTSObject('XTSOrderProductRow', newRow)
-            // console.log('newRow', newRow)
             props.updateRow(tabName, newDataRow)
         }
     }
@@ -238,13 +236,13 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
     /////////////////////////////////////////////
     // 
 
-    useEffect(() => {
-        // setQuantity(dataRow.quantity)
-        setAmount(dataRow.amount)
-        setTotal(dataRow.total)
-        setUOM(dataRow.uom)
-        setCharacteristic(dataRow.characteristic)
-    }, [dataRow])
+    // useEffect(() => {
+    //     // setQuantity(dataRow.quantity)
+    //     setAmount(dataRow.amount)
+    //     setTotal(dataRow.total)
+    //     setUOM(dataRow.uom)
+    //     setCharacteristic(dataRow.characteristic)
+    // }, [dataRow])
 
     /////////////////////////////////////////////
     // 
@@ -253,7 +251,17 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
         <div className='sales-order-inventory-edit' >
             <Card className='sales-order-inventory-edit-card'>
                 <div style={{ margin: 10, width: 22, }}>
-                    #{dataRow._lineNumber}
+                    <Popconfirm
+                        title='Xóa bỏ mặt hàng đã chọn'
+                        description='Bạn muốn thực sự xóa bỏ dòng này?'
+                        open={openPopConfirm}
+                        onConfirm={deleteConfirm}
+                        onCancel={deleteCancel}
+                        okText='Đồng ý'
+                        cancelText='Không'
+                    >
+                        #{dataRow._lineNumber}
+                    </Popconfirm>
                 </div>
 
                 <div className='sales-order-inventory-edit-card-picture'>
@@ -315,7 +323,7 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
                     <div className='sales-order-inventory-edit-price'>
 
-                        <div>Đơn giá (đồng/c.):</div>
+                        <div>Đơn giá (chiếc):</div>
                         <AmountInput
                             dataObject={dataRow}
                             itemName='_price'

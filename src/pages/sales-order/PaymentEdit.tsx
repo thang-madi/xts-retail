@@ -258,7 +258,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             min={0}
                             max={dataObject.documentAmount}
                             title='Nhập số tiền'
-                            description='Tiền mặt'
+                            description=''
                             renderKey={renderKey}
                             onChange={updatePostPayment}
                         />
@@ -282,7 +282,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             min={0}
                             max={dataObject.documentAmount}
                             title='Nhập số tiền'
-                            description='Chuyển khoản'
+                            description=''
                             renderKey={renderKey}
                             onChange={updatePostPayment}
                         />
@@ -306,7 +306,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
                             min={0}
                             max={dataObject.documentAmount}
                             title='Nhập số tiền'
-                            description='Trả sau'
+                            description=''
                             renderKey={renderKey}
                             onChange={updatePostPayment}
                         />

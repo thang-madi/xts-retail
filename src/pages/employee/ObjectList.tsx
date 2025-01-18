@@ -27,6 +27,7 @@ import ObjectListSettings from './ObjectListSettings'
 
 import { dataType } from './'
 import './index.css'
+import { XTSObject } from '../../data-objects/types-common'
 
 /////////////////////////////////////////////
 // Main component
@@ -112,18 +113,18 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
     }
 
     return (
-        <div className='employee-list-page'>
+        <div className='employee-list'>
 
             <Loader isLoading={status === REQUEST_STATUSES.LOADING} />
 
             <ObjectListSettings />
 
-            {/* <List
+            <List
                 grid={listGrid}
                 dataSource={dataList}
                 renderItem={(item: XTSObject) => (
                     <List.Item>
-                        <EmployeeCard
+                        <ObjectCard
                             item={item}
                             itemName={props.itemName}
                             choiceItemValue={props.choiceItemValue}
@@ -132,9 +133,9 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
                         />
                     </List.Item>
                 )}
-            /> */}
+            />
 
-            <VirtualGrid
+            {/* <VirtualGrid
                 dataType={dataType}
                 items={dataList}
                 renderItem={renderItem}
@@ -142,7 +143,7 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
                 listGrid={listGrid}
                 itemName={props.itemName}
                 loadMore={loadMore}
-            />
+            /> */}
 
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}

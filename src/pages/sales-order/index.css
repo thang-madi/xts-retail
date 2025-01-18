@@ -264,6 +264,10 @@ ListSettings
     font-weight: bold;
 }
 
+.sales-order-inventory-edit-quantity-group {
+    display: flex;
+}
+
 .sales-order-inventory-edit-quantity {
     display: flex;
     flex-direction: row;
@@ -272,32 +276,28 @@ ListSettings
     gap: 3px;
 }
 
-@media (max-width:575px) {
+/* @media (max-width:575px) {
     .sales-order-inventory-edit-quantity-title-long {
         display: none;
     }
-}
+} */
 
-@media (min-width:576px) {
+/* @media (min-width:576px) {
     .sales-order-inventory-edit-quantity-title-short {
         display: none;
         margin-left: 6px;
     }
-}
+} */
 
-.sales-order-inventory-edit-quantity-title-long {
+/* .sales-order-inventory-edit-quantity-title-long {
     min-width: 1px;
     margin-right: 5px;
-}
+} */
 
-.sales-order-inventory-edit-quantity-title-short {
+/* .sales-order-inventory-edit-quantity-title-short {
     min-width: 1px;
     margin-right: 5px;
-}
-
-.sales-order-inventory-edit-quantity-group {
-    display: flex;
-}
+} */
 
 .sales-order-inventory-edit-uom {
     width: 100px;

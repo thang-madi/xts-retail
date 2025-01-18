@@ -40,11 +40,11 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
 
     const currencyPresentation = dataObject?.documentCurrency?.presentation
 
-    const editRow = () => {
-        if (props.openObjectRow) {
-            props.openObjectRow(dataRow)
-        }
-    }
+    // const editRow = () => {
+    //     if (props.openObjectRow) {
+    //         props.openObjectRow(dataRow)
+    //     }
+    // }
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
 
@@ -127,16 +127,16 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
     /////////////////////////////////////////////
     // Change dataRow
 
-    interface _ChangeData {
-        delta?: number
-        characteristic?: XTSObjectId
-        uom?: XTSObjectId
-    }
+    // interface _ChangeData {
+    //     delta?: number
+    //     characteristic?: XTSObjectId
+    //     uom?: XTSObjectId
+    // }
 
-    const handleChangeData = (e: any, newData: _ChangeData) => {
-        e.stopPropagation()
-        changeRowData(newData)
-    }
+    // const handleChangeData = (e: any, newData: _ChangeData) => {
+    //     e.stopPropagation()
+    //     changeRowData(newData)
+    // }
 
     interface NewData {
         quantity?: number
@@ -147,31 +147,13 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
     const changeRowData = (newData: NewData): void => {
 
-        // const { quantity, price, characteristic, uom } = newData
         const { quantity = dataRow.quantity, _price = dataRow._price, characteristic = dataRow.characteristic, uom } = newData
+
         const newQuantity = quantity || dataRow.quantity
         if (newQuantity === 0) {
             setOpenPopConfirm(true)
         } else {
 
-            // const newRow = {
-            //     ...dataRow,
-            //     characteristic: characteristic || dataRow.characteristic,
-            //     uom: dataRow.uom,
-            //     quantity: newQuantity,
-            //     price: dataRow.price,
-            //     amount: newQuantity * dataRow.price,
-            //     total: newQuantity * dataRow.price,
-            //     _coefficient: dataRow._coefficient,
-            // }
-
-            // if (uom) {
-            //     const _uomRow = _uoms?.find((item: XTSProductUOMRow) => item.uom?.id === uom.id)
-            //     newRow._coefficient = _uomRow?.coefficient || 1
-            //     newRow.price = dataRow._price * newRow._coefficient
-            //     newRow.amount = dataRow.quantity * newRow.price
-            //     newRow.total = newRow.amount
-            // }
             let _coefficient = dataRow._coefficient
             if (uom) {
                 const _uomRow = _uoms?.find((item: XTSProductUOMRow) => item.uom?.id === uom.id)
@@ -256,13 +238,13 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
     /////////////////////////////////////////////
     // 
 
-    useEffect(() => {
-        // setQuantity(dataRow.quantity)
-        setAmount(dataRow.amount)
-        setTotal(dataRow.total)
-        setUOM(dataRow.uom)
-        setCharacteristic(dataRow.characteristic)
-    }, [dataRow])
+    // useEffect(() => {
+    //     // setQuantity(dataRow.quantity)
+    //     setAmount(dataRow.amount)
+    //     setTotal(dataRow.total)
+    //     setUOM(dataRow.uom)
+    //     setCharacteristic(dataRow.characteristic)
+    // }, [dataRow])
 
     /////////////////////////////////////////////
     // 
@@ -271,7 +253,17 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
         <div className='supplier-invoice-inventory-edit'>
             <Card className='supplier-invoice-inventory-edit-card'>
                 <div style={{ margin: 10, width: 22, }}>
-                    #{dataRow._lineNumber}
+                    <Popconfirm
+                        title='Xóa bỏ mặt hàng đã chọn'
+                        description='Bạn muốn thực sự xóa bỏ dòng này?'
+                        open={openPopConfirm}
+                        onConfirm={deleteConfirm}
+                        onCancel={deleteCancel}
+                        okText='Đồng ý'
+                        cancelText='Không'
+                    >
+                        #{dataRow._lineNumber}
+                    </Popconfirm>
                 </div>
 
                 <div className='supplier-invoice-inventory-edit-card-picture'>
@@ -286,15 +278,15 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
                 <div className='supplier-invoice-inventory-edit-card-info'>
                     <div className='product-row-edit-card-info-description'>
-                        {dataRow.product?.presentation}
+                        {`${dataRow.product?.presentation} ${dataRow._sku}`}
                     </div>
 
                     <div className='supplier-invoice-inventory-edit-quantity'>
 
-                        <div>
+                        {/* <div>
                             <div className='supplier-invoice-inventory-edit-quantity-title-short'>SL: </div>
                             <div className='supplier-invoice-inventory-edit-quantity-title-long'>Số lượng: </div>
-                        </div>
+                        </div> */}
 
                         <div className='supplier-invoice-inventory-edit-quantity-group'>
 
@@ -323,7 +315,7 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                             min={0}
                             // max={dataRow.amount}
                             title='Nhập số lượng'
-                            description='Số lượng'
+                            description=''
                             // renderKey={renderKey}
                             onChange={(quantity) => changeRowData({ quantity })}
                         />
@@ -339,7 +331,7 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                             min={0}
                             // max={dataRow.amount}
                             title='Nhập đơn giá (chiếc)'
-                            description='Đơn giá (chiếc)'
+                            description=''
                             // renderKey={renderKey}
                             onChange={(_price) => changeRowData({ _price })}
                         />

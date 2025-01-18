@@ -50,7 +50,7 @@ const ObjectPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
     const printFormParams = {
         dataType: objectId.dataType,
         id: objectId.id,
-        templateName: 'ExternalPrintForm.MinSalesOrder',
+        templateName: 'ExternalPrintForm.PF_SalesOrder',
     }
     const url = printFormURL(printFormParams)
     // console.log('printFormURL', url)

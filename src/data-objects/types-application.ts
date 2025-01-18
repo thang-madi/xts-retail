@@ -464,6 +464,7 @@ export class XTSSalesInvoiceInventory extends XTSObjectRow {
     vatAmount: number = 0
     total: number = 0
 
+    _sku: string = ''
     _coefficient: number = 0
     _price: number = 0
     _vatRateRate: number = 0
@@ -528,6 +529,7 @@ export class XTSSupplierInvoiceInventory extends XTSObjectRow {
     vatAmount: number = 0
     total: number = 0
 
+    _sku: string = ''
     _coefficient: number = 0
     _price: number = 0
     _vatRateRate: number = 0

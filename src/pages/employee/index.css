@@ -34,11 +34,22 @@
 }
 
 .employee-card .ant-card-body {
+    width: 100%;
     padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .employee-card-row {
     padding-left: 15px;
     padding-right: 10px;
     flex-grow: 1;
+}
+
+.employee-card-choice-button {
+    border-radius: 20px;
+    border-color: cornflowerblue;
+    background-color: cornflowerblue;
+    color: white;
 }

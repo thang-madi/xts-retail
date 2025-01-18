@@ -157,14 +157,27 @@
 }
 
 .home-page-button-group {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 10px;
-    padding: 0px 10px 0px 10px;
+    align-items: center;
+    margin: 0px 10px 5px 10px;
+    padding: 5px 10px 5px 10px;
     flex-grow: 1;
+    /* border: 1px lightcyan solid; */
+    border-radius: 10px;
     /* margin-right: 20px; */
     /* width: 100%; */
+}
+
+.home-page-button-group-title {
+    /* position: absolute;
+    top: -10px; */
+    width: 100px;
+    height: 100%;
+    color: cadetblue;
+    /* font-weight: bold; */
 }
 
 .home-page-button-100 {

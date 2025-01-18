@@ -150,7 +150,8 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
         // style={{ margin: '2px', height: '325px' }}
         // styles={{ body: { padding: '0px' } }}
         >
-            <div style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
+            <div className='product-card-image'
+                style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
                 <Image
                     width='100%'
                     height='auto'
@@ -162,19 +163,27 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                     }}
                 />
             </div>
-            <div style={{ minHeight: '24px', textAlign: 'left', fontWeight: 'bold', marginLeft: '10px', marginTop: '5px' }}>
+            <div className='product-card-sku'
+                style={{ minHeight: '24px', textAlign: 'left', fontWeight: 'bold', marginLeft: '10px', marginTop: '5px' }}
+            >
                 {formData?.sku}
             </div>
 
-            <div style={{ marginTop: '0px', textAlign: 'left', paddingTop: '0px', marginLeft: '10px' }}>
+            <div className='product-card-description'
+                style={{ marginTop: '0px', textAlign: 'left', paddingTop: '0px', marginLeft: '10px' }}
+            >
                 {formData?.description}
             </div>
 
-            <div style={{ fontWeight: 'bold', color: '#0000ff', marginLeft: '10px', marginTop: '3px' }}>
+            <div className='product-card-price'
+                style={{ fontWeight: 'bold', color: '#0000ff', marginLeft: '10px', marginTop: '3px' }}
+            >
                 {formatCurrency(formData?._price)}
             </div>
 
-            <div style={{ width: '100%', paddingLeft: '0px', paddingRight: '0px' }}>
+            <div className='product-card-button-group'
+                style={{ width: '100%', paddingLeft: '0px', paddingRight: '0px' }}
+            >
                 <Button
                     htmlType='button'
                     onClick={choiceItem}

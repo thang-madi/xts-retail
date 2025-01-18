@@ -411,8 +411,12 @@ export function useGetObjectList(params: UseGetObjectListParams) {
         // }
 
         let filteredObjects
-        console.log('params.objectIds', params.objectIds)
-        if (!params.objectIds) {
+        // console.log('params.objectIds', params.objectIds)
+        let objectIds: XTSObjectId[] = []
+        if (params.objectIds) {
+            objectIds = params.objectIds
+        }
+        if (objectIds.length === 0) {
             filteredObjects = objects
         } else {
             filteredObjects = objects.filter((object: XTSObject) => {
@@ -424,7 +428,7 @@ export function useGetObjectList(params: UseGetObjectListParams) {
             })
         }
 
-        console.log('filteredObjects', filteredObjects)
+        // console.log('filteredObjects', filteredObjects)
         // }
         // filteredObjects = arrayFilter([...objects], filter)
         // return arraySort(filteredObjects, sortBy)
