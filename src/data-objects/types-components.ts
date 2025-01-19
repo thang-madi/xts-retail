@@ -19,10 +19,17 @@ export interface XTSChoicePageProps {
     itemName: string
     dataType: string
     objectIds?: XTSObjectId[]
-    form: any
+    form?: any              // Xem xét bỏ đi
     // pageOwnerId: string
     choiceItemValue: (itemValue: XTSItemValue) => void
     // setPageInfo: () => void
+}
+
+export interface XTSViewPageProps {
+    modalProps: { [key: string]: any }
+    dataType: string
+    id: string
+    choiceItemValue: (itemValue: XTSItemValue) => void
 }
 
 export interface XTSSubPageProps {
@@ -57,18 +64,26 @@ export interface XTSPrintPageProps {
 /////////////////////////////////////////////
 // Object's
 
+export enum USAGE_MODES {
+    DEFAULT = 'DEFAULT',
+    ITEM_VIEW = 'ITEM_VIEW',
+    LIST_VIEW = 'LIST_VIEW',
+}
+
 export interface XTSObjectIndexProps {
     itemName?: string
     renderKey?: number
     objectIds?: XTSObjectId[]
+    id?: string
+    // usageMode?: USAGE_MODES
     choiceItemValue?: (itemValue: XTSItemValue) => void
-    // choiceItemValue?: (itemValue: XTSItemValue) => void
 }
 
 export interface XTSObjectListProps {
     pageId: string
     itemName?: string
     objectIds?: XTSObjectId[]
+    usageMode?: USAGE_MODES
     renderKey?: number
     choiceItemValue?: (itemValue: XTSItemValue) => void
     stepBack?: () => void
@@ -86,7 +101,9 @@ export interface XTSObjectViewProps {
     pageId: string
     itemValue: XTSItemValue
     itemName?: string
+    usageMode?: USAGE_MODES
     additionals?: any
+    renderKey?: number
     choiceItemValue?: (itemValue: XTSItemValue) => void
     stepBack?: () => void
 }

@@ -8,7 +8,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 // Application's
 
 import { useIndexPage, UseIndexPageParams } from '../../hooks/usePage'
-import { ITEM_VALUE_ACTIONS, XTSObjectIndexProps } from '../../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS, USAGE_MODES, XTSObjectIndexProps } from '../../data-objects/types-components'
 
 /////////////////////////////////////////////
 // Object's
@@ -38,7 +38,7 @@ export function getPages() {
 //
 const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          // 
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const { itemName } = props
 
     // const [searchParams, setSearchParams] = useSearchParams()
@@ -48,12 +48,31 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
     //     action = ITEM_VALUE_ACTIONS.EDIT
     // }
     const [searchParams, setSearchParams] = useSearchParams()
-    const id = searchParams.get('id')
+
+    // id
+    const id = searchParams.get('id') || props.id
+
+    // let action = ITEM_VALUE_ACTIONS.LIST
+    // if (!props.itemName && searchParams.get('edit')) {
+    //     action = ITEM_VALUE_ACTIONS.EDIT
+    // } else if (!props.itemName && id) {
+    //     action = ITEM_VALUE_ACTIONS.VIEW
+    // }
+
+    // action
     let action = ITEM_VALUE_ACTIONS.LIST
     if (!props.itemName && searchParams.get('edit')) {
         action = ITEM_VALUE_ACTIONS.EDIT
     } else if (!props.itemName && id) {
         action = ITEM_VALUE_ACTIONS.VIEW
+    }
+
+    // usageMode
+    let usageMode = USAGE_MODES.DEFAULT
+    if (id) {
+        usageMode = USAGE_MODES.ITEM_VIEW
+    } else if (searchParams.get('mode') === USAGE_MODES.LIST_VIEW) {
+        usageMode = USAGE_MODES.LIST_VIEW
     }
 
     const afterSave = (tempData: any): void => {
@@ -68,7 +87,7 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
         // reopen: props.reopen,
         choiceItemValue: props.choiceItemValue,
         afterSave,                   // Tạm thời chưa khả dụng, cần xem xét lại
-        navigate,
+        // navigate,
     }
     const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)
 
@@ -90,6 +109,8 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
                     pageId={pageId}
                     itemValue={itemValue}
                     itemName={props.itemName}
+                    usageMode={usageMode}
+                    renderKey={props.renderKey}
                     choiceItemValue={choiceItemValue}
                     stepBack={stepBack}
                 />
@@ -132,4 +153,4 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
 /////////////////////////////////////////////
 // Export
 
-export default OrdersPage                                   // Orders
+export default OrdersPage                                   // 

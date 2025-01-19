@@ -36,7 +36,7 @@ export function getPages() {
 // OK
 const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const { itemName } = props
 
     // const [searchParams, setSearchParams] = useSearchParams()
@@ -65,7 +65,7 @@ const StructuralUnitsPage: React.FC<XTSObjectIndexProps> = (props) => {      //
         action,
         choiceItemValue: props.choiceItemValue,
         afterSave,                      // Tạm thời chưa khả dụng, cần xem xét lại
-        navigate,
+        // navigate,
     }
     const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)
 

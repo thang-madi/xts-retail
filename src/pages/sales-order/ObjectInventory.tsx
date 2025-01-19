@@ -28,6 +28,9 @@ import AmountInput from '../../components/AmountInput'
 // Object's
 
 import './index.css'
+import ChoicePage from '../../hocs/ChoicePage'
+import { XTSItemValue } from '../../data-objects/types-form'
+import ViewPage from '../../hocs/ViewPage'
 
 /////////////////////////////////////////////
 // Main components
@@ -35,7 +38,7 @@ import './index.css'
 // OK
 export const OrderInventoryView: React.FC<any> = (props) => {
 
-    const { dataRow } = props
+    const { dataRow, setPageInfo } = props
     // console.log('OrderProductRowCard.dataRow', dataRow)
 
     // const editRow = () => {
@@ -45,6 +48,19 @@ export const OrderInventoryView: React.FC<any> = (props) => {
     // }
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
+
+    const viewProduct = () => {
+        setChoiceOpen(true)
+    }
+
+    const choiceItemValue = (itemValue: XTSItemValue): void => {
+        setPageInfo()
+        setChoiceOpen(false)
+        // const { itemName } = itemValue
+    }
+
+    // State dùng để mở và đóng Modal ChoicePage Products
+    const [choiceOpen, setChoiceOpen] = useState(false)
 
     return (
         <Card className='sales-order-inventory-view-card' >
@@ -61,6 +77,8 @@ export const OrderInventoryView: React.FC<any> = (props) => {
                         height='auto'
                         src={fileStorageURL + dataRow._picture?.presentation}
                         fallback=''
+                        preview={false}
+                        onClick={viewProduct}
                     />
                 </div>
 
@@ -75,6 +93,21 @@ export const OrderInventoryView: React.FC<any> = (props) => {
                 </div>
 
             </div >
+
+            <ViewPage
+                modalProps={{
+                    centered: true,
+                    title: 'Xem sản phẩm',
+                    open: choiceOpen,
+                    footer: []
+                }}
+                // itemName='product'
+                dataType='XTSProduct'
+                id={dataRow.product.id}
+                // form={form}                             // Xem xét bỏ đi
+                choiceItemValue={choiceItemValue}
+            />
+
         </Card >
     )
 }

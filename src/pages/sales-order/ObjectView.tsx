@@ -14,7 +14,7 @@ import dayjs from 'dayjs'
 
 import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
 import { BottomBar } from '../../components/ContextMenu'
-import { ITEM_VALUE_ACTIONS, XTSObjectViewProps } from '../../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS, USAGE_MODES, XTSObjectViewProps } from '../../data-objects/types-components'
 import { SALES_ORDER_STATES } from './enums'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { createXTSObject, getXTSEnumItem, objectPresentation } from '../../data-objects/common-use'
@@ -44,7 +44,7 @@ import { OrderInventoryView } from './ObjectInventory'
 
 const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
-    const { itemValue, pageId } = props
+    const { itemValue, pageId, usageMode } = props
 
     const dispatch = useDispatch()
 
@@ -359,6 +359,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
                         <OrderInventoryView
                             dataRow={dataRow}
+                            setPageInfo={setPageInfo}
                         />
                     </List.Item>
                 )}
@@ -392,14 +393,14 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
-                editItem={{ onClick: editItem, visible: editButton }}
+                editItem={{ onClick: editItem, visible: editButton && usageMode !== USAGE_MODES.ITEM_VIEW }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
                 relatedDocuments={{ onClick: viewRelatedItems }}
                 refresh={{ onClick: refreshObject, }}
                 action1={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: paymentButton }}
                 action2={{ onClick: printItem, title: 'In đơn', icon: <ContainerOutlined className='context-menu-button-icon' />, visible: printButton }}
                 action3={{ onClick: doDelivered, title: 'Giao hàng', icon: <TruckOutlined className='context-menu-button-icon' />, visible: deliveredButton }}
-                action4={{ onClick: (copyLink), icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link' }}
+                action4={{ onClick: copyLink, icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link' }}
             />
 
         </div >

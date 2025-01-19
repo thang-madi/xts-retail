@@ -17,7 +17,7 @@ import { RootState } from '../data-storage'
 import { compareFunction, compareXTSValues, createXTSObject, isEmptyObjectId } from '../data-objects/common-use'
 import { XTSObject, XTSObjectId, XTSRecordFilter, XTSRecordKey } from '../data-objects/types-common'
 import { XTSItemValue } from '../data-objects/types-form'
-import { ITEM_VALUE_ACTIONS } from '../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS, USAGE_MODES } from '../data-objects/types-components'
 import { requestData_DownloadObjectList, requestData_GetObject, requestData_GetObjectList, requestData_GetRecordSet } from '../data-objects/request-data'
 import { arrayFilter, arraySort, generateUUID } from '../commons/common-use'
 import { fillDefaultValues } from '../data-objects/default-values'
@@ -114,9 +114,10 @@ export interface UseIndexPageParams {
     itemName?: string
     // reopen?: boolean
     action?: ITEM_VALUE_ACTIONS
+    usageMode?: USAGE_MODES
     choiceItemValue?: (itemValue: XTSItemValue) => void
     afterSave?: (tempData: any) => void
-    navigate: NavigateFunction
+    // navigate: NavigateFunction
 }
 
 /////////////////////////////////////////////
@@ -790,22 +791,24 @@ export function useStepBack(params: UseStepBackParams): any {
 // OK
 export function useIndexPage(params: UseIndexPageParams) {
 
-    const { dataType, id, itemName, action, afterSave, navigate } = params
+    const { dataType, id, itemName, action, afterSave, usageMode } = params
 
+    const navigate = useNavigate()
     const { user } = useSelector((state: RootState) => state.session)
     // const dispatch = useDispatch()
 
     const stepBack = () => {
         const newItemValue = createItemValue(itemValue)
-        // if (itemValue.action === ITEM_VALUE_ACTIONS.PRINT) {
-        //     newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
-        //     setItemValue(newItemValue)
-        // } else if (itemValue.action === ITEM_VALUE_ACTIONS.GET_RELATED) {
-        //     newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
-        //     setItemValue(newItemValue)
         if (itemValue.action === ITEM_VALUE_ACTIONS.VIEW) {
-            newItemValue.action = ITEM_VALUE_ACTIONS.LIST
-            setItemValue(newItemValue)
+            if (usageMode === USAGE_MODES.ITEM_VIEW) {
+                newItemValue.action = ITEM_VALUE_ACTIONS.ESCAPE
+                if (params.choiceItemValue) {
+                    params.choiceItemValue(newItemValue)
+                }
+            } else {
+                newItemValue.action = ITEM_VALUE_ACTIONS.LIST
+                setItemValue(newItemValue)
+            }
         } else if (itemValue.action === ITEM_VALUE_ACTIONS.EDIT) {
             if (itemValue.id) {
                 newItemValue.action = ITEM_VALUE_ACTIONS.VIEW
@@ -815,16 +818,11 @@ export function useIndexPage(params: UseIndexPageParams) {
                 setItemValue(newItemValue)
             }
         } else if (itemValue.itemName) {
-            // Đóng ChoiceModal
+            // Đóng ChoicePage
             newItemValue.action = ITEM_VALUE_ACTIONS.ESCAPE
             choiceItemValue(newItemValue)
-            // } else if (itemValue.action === ITEM_VALUE_ACTIONS.LIST) {
-            //     // newItemValue.action = ITEM_VALUE_ACTIONS.ESCAPE
-            //     console.log('Go home')
         } else if (user) {
             navigate('/home')
-            // console.log('Go home')
-            // navigate(-1)
         } else {
             navigate('/about')
         }
@@ -838,13 +836,9 @@ export function useIndexPage(params: UseIndexPageParams) {
             setItemValue(value)
         } else if (value.action === ITEM_VALUE_ACTIONS.EDIT) {
             setItemValue(value)
-            // } else if (value.action === ITEM_VALUE_ACTIONS.PRINT) {
-            //     setItemValue(value)
-            // } else if (value.action === ITEM_VALUE_ACTIONS.GET_RELATED) {
-            //     setItemValue(value)
         } else if (params.choiceItemValue) {
             params.choiceItemValue(value)
-            itemValue.action = ITEM_VALUE_ACTIONS.LIST
+            itemValue.action = ITEM_VALUE_ACTIONS.LIST          // Xem lại xem có cần ko?
         }
     }
 

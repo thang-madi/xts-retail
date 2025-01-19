@@ -10,7 +10,7 @@ import { Drawer, Modal } from 'antd'
 // Application's
 
 // import { actions } from '../data-storage/slice-current'
-import { ITEM_VALUE_ACTIONS, XTSChoicePageProps } from '../../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS, XTSChoicePageProps, XTSViewPageProps } from '../../data-objects/types-components'
 import { XTSItemValue } from '../../data-objects/types-form'
 import { createXTSObject } from '../../data-objects/common-use'
 
@@ -37,41 +37,41 @@ import { getIndexPage } from '../pages'
 /////////////////////////////////////////////
 // Main's
 
-// // OK
-// function getObjectPage(dataType: string): React.FC<any> {
+// OK
+function getObjectPage(dataType: string): React.FC<any> {
 
-//     const mapPages: { [key: string]: React.FC } = {
-//         XTSCounterparty: CustomersPage,
-//         XTSOrder: SalesOrdersPage,
-//         XTSSalesInvoice: SalesInvoicesPage,
-//         XTSSupplierInvoice: SupplierInvoicesPage,
-//         XTSCashReceipt: CashReceiptsPage,
-//         XTSPaymentReceipt: PaymentReceiptsPage,
-//         XTSProduct: ProductsPage,
-//         XTSUOMClassifier: UOMClassifierPage,
-//         XTSEmployee: EmployeesPage,
-//         XTSStructuralUnit: StructuralUnitsPage,
-//         XTSCurrency: CurrenciesPage,
-//         XTSPriceRegistration: PriceRegistrationsPage,
+    const mapPages: { [key: string]: React.FC } = {
+        XTSCounterparty: CustomersPage,
+        XTSOrder: SalesOrdersPage,
+        XTSSalesInvoice: SalesInvoicesPage,
+        XTSSupplierInvoice: SupplierInvoicesPage,
+        XTSCashReceipt: CashReceiptsPage,
+        XTSPaymentReceipt: PaymentReceiptsPage,
+        XTSProduct: ProductsPage,
+        XTSUOMClassifier: UOMClassifierPage,
+        XTSEmployee: EmployeesPage,
+        XTSStructuralUnit: StructuralUnitsPage,
+        XTSCurrency: CurrenciesPage,
+        XTSPriceRegistration: PriceRegistrationsPage,
 
-//         // XTSCashReceipt: CashReceiptPage,
-//         // XTSPaymentReceipt: PaymentReceiptPage,
-//         // XTSSalesInvoice: SalesInvoicePage,
-//         // XTSSupplierInvoice: SupplierInvoicePage,
+        // XTSCashReceipt: CashReceiptPage,
+        // XTSPaymentReceipt: PaymentReceiptPage,
+        // XTSSalesInvoice: SalesInvoicePage,
+        // XTSSupplierInvoice: SupplierInvoicePage,
 
-//         // Thêm các trang nữa
-//         // ...
-//     }
+        // Thêm các trang nữa
+        // ...
+    }
 
-//     const result = mapPages[dataType] || <></>
+    const result = mapPages[dataType] || <></>
 
-//     return result
-// }
+    return result
+}
 
 // OK
-const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
+const ViewPage: React.FC<XTSViewPageProps> = (props) => {
 
-    const { modalProps, itemName, dataType, objectIds } = props
+    const { modalProps, dataType, id } = props
     const [renderKey, setRenderKey] = useState(0)
     // console.log('ChoicePage.props', props)
 
@@ -81,10 +81,11 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
     // Hàm sự kiện để xử lý kết quả chọn giá trị ChoicePage vào Attribute của Form
     const choiceItemValue = (itemValue: XTSItemValue) => {
         props.choiceItemValue(itemValue)
+        // closeChoicePage()
     }
 
-    const closeChoicePage = () => {
-        const itemValue = createXTSObject('XTSItemValue', { itemName, dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
+    const closeViewPage = () => {
+        const itemValue = createXTSObject('XTSItemValue', { dataType, action: ITEM_VALUE_ACTIONS.ESCAPE })
         props.choiceItemValue(itemValue)
     }
 
@@ -105,13 +106,12 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
             className='modal-page'
             {...modalProps}
             width='100%'
-            onClose={closeChoicePage}
+            onClose={closeViewPage}
         >
             <div className='modal-page-index-page' >
                 <ObjectIndexPage
-                    itemName={itemName}
+                    id={id}
                     choiceItemValue={choiceItemValue}
-                    objectIds={objectIds}
                     renderKey={renderKey}
                 />
             </div>
@@ -119,4 +119,4 @@ const ChoicePage: React.FC<XTSChoicePageProps> = (props) => {
     )
 }
 
-export default ChoicePage
+export default ViewPage

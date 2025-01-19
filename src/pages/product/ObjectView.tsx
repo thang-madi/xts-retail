@@ -14,7 +14,7 @@ import { ArrowLeftOutlined, CopyOutlined, DownloadOutlined, EditOutlined, FileZi
 import { useGetDataObject, UseGetDataObjectParams, useOpenPage, UseOpenPageParams } from '../../hooks/usePage'
 import { copyToClipboard, downloadAndZipImages, downloadFile, formatCurrency } from '../../commons/common-use'
 import { BottomBar, } from '../../components/ContextMenu'
-import { ITEM_VALUE_ACTIONS, XTSMediaItem, XTSObjectViewProps } from '../../data-objects/types-components'
+import { ITEM_VALUE_ACTIONS, USAGE_MODES, XTSMediaItem, XTSObjectViewProps } from '../../data-objects/types-components'
 import { REQUEST_STATUSES } from '../../commons/enums'
 import { createXTSObject } from '../../data-objects/common-use'
 import { RootState } from '../../data-storage'
@@ -35,7 +35,7 @@ import './index.css'
 // OK
 const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
-    const { itemValue, pageId } = props
+    const { itemValue, pageId, usageMode } = props
 
     const object_id = itemValue.id
     // const dataType = 'XTSProduct'
@@ -58,7 +58,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
         pageId,
         pageName: dataType,
         pageTitle: (dataObject?.description) || '',
-        // renderKey: 0,
+        renderKey: props.renderKey
     }
     useOpenPage(openPageParams)
 
@@ -239,13 +239,13 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             <BottomBar
                 stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
                 refresh={{ onClick: refreshObject, }}
-                editItem={{ onClick: editItem, visible: (user) }}
+                editItem={{ onClick: editItem, visible: (user) && usageMode !== USAGE_MODES.ITEM_VIEW }}
                 choiceItem={{ onClick: choiceItem, visible: Boolean(props.itemName) }}
                 action1={{
-                    onClick: (handleAddToCart), icon: <ShoppingCartOutlined />, title: 'Vào giỏ', visible: Boolean(!props.itemName && !user)
+                    onClick: handleAddToCart, icon: <ShoppingCartOutlined />, title: 'Vào giỏ', visible: Boolean(!props.itemName && !user && usageMode !== USAGE_MODES.ITEM_VIEW)
                 }}
                 action2={{
-                    onClick: (copyLink), icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link', visible: Boolean(!props.itemName && user)
+                    onClick: copyLink, icon: <LinkOutlined className='context-menu-button-icon' />, title: 'Link', visible: Boolean(!props.itemName)
                 }}
             />
 

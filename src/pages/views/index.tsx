@@ -20,6 +20,7 @@ import { XTSItemValue } from '../../data-objects/types-form'
 import { generateUUID } from '../../commons/common-use'
 import { createXTSObject } from '../../data-objects/common-use'
 import { useStepBack } from '../../hooks/usePage'
+import { getIndexPage } from '../../hocs/pages'
 
 /////////////////////////////////////////////
 // Main component
@@ -85,6 +86,34 @@ export function useViewPage(params: UseViewPageParams) {
     return { itemValue, pageId, choiceItemValue, stepBack }
 }
 
+// // OK
+// const ViewPage: React.FC<ViewPageProps> = () => {
+
+//     const [searchParams, setSearchParams] = useSearchParams()
+//     const id = searchParams.get('id') || ''
+//     const dataType = searchParams.get('type') || ''
+
+//     const params = {
+//         id,
+//         dataType,
+//     }
+//     const { itemValue, pageId, stepBack, choiceItemValue } = useViewPage(params)
+
+//     /////////////////////////////////////////////
+//     // 
+
+//     const _ViewPage = getViewPage(itemValue.dataType)
+
+//     return (
+//         <_ViewPage
+//             pageId={pageId}
+//             itemValue={itemValue}
+//             choiceItemValue={choiceItemValue}
+//             stepBack={stepBack}
+//         />
+//     )
+// }
+
 // OK
 const ViewPage: React.FC<ViewPageProps> = () => {
 
@@ -101,14 +130,14 @@ const ViewPage: React.FC<ViewPageProps> = () => {
     /////////////////////////////////////////////
     // 
 
-    const _ViewPage = getViewPage(itemValue.dataType)
+    // const _ViewPage = getViewPage(itemValue.dataType)
+    const ObjectIndexPage = getIndexPage(dataType)
 
     return (
-        <_ViewPage
-            pageId={pageId}
-            itemValue={itemValue}
-            choiceItemValue={choiceItemValue}
-            stepBack={stepBack}
+        <ObjectIndexPage
+            id={id}
+        // choiceItemValue={choiceItemValue}
+        // renderKey={renderKey}
         />
     )
 }
