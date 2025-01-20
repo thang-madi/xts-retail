@@ -112,7 +112,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             const printFormParams = {
                 dataType: itemValue.dataType,
                 id: itemValue.id,
-                templateName: 'ExternalPrintForm.MinSupplierInvoice',
+                templateName: 'ExternalPrintForm.PF_SupplierInvoice',
             }
             const url = printFormURL(printFormParams)
             TWA.openLink(url)

@@ -28,6 +28,8 @@ import AmountInput from '../../components/AmountInput'
 // Object's
 
 import './index.css'
+import ViewPage from '../../hocs/ViewPage'
+import { XTSItemValue } from '../../data-objects/types-form'
 
 /////////////////////////////////////////////
 // Main components
@@ -35,7 +37,7 @@ import './index.css'
 // OK
 export const ObjectInventoryView: React.FC<any> = (props) => {
 
-    const { dataRow } = props
+    const { dataRow, setPageInfo } = props
     // console.log('OrderProductRowCard.dataRow', dataRow)
 
     // const editRow = () => {
@@ -46,9 +48,20 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
 
     const fileStorageURL = useSelector((state: RootState) => state.session.fileStorageURL)
 
+    const viewProduct = () => {
+        setChoiceOpen(true)
+    }
+
+    const choiceItemValue = (itemValue: XTSItemValue): void => {
+        setPageInfo()
+        setChoiceOpen(false)
+        // const { itemName } = itemValue
+    }
+
+    const [choiceOpen, setChoiceOpen] = useState(false)
+
     return (
         <Card className='sales-invoice-inventory-view-card' >
-            {/* <div className='sales-invoice-inventory-view-card' > */}
 
             <div style={{ margin: 10, width: 22, }}>
                 #{dataRow._lineNumber}
@@ -61,6 +74,8 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
                     height='auto'
                     src={fileStorageURL + dataRow._picture?.presentation}
                     fallback=''
+                    preview={false}
+                    onClick={viewProduct}
                 />
             </div>
 
@@ -74,7 +89,19 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
                 </div>
             </div>
 
-            {/* </div > */}
+            <ViewPage
+                modalProps={{
+                    centered: true,
+                    title: 'Xem sản phẩm',
+                    open: choiceOpen,
+                    footer: []
+                }}
+                // itemName='product'
+                dataType='XTSProduct'
+                id={dataRow.product.id}
+                choiceItemValue={choiceItemValue}
+            />
+
         </Card >
     )
 }

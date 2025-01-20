@@ -104,7 +104,6 @@ export const OrderInventoryView: React.FC<any> = (props) => {
                 // itemName='product'
                 dataType='XTSProduct'
                 id={dataRow.product.id}
-                // form={form}                             // Xem xét bỏ đi
                 choiceItemValue={choiceItemValue}
             />
 

@@ -42,6 +42,7 @@ import RelatedPage from '../../hocs/RelatedPage'
 import { dataType } from './'
 
 import './index.css'
+import { getPrintFormURL } from '../sales-order/ObjectPrint'
 
 /////////////////////////////////////////////
 // Main component
@@ -107,12 +108,13 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
 
     const printItem = () => {
         if (TWA.platform === 'ios') {
-            const printFormParams = {
-                dataType: itemValue.dataType,
-                id: itemValue.id,
-                templateName: 'ExternalPrintForm.MinSalesInvoice',
-            }
-            const url = printFormURL(printFormParams)
+            const url = getPrintFormURL(itemValue.id)
+            // const printFormParams = {
+            //     dataType: itemValue.dataType,
+            //     id: itemValue.id,
+            //     templateName: 'ExternalPrintForm.PF_SalesInvoice',
+            // }
+            // const url = printFormURL(printFormParams)
             // console.log('TWA.platform', TWA.platform)
             TWA.openLink(url)
         } else {
@@ -269,6 +271,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                     <List.Item style={{ padding: '0px', marginBottom: '3px' }}>
                         <ObjectInventoryView
                             dataRow={dataRow}
+                            setPageInfo={setPageInfo}
                         />
                     </List.Item>
                 )}

@@ -49,10 +49,12 @@ const ProductsPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     // action
     let action = ITEM_VALUE_ACTIONS.LIST
-    if (!props.itemName && searchParams.get('edit')) {
-        action = ITEM_VALUE_ACTIONS.EDIT
-    } else if (!props.itemName && id) {
-        action = ITEM_VALUE_ACTIONS.VIEW
+    if (!props.itemName) {
+        if (searchParams.get('edit') && dataType === searchParams.get('type')) {
+            action = ITEM_VALUE_ACTIONS.EDIT
+        } else if (id) {
+            action = ITEM_VALUE_ACTIONS.VIEW
+        }
     }
 
     // usageMode

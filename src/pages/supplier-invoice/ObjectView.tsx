@@ -279,6 +279,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
                         <ObjectInventoryView
                             dataRow={dataRow}
                             dataObject={dataObject}
+                            setPageInfo={setPageInfo}
                         />
                     </List.Item>
                 )}

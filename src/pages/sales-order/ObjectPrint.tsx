@@ -28,9 +28,19 @@ import { PDFViewer, printFormURL } from '../../components/PDFViewer'
 import { downloadFile } from '../../commons/common-print'
 import { dataType } from './'
 import './index.css'
+import { XTSObjectId } from '../../data-objects/types-common'
 
 /////////////////////////////////////////////
 // Main component
+
+export function getPrintFormURL(id: string): string {
+    const printFormParams = {
+        dataType,
+        id: id,
+        templateName: 'ExternalPrintForm.PF_SalesOrder',
+    }
+    return printFormURL(printFormParams)
+}
 
 const ObjectPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
 
@@ -47,12 +57,7 @@ const ObjectPrintPage: React.FC<XTSObjectPrintProps> = (props) => {
     /////////////////////////////////////////
     // Print 
 
-    const printFormParams = {
-        dataType: objectId.dataType,
-        id: objectId.id,
-        templateName: 'ExternalPrintForm.PF_SalesOrder',
-    }
-    const url = printFormURL(printFormParams)
+    const url = getPrintFormURL(objectId.id)
     // console.log('printFormURL', url)
 
     // useEffect(() => {
