@@ -147,11 +147,8 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
         <Card
             className='product-card'
             onClick={clickItem}
-        // style={{ margin: '2px', height: '325px' }}
-        // styles={{ body: { padding: '0px' } }}
         >
-            <div className='product-card-image'
-                style={{ width: '100%', height: '200px', overflow: 'hidden' }}>
+            <div className='product-card-image' >
                 <Image
                     width='100%'
                     height='auto'
@@ -163,54 +160,38 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                     }}
                 />
             </div>
-            <div className='product-card-sku'
-                style={{ minHeight: '24px', textAlign: 'left', fontWeight: 'bold', marginLeft: '10px', marginTop: '5px' }}
-            >
+            <div className='product-card-sku' >
                 {formData?.sku}
             </div>
 
-            <div className='product-card-description'
-                style={{ marginTop: '0px', textAlign: 'left', paddingTop: '0px', marginLeft: '10px' }}
-            >
+            <div className='product-card-description' >
                 {formData?.description}
             </div>
 
-            <div className='product-card-price'
-                style={{ fontWeight: 'bold', color: '#0000ff', marginLeft: '10px', marginTop: '3px' }}
-            >
+            <div className='product-card-price' >
                 {formatCurrency(formData?._price)}
             </div>
 
-            <div className='product-card-button-group'
-                style={{ width: '100%', paddingLeft: '0px', paddingRight: '0px' }}
-            >
+            <div className='product-card-button-group' >
                 <Button
+                    className='product-card-button-choice'
                     htmlType='button'
                     onClick={choiceItem}
                     style={{
                         display: (props.itemName) && 'block' || 'none',
-                        width: '90%',
-                        marginLeft: '5%',
-                        marginRight: '5%',
                     }}
                 >
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ flexGrow: 1, textAlign: 'center' }}>Chọn</span><SelectOutlined />
-                    </div>
+                    Chọn
                 </Button>
-                <Button
+                <Button className='product-card-button-cart'
                     htmlType='button'
                     onClick={addToCart}
+                    icon={<ShoppingCartOutlined />}
                     style={{
                         display: (!props.itemName && !user) && 'block' || 'none',
-                        width: '90%',
-                        marginLeft: '5%',
-                        marginRight: '5%',
                     }}
                 >
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ flexGrow: 1, textAlign: 'center' }}>Vào giỏ hàng</span><ShoppingCartOutlined />
-                    </div>
+                    Vào giỏ hàng
                 </Button>
             </div>
 

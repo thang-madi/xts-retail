@@ -185,7 +185,7 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             </div>
 
             <div className='product-view-description' >
-                {dataObject?.description}
+                {dataObject?.description} {(dataObject.sku) && `(${dataObject?.sku})` || ''}
             </div>
 
             <div className='product-view-uom' >

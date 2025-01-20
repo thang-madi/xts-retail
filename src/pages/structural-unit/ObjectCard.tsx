@@ -97,10 +97,14 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                 </pre>
 
                 <Button
-                    className={(props.itemName) && 'structural-unit-item-card-button-choice' || 'structural-unit-item-card-button-choice-hidden'}
+                    className='structural-unit-item-card-button-choice'
+                    style={{ display: (props.itemName) && 'block' || 'none' }}
                     htmlType='button'
                     onClick={choiceItem}
-                    icon={<SelectOutlined />} />
+                // icon={<SelectOutlined />} />
+                >
+                    Chọn
+                </Button>
             </div>
 
         </Card >

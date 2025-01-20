@@ -113,8 +113,8 @@ export interface UseIndexPageParams {
     id?: string
     itemName?: string
     // reopen?: boolean
-    action?: ITEM_VALUE_ACTIONS
-    usageMode?: USAGE_MODES
+    // action?: ITEM_VALUE_ACTIONS
+    // usageMode?: USAGE_MODES
     choiceItemValue?: (itemValue: XTSItemValue) => void
     afterSave?: (tempData: any) => void
     // navigate: NavigateFunction
@@ -791,11 +791,34 @@ export function useStepBack(params: UseStepBackParams): any {
 // OK
 export function useIndexPage(params: UseIndexPageParams) {
 
-    const { dataType, id, itemName, action, afterSave, usageMode } = params
+    const { dataType, itemName, afterSave } = params
+
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const navigate = useNavigate()
     const { user } = useSelector((state: RootState) => state.session)
     // const dispatch = useDispatch()
+
+    // id
+    const id = searchParams.get('id') || params.id
+
+    // action
+    let action = ITEM_VALUE_ACTIONS.LIST
+    if (!params.itemName) {
+        if (searchParams.get('edit') && dataType === searchParams.get('type')) {
+            action = ITEM_VALUE_ACTIONS.EDIT
+        } else if (id) {
+            action = ITEM_VALUE_ACTIONS.VIEW
+        }
+    }
+
+    // usageMode
+    let usageMode = USAGE_MODES.DEFAULT
+    if (id) {
+        usageMode = USAGE_MODES.ITEM_VIEW
+    } else if (searchParams.get('mode') === USAGE_MODES.LIST_VIEW) {
+        usageMode = USAGE_MODES.LIST_VIEW
+    }
 
     const stepBack = () => {
         const newItemValue = createItemValue(itemValue)
@@ -855,7 +878,7 @@ export function useIndexPage(params: UseIndexPageParams) {
 
     const [itemValue, setItemValue] = useState<XTSItemValue>(createItemValue({ itemName, dataType, id, action }))
 
-    return { itemValue, pageId, choiceItemValue, stepBack: setPageBackAction }
+    return { itemValue, pageId, usageMode, choiceItemValue, stepBack: setPageBackAction }
 }
 
 /////////////////////////////////////////////

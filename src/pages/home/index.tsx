@@ -153,11 +153,11 @@ const HomePage: React.FC<any> = (props) => {
 
         switch (dataType) {
             case 'XTSOrder':
-                navigate('/sales-orders?edit=true')
+                navigate('/sales-orders?edit=true&type=XTSOrder')
                 break
 
             case 'XTSSupplierInvoice':
-                navigate('/supplier-invoices?edit=true')
+                navigate('/supplier-invoices?edit=true&type=XTSSupplierInvoice')
                 break
 
             case 'CashReceipt':

@@ -61,10 +61,11 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
                 </div>
                 <Button
                     className='uom-classifier-card-button'
+                    style={{ display: (props.itemName) && 'block' || 'none' }}
                     onClick={choiceItem}
-                    icon={<SelectOutlined />}
+                // icon={<SelectOutlined />}
                 >
-                    {(props.itemName) && 'Chọn' || ''}
+                    Chọn
                 </Button>
             </div>
         </Card>

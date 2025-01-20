@@ -356,4 +356,8 @@ ObjectListSettings
 
 .price-registration-card-choice-button {
     padding: 0px;
+    border-radius: 20px;
+    border-color: cornflowerblue;
+    background-color: cornflowerblue;
+    color: white;
 }

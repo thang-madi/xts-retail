@@ -359,4 +359,9 @@ ObjectListSettings
 
 .supplier-invoice-card-choice-button {
     padding: 0px;
+    /* width: 80px; */
+    border-radius: 20px;
+    border-color: cornflowerblue;
+    background-color: cornflowerblue;
+    color: white;
 }

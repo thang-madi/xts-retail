@@ -66,14 +66,14 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
             <Divider className='supplier-invoice-card-divider' orientation='center' />
 
-            <div className='supplier-invoice-view-item'>
-                <div className='supplier-invoice-view-item-title'>Cơ sở: </div>
-                <div>{objectPresentation(formData.docOrder)}</div>
-            </div>
-
             <div className='supplier-invoice-card-row' >
                 <div>{labels.counterpartyLabel}: </div>
                 <div>{formData.counterparty?.presentation}</div>
+            </div>
+
+            <div className='supplier-invoice-view-item'>
+                <div className='supplier-invoice-view-item-title'>Cơ sở: </div>
+                <div>{objectPresentation(formData.docOrder)}</div>
             </div>
 
             {/* <div className='supplier-invoice-card-row'>
@@ -95,9 +95,9 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
             <Button
                 className='supplier-invoice-card-choice-button'
+                style={{ display: (props.itemName) && 'block' || 'none' }}
                 htmlType='button'
                 onClick={choiceItem}
-                style={{ display: (props.itemName) && 'block' || 'none' }}
             >
                 <SelectOutlined />Chọn
             </Button>

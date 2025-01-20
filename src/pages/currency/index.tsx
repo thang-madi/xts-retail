@@ -45,14 +45,14 @@ const CurrenciesPage: React.FC<XTSObjectIndexProps> = (props) => {      //
     // if (searchParams.get('edit')) {
     //     action = ITEM_VALUE_ACTIONS.EDIT
     // }
-    const [searchParams, setSearchParams] = useSearchParams()
-    const id = searchParams.get('id')
-    let action = ITEM_VALUE_ACTIONS.LIST
-    if (!props.itemName && searchParams.get('edit')) {
-        action = ITEM_VALUE_ACTIONS.EDIT
-    } else if (!props.itemName && id) {
-        action = ITEM_VALUE_ACTIONS.VIEW
-    }
+    // const [searchParams, setSearchParams] = useSearchParams()
+    // const id = searchParams.get('id')
+    // let action = ITEM_VALUE_ACTIONS.LIST
+    // if (!props.itemName && searchParams.get('edit')) {
+    //     action = ITEM_VALUE_ACTIONS.EDIT
+    // } else if (!props.itemName && id) {
+    //     action = ITEM_VALUE_ACTIONS.VIEW
+    // }
 
     const afterSave = (tempData: any): void => {
 
@@ -60,9 +60,9 @@ const CurrenciesPage: React.FC<XTSObjectIndexProps> = (props) => {      //
 
     const params = {
         dataType,
-        id: id || undefined,
+        id: props.id,
         itemName,
-        action,
+        // action,
         choiceItemValue: props.choiceItemValue,
         afterSave,                      // Tạm thời chưa khả dụng, cần xem xét lại
         navigate,

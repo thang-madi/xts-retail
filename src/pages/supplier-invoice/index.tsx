@@ -61,9 +61,9 @@ const SupplierInvoicesPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const params: UseIndexPageParams = {
         dataType,
-        id: id || undefined,
+        id: props.id,
         itemName,
-        action,
+        // action,
         // reopen: props.reopen,
         choiceItemValue: props.choiceItemValue,
         afterSave,                   // Tạm thời chưa khả dụng, cần xem xét lại

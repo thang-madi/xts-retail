@@ -32,8 +32,12 @@
 
 /* .uom-classifier-card-button {} */
 
-.uom-classifier-card-button:empty {
-    display: none;
+.uom-classifier-card-button {
+    /* display: none; */
+    border-radius: 20px;
+    border-color: cornflowerblue;
+    background-color: cornflowerblue;
+    color: white;
 }
 
 /* ItemCard */

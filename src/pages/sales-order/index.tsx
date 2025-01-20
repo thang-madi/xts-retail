@@ -47,11 +47,12 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
     // if (searchParams.get('edit') === 'true') {
     //     action = ITEM_VALUE_ACTIONS.EDIT
     // }
-    const [searchParams, setSearchParams] = useSearchParams()
+    // const [searchParams, setSearchParams] = useSearchParams()
 
-    // id
-    const id = searchParams.get('id') || props.id
+    // // id
+    // const id = searchParams.get('id') || props.id
 
+    // // action
     // let action = ITEM_VALUE_ACTIONS.LIST
     // if (!props.itemName && searchParams.get('edit')) {
     //     action = ITEM_VALUE_ACTIONS.EDIT
@@ -59,21 +60,13 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
     //     action = ITEM_VALUE_ACTIONS.VIEW
     // }
 
-    // action
-    let action = ITEM_VALUE_ACTIONS.LIST
-    if (!props.itemName && searchParams.get('edit')) {
-        action = ITEM_VALUE_ACTIONS.EDIT
-    } else if (!props.itemName && id) {
-        action = ITEM_VALUE_ACTIONS.VIEW
-    }
-
-    // usageMode
-    let usageMode = USAGE_MODES.DEFAULT
-    if (id) {
-        usageMode = USAGE_MODES.ITEM_VIEW
-    } else if (searchParams.get('mode') === USAGE_MODES.LIST_VIEW) {
-        usageMode = USAGE_MODES.LIST_VIEW
-    }
+    // // usageMode
+    // let usageMode = USAGE_MODES.DEFAULT
+    // if (id) {
+    //     usageMode = USAGE_MODES.ITEM_VIEW
+    // } else if (searchParams.get('mode') === USAGE_MODES.LIST_VIEW) {
+    //     usageMode = USAGE_MODES.LIST_VIEW
+    // }
 
     const afterSave = (tempData: any): void => {
 
@@ -81,15 +74,15 @@ const OrdersPage: React.FC<XTSObjectIndexProps> = (props) => {          //
 
     const params: UseIndexPageParams = {
         dataType,
-        id: id || undefined,
+        id: props.id,
         itemName,
-        action,
+        // action,
         // reopen: props.reopen,
         choiceItemValue: props.choiceItemValue,
         afterSave,                   // Tạm thời chưa khả dụng, cần xem xét lại
         // navigate,
     }
-    const { itemValue, pageId, stepBack, choiceItemValue } = useIndexPage(params)
+    const { itemValue, pageId, usageMode, stepBack, choiceItemValue } = useIndexPage(params)
 
     switch (itemValue.action) {
         case ITEM_VALUE_ACTIONS.EDIT:

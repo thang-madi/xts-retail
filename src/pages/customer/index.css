@@ -106,13 +106,18 @@
 .customer-card-button-choice {
     position: absolute;
     top: 30px;
-    right: 5px;
+    right: 10px;
+    /* width: 70px; */
     height: 32px;
     margin: 0px;
+    border-radius: 20px;
+    border-color: cornflowerblue;
+    background-color: cornflowerblue;
+    color: white;
 }
 
-.customer-card-button-choice-hidden {
+/* .customer-card-button-choice-hidden {
     display: none;
     height: 50px;
     margin: 0px;
-}
+} */

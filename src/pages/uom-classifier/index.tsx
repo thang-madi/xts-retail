@@ -42,18 +42,14 @@ const UOMClassifierPage: React.FC<XTSObjectIndexProps> = (props) => {
     // const navigate = useNavigate()
     const { itemName } = props
 
-    const [searchParams, setSearchParams] = useSearchParams()
-    const id = searchParams.get('id') || undefined
-    // let action = (id) && ITEM_VALUE_ACTIONS.VIEW || undefined
-    // if (searchParams.get('edit') === 'true') {
+    // const [searchParams, setSearchParams] = useSearchParams()
+    // const id = searchParams.get('id') || undefined
+    // let action = ITEM_VALUE_ACTIONS.LIST
+    // if (!props.itemName && searchParams.get('edit')) {
     //     action = ITEM_VALUE_ACTIONS.EDIT
+    // } else if (!props.itemName && id) {
+    //     action = ITEM_VALUE_ACTIONS.VIEW
     // }
-    let action = ITEM_VALUE_ACTIONS.LIST
-    if (!props.itemName && searchParams.get('edit')) {
-        action = ITEM_VALUE_ACTIONS.EDIT
-    } else if (!props.itemName && id) {
-        action = ITEM_VALUE_ACTIONS.VIEW
-    }
 
     const afterSave = (tempData: any): void => {
 
@@ -61,9 +57,9 @@ const UOMClassifierPage: React.FC<XTSObjectIndexProps> = (props) => {
 
     const params = {
         dataType,
-        id: id || undefined,
+        id: props.id,
         itemName,
-        action,
+        // action,
         // reopen: props.reopen,
         choiceItemValue: props.choiceItemValue,
         afterSave,              // Tạm thời chưa khả dụng, cần xem xét lại

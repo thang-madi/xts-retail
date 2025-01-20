@@ -97,11 +97,12 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
             <Button
                 className='cash-receipt-card-choice-button'
+                style={{ display: (props.itemName) && 'block' || 'none' }}
                 htmlType='button'
                 onClick={choiceItem}
-                style={{ display: (props.itemName) && 'block' || 'none' }}
             >
-                <SelectOutlined />Chọn
+                {/* <SelectOutlined /> */}
+                Chọn
             </Button>
 
         </Card >
