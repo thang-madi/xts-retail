@@ -93,7 +93,7 @@ export function formatCurrency(number: number): string {
 
 export function VND(number: number): string {
 
-    return `${number.toLocaleString('vi-VN')} đồng`
+    return `${number.toLocaleString('vi-VN')} ₫`
 }
 
 /////////////////////////////////////////////

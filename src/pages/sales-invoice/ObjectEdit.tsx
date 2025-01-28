@@ -437,7 +437,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <div className='sales-invoice-edit-item' >
                         <div>Số tiền giao hàng: </div>
-                        <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
+                        <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} ₫</b>
                     </div>
 
                 </Card>

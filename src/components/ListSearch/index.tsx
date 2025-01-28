@@ -51,8 +51,13 @@ const FormListSearch: React.FC<XTSListSearchProps> = (props) => {
         []
     )
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleDebouncedSearch(e.target.value)
+        console.log('onChange: Enter')
+    }
+
+    const handleSearch = (value: string) => {
+        console.log('onSearch: Enter ' + value)
     }
 
     // console.log('FormListSearch.props', props)
@@ -81,11 +86,12 @@ const FormListSearch: React.FC<XTSListSearchProps> = (props) => {
             <Input.Search
                 className='list-search-input'
                 placeholder='Tìm kiếm...'
-                enterButton={false}
+                enterButton={true}
                 allowClear
                 defaultValue={searchString}
                 prefix={<SearchOutlined className='list-search-icon' />}
-                onChange={handleSearch}
+                onChange={handleChange}
+                onSearch={handleSearch}
             />
         </div >
     )

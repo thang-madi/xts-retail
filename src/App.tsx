@@ -53,7 +53,8 @@ const App: React.FC = () => {
             statusBarHeight = '30px'
             navBarHeight = '44px'
         } else if (isFullscreenIOS()) {
-            statusBarHeight = '30px'
+            statusBarHeight = '44px'
+            navBarHeight = '0px'
         }
 
         document.documentElement.style.setProperty('--status-bar-height', statusBarHeight)

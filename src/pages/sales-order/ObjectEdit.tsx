@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams, useLocation, useBlocker } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Form, Input, Button, Modal, List, Space, InputNumber, FloatButton, Card, Divider, Tag } from 'antd'
-import { AppstoreAddOutlined, CheckCircleOutlined, CheckOutlined, CloseCircleOutlined, FileTextOutlined, InsertRowBelowOutlined, SaveOutlined } from '@ant-design/icons'
+import { AppstoreAddOutlined, CheckCircleOutlined, CheckOutlined, CloseCircleOutlined, DollarCircleOutlined, FileTextOutlined, InsertRowBelowOutlined, SaveOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 
 /////////////////////////////////////////////
@@ -41,6 +41,7 @@ import { OrderInventoryEdit } from './ObjectInventory'                 //
 import OrderStateTag from './OrderStateTag'
 import { dataType } from './'
 import './index.css'
+import SubPage from '../../hocs/SubPage'
 
 /////////////////////////////////////////////
 // Main component
@@ -191,17 +192,19 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 // }
 
                 const productObject = itemValue.dataItem as XTSProduct
+                const uom = (productObject._uoms.length > 1) && productObject._uoms[1].uom || productObject.measurementUnit
+                const _coefficient = (productObject._uoms.length > 1) && productObject._uoms[1].coefficient || 1
                 const newDataRow = createXTSObject('XTSOrderProductRow', {
                     product: productObject.objectId,
                     price: productObject._price,
                     quantity: 1,
                     vatRate: productObject._vatRate,
                     _lineNumber: 0,
-                    uom: productObject.measurementUnit,
-                    amount: productObject._price,
-                    total: productObject._price,
+                    uom,
+                    amount: productObject._price * _coefficient,
+                    total: productObject._price * _coefficient,
                     _price: productObject._price,
-                    _coefficient: 1,
+                    _coefficient,
                     _vatRateRate: productObject._vatRateRate,
                     _picture: productObject.picture,
                     _sku: productObject.sku
@@ -246,11 +249,34 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
         } else if (dataObject.orderState.presentation !== SALES_ORDER_STATES.EDITING) {
             setSendButton(false)
         } else if (company) {
-            setSendButton(true)
+            setSendButton(false)
         } else {
             setSendButton(true)
         }
     }, [dataObject])
+
+    /////////////////////////////////////////
+    // Payment
+
+    // const [paymentOpen, setPaymentOpen] = useState<boolean>(false)
+
+    // const openPayment = () => {
+    //     setPaymentOpen(true)
+    // }
+
+    // const handleCancel = () => {
+    //     setPaymentOpen(false)
+    // }
+
+    // const modalProps = {
+    //     title: 'Trả trước',
+    //     height: '80vh',
+    //     width: '100%',
+    //     open: paymentOpen,
+    //     onCancel: handleCancel,
+    //     footer: [],
+    //     style: { marginTop: 0 },
+    // }
 
     /////////////////////////////////////////
     // Blocker
@@ -407,7 +433,7 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                     <div className='sales-order-edit-item' >
                         <div>Số tiền đơn hàng: </div>
-                        <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
+                        <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} ₫</b>
                     </div>
 
                 </Card>
@@ -454,12 +480,20 @@ const ObjectEditPage: React.FC<XTSObjectEditProps> = (props) => {
                 // pageOwnerId={pageId}
                 />
 
+                {/* <SubPage
+                    modalProps={modalProps}
+                    pageName='Payment'
+                    itemValue={itemValue}
+                    choiceItemValue={choiceItemValue}
+                /> */}
+
                 <BottomBar
                     stepBack={{ onClick: props.stepBack, visible: Boolean(props.stepBack) }}
                     refresh={{ onClick: refreshObject, }}
                     action1={{ onClick: addProduct, title: 'Thêm hàng', icon: <AppstoreAddOutlined className='context-menu-button-icon' />, visible: saveButton }}
                     saveItem={{ onClick: () => { form.submit() }, visible: saveButton }}
                     action2={{ onClick: saveAndSend, title: 'Chốt đơn', icon: <CheckOutlined className='context-menu-button-icon' />, visible: sendButton }}
+                // action3={{ onClick: openPayment, title: 'Thanh toán', icon: <DollarCircleOutlined className='context-menu-button-icon' />, visible: true }}
                 />
 
             </Form>

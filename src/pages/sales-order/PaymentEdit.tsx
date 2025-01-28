@@ -240,7 +240,7 @@ const PaymentEditPage: React.FC<XTSObjectEditProps> = (props) => {
 
                 <div className='sales-order-payment-amount-group'>
                     <div>Số tiền đơn hàng: </div>
-                    <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} đồng</b>
+                    <b>{dataObject.documentAmount?.toLocaleString('vi-VN')} ₫</b>
                 </div>
 
                 <Divider className='sales-order-payment-divider' orientation='center' />

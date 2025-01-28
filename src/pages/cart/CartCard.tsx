@@ -168,7 +168,7 @@ const RecordCard: React.FC<XTSRecordCardProps> = (props) => {
                         {formData.product?.presentation}
                     </div>
                     <div className='cart-item-card-body-content-price'>
-                        <div>Đơn giá: {formData.price} đồng / {formData.uom?.presentation}</div>
+                        <div>Đơn giá: {formData.price} ₫ / {formData.uom?.presentation}</div>
                     </div>
                     <div className='cart-item-card-body-content-quantity' >
                         <span>Số lượng:</span>
