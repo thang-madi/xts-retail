@@ -1,4 +1,4 @@
-/* CSS for AndroidStatusBar */
+/* CSS for Mobile StatusBar */
 
 .status-bar {
     display: none;
@@ -6,6 +6,6 @@
 
 .status-bar-mobile {
     display: flex;
-    height: 30px;
+    height: var(--status-bar-height) !important;
     background-color: black;
 }
