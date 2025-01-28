@@ -104,6 +104,14 @@ const ObjectListPage: React.FC<XTSObjectListProps> = (props) => {
     /////////////////////////////////////////////
     // 
 
+    useEffect(() => {
+        console.log("Component mounted");
+
+        return () => {
+            console.log("Component unmounted");
+        };
+    }, []);
+
     return (
         <div className='customer-list'>
 

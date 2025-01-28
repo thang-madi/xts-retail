@@ -150,10 +150,10 @@ const ObjectViewPage: React.FC<XTSObjectViewProps> = (props) => {
             setPaymentButton(false)
         } else if (!company) {
             setPaymentButton(false)
-            // } else if (object.cash > 0 || object.bankTransfer > 0 || object.postPayment > 0) {
-            //     setPaymentButton(false)
-        } else if (object.orderState.presentation !== SALES_ORDER_STATES.TO_PREPAY) {
+        } else if (object.cash > 0 || object.bankTransfer > 0 || object.postPayment > 0) {
             setPaymentButton(false)
+            // } else if (object.orderState.presentation !== SALES_ORDER_STATES.TO_PREPAY) {
+            //     setPaymentButton(false)
         } else {
             setPaymentButton(true)
         }

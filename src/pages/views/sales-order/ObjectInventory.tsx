@@ -65,11 +65,11 @@ export const OrderInventoryView: React.FC<any> = (props) => {
 
                 <div className='views-sales-order-inventory-view-card-info' >
                     <div className='views-sales-order-inventory-view-card-info-description' >{dataRow.product?.presentation}</div>
-                    <div>Đơn giá: {dataRow._price} đồng/chiếc</div>
+                    <div>Đơn giá (chiếc): {dataRow._price} ₫</div>
                     <div>Số lượng: {dataRow.quantity} {dataRow.uom?.presentation}</div>
                     <div className='views-sales-order-inventory-view-amount' >
                         <div>Thành tiền: </div>
-                        <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                        <b>{dataRow.amount?.toLocaleString('vi-VN')} ₫</b>
                     </div>
                 </div>
 
@@ -314,7 +314,7 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
                     <div className='views-sales-order-inventory-edit-price'>
 
-                        <div>Đơn giá (đồng/c.):</div>
+                        <div>Đơn giá (₫/c.):</div>
                         <AmountInput
                             dataObject={dataRow}
                             itemName='_price'
@@ -329,7 +329,7 @@ export const OrderInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
 
                     <div className='views-sales-order-inventory-edit-amount'>
                         <div>Thành tiền: </div>
-                        <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                        <b>{dataRow.amount?.toLocaleString('vi-VN')} ₫</b>
                     </div>
                 </div>
 

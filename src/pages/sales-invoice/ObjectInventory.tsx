@@ -81,11 +81,11 @@ export const ObjectInventoryView: React.FC<any> = (props) => {
 
             <div className='sales-invoice-inventory-view-card-info' >
                 <div className='sales-invoice-inventory-view-card-info-description'>{dataRow.product?.presentation}</div>
-                <div>Đơn giá: {dataRow._price} đồng/chiếc</div>
+                <div>Đơn giá (chiếc): {dataRow._price} ₫</div>
                 <div>Số lượng: {dataRow.quantity} {dataRow.uom?.presentation}</div>
                 <div className='sales-invoice-inventory-view-amount' >
                     <div>Thành tiền: </div>
-                    <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                    <b>{dataRow.amount?.toLocaleString('vi-VN')} ₫</b>
                 </div>
             </div>
 
@@ -367,7 +367,7 @@ export const ObjectInventoryEdit: React.FC<XTSObjectRowProps> = (props) => {
                     // style={{ display: 'flex', justifyContent: 'space-between' }}
                     >
                         <div>Thành tiền: </div>
-                        <b>{dataRow.amount?.toLocaleString('vi-VN')} đồng</b>
+                        <b>{dataRow.amount?.toLocaleString('vi-VN')} ₫</b>
                     </div>
                 </div>
 

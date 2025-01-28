@@ -99,7 +99,7 @@ const ObjectCard: React.FC<XTSObjectCardProps> = (props) => {
 
             <div className='sales-order-card-row'>
                 <div>Số tiền đơn hàng: </div>
-                <b>{formData.documentAmount?.toLocaleString('vi-VN')} đồng</b>
+                <b>{formData.documentAmount?.toLocaleString('vi-VN')} ₫</b>
             </div>
 
             {/* <Button

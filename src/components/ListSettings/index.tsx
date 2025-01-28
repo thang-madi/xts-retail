@@ -23,6 +23,7 @@ import { setSelectionRange } from '@testing-library/user-event/dist/utils'
 import './index.css'
 import { TWA } from '../../commons/telegram'
 import { XTSListFilterItem, XTSListSortItem } from '../../data-storage/interfaces'
+import type { GetProps } from 'antd'
 
 /////////////////////////////////////////////
 // Main's
@@ -38,12 +39,15 @@ export interface XTSListSettingsProps {
     // inputProps?: any
 }
 
+
 // OK
 const ListSettings: React.FC<XTSListSettingsProps> = (props) => {
 
     const { dataType, filterData, sortData, children } = props
 
     const dispatch = useDispatch()
+
+    const inputRef = useRef<any>(null);
 
     const { sliceName, actions } = getXTSSlice(dataType)
     const { searchString, filter, sortBy } = useSelector((state: any) => state[sliceName])
@@ -55,8 +59,15 @@ const ListSettings: React.FC<XTSListSettingsProps> = (props) => {
         []
     )
 
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleDebouncedSearch(e.target.value)
+    }
+
+    type SearchProps = GetProps<typeof Input.Search>;
+    const handleSearch: SearchProps['onSearch'] = (value, _e) => {
+        console.log('onSearch: Enter ' + value)
+        _e?.preventDefault()
+        inputRef.current?.blur()
     }
 
     /////////////////////////////////////////////
@@ -183,8 +194,10 @@ const ListSettings: React.FC<XTSListSettingsProps> = (props) => {
                     enterButton={false}
                     allowClear
                     defaultValue={searchString}
+                    ref={inputRef}
                     // prefix={<SearchOutlined className='list-search-icon' />}
-                    onChange={handleSearch}
+                    onChange={handleChange}
+                    onSearch={handleSearch}
                 />
                 <Button
                     className='list-settings-button'

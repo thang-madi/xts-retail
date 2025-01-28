@@ -208,7 +208,7 @@ const HomePage: React.FC<any> = (props) => {
                 onClick={openDailyReport}
             >
                 <BarChartOutlined className='home-page-sales-icon' />
-                <Statistic className='home-page-sales-value' title='Doanh số (đồng)' value={salesAmount || '-'} groupSeparator='.' prefix={''} />
+                <Statistic className='home-page-sales-value' title='Doanh số (₫)' value={salesAmount || '-'} groupSeparator='.' prefix={''} />
                 <Statistic className='home-page-sales-value' title='Số lượng đơn' value={salesOrders || '-'} groupSeparator='.' prefix={''} />
             </Card>
 
